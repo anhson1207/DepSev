@@ -1,0 +1,610 @@
+<USER_REQUEST>
+# PROMPT: KIỂM ĐỊNH E4–E6 VÀ TRIỂN KHAI ORDINAL CLASSIFICATION (E7) CHO DEPSEV-ML
+
+## 1. VAI TRÒ VÀ MỤC TIÊU
+
+Bạn là Senior Machine Learning Research Engineer, tiếp tục phát triển dự án nghiên cứu DepSev-ML.
+
+Dự án đã hoàn thành các nhóm thực nghiệm:
+
+- E0: Flat Random Forest.
+- E1: Hard Hierarchical RF–RF.
+- E2: Hard Hierarchical với tối ưu ngưỡng.
+- E3a: Hard Hierarchical RF–Logistic Regression.
+- E3b: Hard Hierarchical RF–XGBoost.
+- E4: Soft Hierarchical RF–RF.
+- E5: Soft Hierarchical RF–Logistic Regression.
+- E6a/E6b: Soft Hierarchical kết hợp Cost-Sensitive Decision Making.
+
+Nhiệm vụ hiện tại gồm hai phần:
+
+**Phần A:** Kiểm định bổ sung các kết quả Soft Hierarchical và Cost-Sensitive đã có, đặc biệt là E6.
+
+**Phần B:** Triển khai một hướng nghiên cứu mới mang tên **E7 – Ordinal Classification (Phân loại thứ bậc)**.
+
+Câu hỏi nghiên cứu chính:
+
+Liệu việc khai thác trực tiếp thứ tự tự nhiên của các mức độ triệu chứng PHQ-9 có giúp cải thiện hiệu năng so với Flat Classification và Hierarchical Classification hay không?
+
+Mục tiêu cụ thể:
+
+1. Khai thác quan hệ thứ tự giữa các lớp.
+2. Loại bỏ sự phụ thuộc vào cơ chế Hard Routing.
+3. Nghiên cứu khả năng cải thiện Macro-F1.
+4. Cải thiện khả năng phân biệt nhóm Nhẹ và Nặng theo quy ước.
+5. Giảm các lỗi dự đoán cách xa mức độ thực tế.
+6. Đánh giá sự đánh đổi giữa Recall, Precision và Accuracy.
+7. So sánh công bằng với E0–E6.
+8. Tạo báo cáo khoa học có khả năng tái lập.
+
+Không được giả định trước Ordinal Classification sẽ tốt hơn các phương pháp cũ.
+
+---
+
+## 2. BẢO TOÀN TOÀN BỘ KẾT QUẢ NGHIÊN CỨU
+
+ĐÂY LÀ YÊU CẦU BẮT BUỘC, CÓ MỨC ƯU TIÊN CAO NHẤT.
+
+Tuyệt đối không xóa, sửa đổi hoặc ghi đè:
+
+- results/
+- artifacts/
+- data/
+- experiments/hierarchical_t3/
+- experiments/soft_hierarchical_t3/
+- Các file báo cáo cũ.
+- Các mô hình đã khóa.
+- Các file CSV thực nghiệm cũ.
+- Các kết quả kiểm định Audit.
+- Các file cấu hình đã được xác nhận.
+
+Chỉ được đọc và tái sử dụng các thành phần hiện có.
+
+Trước khi bắt đầu:
+
+1. Kiểm tra Git status.
+2. Ghi nhận toàn bộ thay đổi chưa commit.
+3. Tạo nhánh nghiên cứu mới `experiment/ordinal-classification`, nếu không gây xung đột với thay đổi hiện tại.
+4. Không reset hoặc xóa các thay đổi chưa commit.
+5. Không tự động merge hoặc push.
+6. Mọi kết quả mới phải nằm trong thư mục riêng.
+7. Nếu đường dẫn đã tồn tại, tạo thư mục mới theo run ID.
+8. Sau khi hoàn thành, kiểm tra Git diff để xác nhận các file gốc không bị thay đổi.
+
+Nếu cần sửa file ngoài phạm vi được phép, phải dừng thao tác đó và báo cáo.
+
+---
+
+# PHẦN A – KIỂM ĐỊNH LẠI E4–E6
+
+## 3. KIỂM TRA TÍNH CHÍNH XÁC CỦA SOFT HIERARCHICAL
+
+Trước khi triển khai E7, kiểm tra những thành phần sau:
+
+### 3.1. Kiểm tra xác suất phân cấp
+
+Xác minh công thức:
+
+P(C0|X) = 1 - p1
+
+P(C1|X) = p1 × (1 - p2)
+
+P(C2+|X) = p1 × p2
+
+Trong đó:
+
+- p1: Xác suất có triệu chứng.
+- p2: Xác suất thuộc nhóm Nặng có điều kiện trên nhóm có triệu chứng.
+
+Kiểm tra:
+
+- Xác suất thuộc [0,1].
+- Tổng xác suất bằng 1.
+- Không bị đảo thứ tự lớp.
+- Stage 2 không sử dụng true test labels.
+- Không có data leakage.
+
+### 3.2. Kiểm định Cost Matrix
+
+Kiểm tra các ma trận chi phí M1, M2 và M3 đã sử dụng.
+
+Cần làm rõ:
+
+1. Giá trị chính xác của từng ma trận.
+2. Ý nghĩa từng hàng và cột.
+3. Quy tắc lựa chọn ma trận.
+4. Ma trận được chọn bằng inner CV hay dựa vào outer test results?
+5. Có sử dụng validation/test labels để tối ưu hay không?
+6. Có bất kỳ sự thay đổi nào đối với cost matrix sau khi xem kết quả hay không?
+
+Xuất bảng đầy đủ cho M1, M2 và M3:
+
+- Macro-F1.
+- Balanced Accuracy.
+- Accuracy.
+- Precision C1.
+- Recall C1.
+- Precision C2+.
+- Recall C2+.
+- Số lỗi C2+ → C0.
+- Số lỗi C2+ → C1.
+- Số lỗi C0 → C1.
+- Số lỗi C0 → C2+.
+
+Đặc biệt kiểm tra kết quả đã báo cáo:
+
+- M1: 62 mẫu C2+ bị dự đoán thành C0.
+- M2: 19 mẫu C2+ bị dự đoán thành C0.
+- M3: 7 mẫu C2+ bị dự đoán thành C0.
+
+Không được coi M2 hoặc M3 là tốt hơn chỉ vì số lỗi C2+ → C0 giảm.
+
+Phải phân tích cả false positives, Precision, Recall và Macro-F1.
+
+### 3.3. Kiểm tra tính toàn vẹn thực nghiệm
+
+Đối chiếu các kết quả với:
+
+- Source code.
+- CSV gốc.
+- Out-of-fold predictions.
+- Confusion matrices.
+- Run manifests.
+- Inner CV logs.
+
+Nếu tìm thấy vấn đề, lập báo cáo riêng.
+
+Không chỉnh sửa các kết quả gốc.
+
+### 3.4. Kết quả kiểm định
+
+Tạo thư mục:
+
+experiments/ordinal_t3/preliminary_audit/
+
+Xuất báo cáo:
+
+`e6_verification_report.md`
+
+Báo cáo cần cho biết:
+
+- Những thành phần đạt yêu cầu.
+- Những thành phần chưa được chứng minh.
+- Những lỗi cần sửa.
+- Kết quả nào được phép sử dụng làm baseline.
+- Những kết quả nào phải gắn cảnh báo.
+
+Nếu phát hiện E6 có data leakage nghiêm trọng, không dùng E6 đó làm baseline hợp lệ cho đến khi vấn đề được xử lý bằng một phiên chạy mới, lưu riêng.
+
+---
+
+# PHẦN B – ORDINAL CLASSIFICATION
+
+## 4. ĐỊNH NGHĨA BÀI TOÁN
+
+Giữ nguyên ba lớp T3 đã được sử dụng trong các thí nghiệm trước:
+
+| Lớp | PHQ-9 | Tên nhóm |
+|---|---|---|
+| C0 | 0–4 | Không / Triệu chứng tối thiểu |
+| C1 | 5–9 | Nhẹ |
+| C2+ | 10–27 | Nặng theo quy ước |
+
+Quan hệ thứ tự:
+
+C0 < C1 < C2+
+
+Quan trọng:
+
+Nhóm 10–27 là nhóm Nặng theo quy ước nghiên cứu, không đồng nghĩa tất cả trường hợp đều thuộc mức Severe theo PHQ-9 chuẩn.
+
+Không được thay đổi ngưỡng chia lớp hoặc định nghĩa target trong E7.
+
+### Sự khác biệt giữa các hướng nghiên cứu
+
+**Flat Classification:**
+
+Dự đoán trực tiếp C0, C1 hoặc C2+ như ba lớp danh nghĩa.
+
+**Hierarchical Classification:**
+
+Phân loại Có/Không trước, sau đó mới phân loại Nhẹ/Nặng.
+
+**Ordinal Classification:**
+
+Học mối quan hệ thứ tự giữa ba lớp và sử dụng mô hình phù hợp với dữ liệu có thứ bậc.
+
+Mục tiêu là kiểm tra liệu cách biểu diễn thứ bậc có cải thiện hiệu năng hay không.
+
+Không khẳng định Ordinal Classification tự động phạt lỗi xa hơn nặng hơn nếu hàm mất mát hoặc quy tắc quyết định thực tế không thể hiện tính chất đó.
+
+---
+
+## 5. THIẾT KẾ THÍ NGHIỆM E7
+
+Triển khai hai phương pháp Ordinal Classification chính.
+
+### E7a – Ordinal Logistic Regression
+
+Áp dụng mô hình Ordered Logistic Regression, sử dụng mô hình liên kết tích lũy phù hợp với target có thứ bậc.
+
+Cần:
+
+1. Tìm thư viện hoặc cách triển khai phù hợp với môi trường hiện tại.
+2. Ưu tiên thư viện ổn định, có khả năng tái lập.
+3. Kiểm tra cách xử lý biến liên tục và biến phân loại.
+4. Bảo đảm pipeline preprocessing không rò rỉ dữ liệu.
+5. Tạo xác suất cho C0, C1 và C2+.
+6. Bảo đảm ba xác suất không âm và có tổng bằng 1.
+7. Đánh giá trực tiếp trên ba lớp.
+
+Có thể sử dụng OrderedModel của statsmodels nếu tương thích với dữ liệu và pipeline hiện tại.
+
+Chú ý xử lý đúng vấn đề intercept, dummy-variable collinearity và hội tụ của mô hình.
+
+Nếu solver không hội tụ, phải báo cáo rõ và xử lý có kiểm soát, không tự ý bỏ qua lỗi.
+
+### E7b – Cumulative Binary Classification
+
+Triển khai phương pháp sử dụng hai bộ phân loại tích lũy.
+
+Bộ phân loại thứ nhất học:
+
+P(Y >= 1 | X)
+
+Tương ứng:
+
+- C0: 0.
+- C1 hoặc C2+: 1.
+
+Bộ phân loại thứ hai học:
+
+P(Y >= 2 | X)
+
+Tương ứng:
+
+- C0 hoặc C1: 0.
+- C2+: 1.
+
+Hai mô hình phải được huấn luyện trên toàn bộ training fold với target nhị phân tương ứng.
+
+Không thực hiện Hard Routing.
+
+Đối với mỗi mẫu, tính:
+
+q1 = P(Y >= 1 | X)
+
+q2 = P(Y >= 2 | X)
+
+Điều kiện hợp lệ:
+
+0 <= q2 <= q1 <= 1.
+
+Nếu các mô hình nhị phân độc lập tạo ra xác suất không thỏa điều kiện, áp dụng một phép chiếu đơn điệu có định nghĩa rõ ràng, chẳng hạn phép chiếu bình phương tối thiểu cho hai xác suất.
+
+Không chỉ clip tùy tiện rồi tuyên bố kết quả là mô hình thứ bậc đã được hiệu chuẩn.
+
+Sau khi bảo đảm tính đơn điệu:
+
+P(C0) = 1 - q1
+
+P(C1) = q1 - q2
+
+P(C2+) = q2
+
+Kiểm tra tổng xác suất bằng 1.
+
+Bắt đầu với Logistic Regression cho hai bộ phân loại tích lũy.
+
+Nếu cần thay đổi regularization hoặc class weights, chỉ lựa chọn bằng inner cross-validation.
+
+Lưu thêm tỷ lệ mẫu vi phạm điều kiện q2 <= q1 trước khi sửa, để đánh giá hạn chế của cách huấn luyện hai mô hình độc lập.
+
+---
+
+## 6. GIỮ NGUYÊN PROTOCOL ĐÁNH GIÁ
+
+Thực nghiệm chính trên Legacy Cohort:
+
+- N = 4.045 development samples.
+- NHANES 2013–2014.
+- F4 = 34 features.
+- Stratified 5-Fold CV.
+- Cùng fixed folds của E0–E6 nếu có thể khôi phục và xác minh.
+
+Không sử dụng held-out 1.009 mẫu để chọn mô hình.
+
+Trong mỗi fold:
+
+1. Lấy training và validation theo đúng fold indices.
+2. Fit preprocessing trên training.
+3. Huấn luyện E7a.
+4. Huấn luyện E7b.
+5. Dự đoán xác suất trên validation.
+6. Tạo dự đoán ba lớp.
+7. Tính đầy đủ metrics.
+8. Lưu predictions và probabilities.
+9. Phân tích confusion matrix.
+10. So sánh với các baseline trên cùng validation samples.
+
+Mọi phép chuẩn hóa, imputation, encoding, feature selection hoặc tuning phải thực hiện bên trong training folds.
+
+Không sử dụng 9 câu hỏi DPQ làm predictors.
+
+Nếu fixed folds cũ không còn, tạo bộ folds mới cho thí nghiệm đối chứng và chạy lại các baseline cần thiết trong thư mục mới.
+
+Không tuyên bố các kết quả khác folds là so sánh ghép cặp trực tiếp.
+
+---
+
+## 7. METRICS ĐÁNH GIÁ
+
+### Metric chính
+
+Macro-F1 trên ba lớp C0/C1/C2+.
+
+### Metric phụ
+
+- Accuracy.
+- Balanced Accuracy.
+- Weighted-F1.
+- Precision từng lớp.
+- Recall từng lớp.
+- F1 từng lớp.
+- Confusion Matrix.
+
+### Metrics bổ sung cho Ordinal Classification
+
+- Mean Absolute Error theo thứ tự lớp 0/1/2.
+- Quadratic Weighted Kappa.
+- Tỷ lệ dự đoán sai 1 mức.
+- Tỷ lệ dự đoán sai 2 mức.
+- Số trường hợp C0 → C2+.
+- Số trường hợp C2+ → C0.
+- Log Loss và Brier Score nếu xác suất phù hợp.
+
+Phân biệt rõ:
+
+MAE trên nhãn lớp 0/1/2 không phải MAE trên tổng điểm PHQ-9 0–27.
+
+### Đánh giá độ ổn định
+
+Với mỗi mô hình, xuất:
+
+- Mean ± Standard Deviation theo 5 folds.
+- Kết quả từng fold.
+- Chênh lệch Macro-F1 từng fold.
+- Số fold thắng baseline.
+- Confusion Matrix tổng hợp từ out-of-fold predictions.
+
+Không dựa duy nhất vào kiểm định t-test trên 5 folds chồng lấn để khẳng định ý nghĩa thống kê.
+
+---
+
+## 8. SO SÁNH BA TRƯỜNG PHÁI MACHINE LEARNING
+
+Tạo bảng so sánh đầy đủ:
+
+| Nhóm | Mô hình |
+|---|---|
+| Flat Classification | E0 |
+| Hard Hierarchical | E1, E2, E3a, E3b |
+| Soft Hierarchical | E4, E5 |
+| Cost-Sensitive Hierarchical | E6a, E6b |
+| Ordinal Classification | E7a, E7b |
+
+Với mỗi mô hình phải trình bày:
+
+- Macro-F1.
+- Accuracy.
+- Balanced Accuracy.
+- Recall C0.
+- Recall C1.
+- Recall C2+.
+- Precision C2+.
+- F1 từng lớp.
+- MAE thứ bậc nếu có thể tính hợp lệ.
+- Mức biến thiên giữa các folds.
+
+Khi so sánh, cần phân biệt rõ:
+
+1. Mô hình tối ưu theo Macro-F1.
+2. Mô hình tối ưu theo Balanced Accuracy.
+3. Mô hình nhận diện C2+ tốt nhất.
+4. Mô hình ít mắc lỗi sai cách 2 mức nhất.
+5. Mô hình có sự ổn định cao nhất.
+
+Không được tuyên bố một mô hình tốt nhất toàn diện khi thực tế tồn tại những đánh đổi.
+
+---
+
+## 9. KIỂM CHỨNG TRÊN MULTI-CYCLE
+
+Sau khi hoàn thành Legacy Cohort, nếu E7 có kết quả đáng nghiên cứu và tài nguyên cho phép, kiểm chứng trên Multi-cycle Cohort.
+
+Sử dụng đúng F4_common31 gồm 31 features.
+
+Các nhánh:
+
+- A: Single-cycle, N = 5.054.
+- B: Pooled Multi-cycle, N = 14.581.
+- D: Temporal Evaluation.
+
+Temporal Evaluation:
+
+- Training: NHANES 2011–2014, N = 9.693.
+- Testing: NHANES 2015–2016, N = 4.888.
+
+Không dùng giá trị N = 4.630 từng bị ghi sai trong báo cáo cũ.
+
+Giữ nguyên protocol harmonization.
+
+Không so sánh trực tiếp Legacy F4 và Common31 như thể chúng chỉ khác nhau về cỡ mẫu.
+
+Không lựa chọn mô hình hoặc siêu tham số bằng dữ liệu Temporal Test.
+
+Nếu kiểm chứng Multi-cycle chưa thể thực hiện, phải ghi rõ trạng thái chưa hoàn thành thay vì tự điền số liệu.
+
+---
+
+## 10. CẤU TRÚC FILE MỚI
+
+Tạo không gian nghiên cứu riêng:
+
+DepSev-ML/
+
+src/
+- 16_ordinal_t3_experiment.py
+- ordinal_models.py (nếu cần)
+
+tests/
+- test_ordinal_t3.py
+
+experiments/ordinal_t3/
+- config.json
+- run_manifest.json
+- preliminary_audit/
+  - e6_verification_report.md
+- outputs/
+  - fold_metrics.csv
+  - model_comparison.csv
+  - per_class_metrics.csv
+  - oof_predictions.csv
+  - probability_predictions.csv
+  - ordinal_error_analysis.csv
+  - multicycle_comparison.csv (nếu chạy)
+  - figures/
+- ordinal_report.md
+
+Có thể thay đổi cấu trúc cho phù hợp repository hiện tại, nhưng chỉ được tạo thêm file mới.
+
+Không ghi đè bất kỳ dữ liệu hoặc kết quả cũ nào.
+
+---
+
+## 11. UNIT TESTS
+
+Viết và chạy tests kiểm tra:
+
+1. Mapping PHQ-9 sang C0/C1/C2+.
+2. Ngưỡng 4/5 và 9/10.
+3. Target có đúng thứ tự.
+4. Xác suất dự đoán không âm.
+5. Tổng xác suất bằng 1.
+6. E7b bảo đảm q2 <= q1.
+7. Không có data leakage.
+8. Không đưa DPQ vào X.
+9. Không fit preprocessing trên validation.
+10. Không dùng validation để tuning.
+11. E7 và baseline dùng đúng cùng folds.
+12. Tính chính xác MAE thứ bậc và Quadratic Weighted Kappa.
+13. Kết quả có thể tái lập theo seed.
+14. Tất cả artifacts cũ còn nguyên vẹn.
+
+Nếu E7a không hội tụ hoặc E7b vi phạm điều kiện đơn điệu, tests và logs phải phát hiện được.
+
+---
+
+## 12. YÊU CẦU BÁO CÁO KHOA HỌC
+
+Viết `ordinal_report.md` bằng tiếng Việt với các phần:
+
+1. Tóm tắt nghiên cứu.
+2. Bối cảnh và động cơ triển khai Ordinal Classification.
+3. Những hạn chế của Flat và Hierarchical Classification.
+4. Cơ sở lý thuyết của Ordinal Classification.
+5. Kiến trúc E7a và E7b.
+6. Dữ liệu và protocol.
+7. Thiết lập thực nghiệm.
+8. Kết quả E7a.
+9. Kết quả E7b.
+10. So sánh E0–E7.
+11. Phân tích confusion matrices.
+12. Phân tích lỗi sai cách 1 và 2 mức.
+13. Phân tích Recall, Precision và Macro-F1.
+14. Độ ổn định giữa các folds.
+15. Kiểm chứng Multi-cycle nếu có.
+16. Hạn chế khoa học.
+17. Kết luận và kiến nghị nghiên cứu tiếp theo.
+
+Mọi nhận xét phải dựa trên dữ liệu thực nghiệm.
+
+Không tự tạo kết quả hoặc diễn giải vượt quá bằng chứng.
+
+---
+
+## 13. TRÌNH TỰ THỰC HIỆN
+
+Thực hiện lần lượt:
+
+**Bước 1:** Kiểm tra repository và Git status.
+
+**Bước 2:** Kiểm định lại E4–E6, đặc biệt Cost Matrix và nguy cơ data leakage.
+
+**Bước 3:** Xuất báo cáo Audit độc lập, không chỉnh sửa báo cáo cũ.
+
+**Bước 4:** Triển khai E7a – Ordinal Logistic Regression.
+
+**Bước 5:** Triển khai E7b – Cumulative Binary Classification.
+
+**Bước 6:** Viết và chạy unit tests.
+
+**Bước 7:** Chạy thực nghiệm E7 trên Legacy Cohort.
+
+**Bước 8:** Tính metrics, lưu predictions và phân tích ordinal errors.
+
+**Bước 9:** So sánh E7 với E0–E6 trên cùng protocol.
+
+**Bước 10:** Nếu đủ điều kiện, kiểm chứng trên Multi-cycle.
+
+**Bước 11:** Viết báo cáo khoa học và kiểm tra tính toàn vẹn của repository.
+
+Không dừng ở việc viết kế hoạch; hãy trực tiếp triển khai và thực nghiệm trong phạm vi tài nguyên hiện có.
+
+---
+
+## 14. YÊU CẦU ĐẦU RA CUỐI CÙNG
+
+Sau khi hoàn thành, hãy báo cáo bằng tiếng Việt:
+
+1. Tình trạng kiểm định E4–E6.
+2. Những vấn đề được phát hiện và mức độ ảnh hưởng.
+3. Mã nguồn mới đã tạo.
+4. Unit tests và kết quả.
+5. Kết quả thực nghiệm E7a/E7b.
+6. Bảng so sánh E0–E7.
+7. Mô hình có Macro-F1 cao nhất.
+8. Mô hình có Balanced Accuracy cao nhất.
+9. Mô hình nhận diện nhóm Nặng tốt nhất.
+10. Mô hình giảm lỗi dự đoán sai 2 mức tốt nhất.
+11. Tính ổn định giữa các folds.
+12. Kết quả Multi-cycle nếu đã chạy.
+13. Những hạn chế còn tồn tại.
+14. Hướng nghiên cứu nên ưu tiên tiếp theo.
+15. Xác nhận bằng Git diff rằng kết quả và mã nguồn cũ không bị thay đổi.
+
+**YÊU CẦU QUAN TRỌNG NHẤT:**
+
+Triển khai một nghiên cứu Ordinal Classification độc lập, có kiểm soát, có khả năng tái lập và đủ chặt chẽ để đưa vào báo cáo nghiên cứu khoa học.
+
+Giữ nguyên toàn bộ kết quả E0–E6.
+
+Không tự ý thay đổi những quyết định đã khóa.
+
+Không cố gắng tạo kết quả tốt hơn bằng cách điều chỉnh hoặc lựa chọn dựa trên tập kiểm thử.
+
+Hãy bắt đầu kiểm tra repository, thực hiện Audit E6, sau đó triển khai và chạy E7.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-10-27T22:53:40+07:00.
+
+The user's current state is as follows:
+Active Document: /Users/nguyenanhson/DepSev-ML/src/common31_features.py (LANGUAGE_UNSPECIFIED)
+Cursor is on line: 1
+Other open documents:
+- /Users/nguyenanhson/DepSev-ML/experiments/soft_hierarchical_t3/soft_hierarchical_report.md (LANGUAGE_UNSPECIFIED)
+- /Users/nguyenanhson/DepSev-ML/experiments/hierarchical_t3/audit/audit_report.md (LANGUAGE_UNSPECIFIED)
+- /Users/nguyenanhson/DepSev-ML/experiments/hierarchical_t3/hierarchical_report.md (LANGUAGE_UNSPECIFIED)
+- /Users/nguyenanhson/DepSev-ML/results/protocol_correction_report.md (LANGUAGE_UNSPECIFIED)
+- /Users/nguyenanhson/DepSev-ML/results/tables/feature_ablation_results_final_protocol.csv (LANGUAGE_UNSPECIFIED)
+</ADDITIONAL_METADATA>

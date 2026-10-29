@@ -1,0 +1,27 @@
+claim,reported_value,verified_file,verified_value,status,notes
+E0 Macro-F1,0.4354 ± 0.0075,model_comparison.csv,0.4354 ± 0.0075,PASS,Khớp chính xác
+E0 Accuracy,64.10% ± 2.79%,model_comparison.csv,64.10% ± 2.79%,PASS,Khớp chính xác
+E0 Balanced Accuracy,0.4667 ± 0.0101,model_comparison.csv,0.4667 ± 0.0101,PASS,Khớp chính xác
+E0 C2+ Recall,47.32% ± 2.41%,model_comparison.csv,47.32% ± 2.41%,PASS,Khớp chính xác (185/391)
+E0 C1 Recall,16.29% ± 4.64%,model_comparison.csv,16.29% ± 4.64%,PASS,Khớp chính xác (104/638)
+E0 C0 Recall,76.39% ± 4.60%,model_comparison.csv,76.39% ± 4.60%,PASS,Khớp chính xác (2304/3016)
+E0 C0 False Alarms,712 ca,E0_Flat_RF_confusion_matrix.csv,712 ca (396 C1 + 316 C2),PASS,Khớp chính xác
+E1 Macro-F1,0.4550 ± 0.0056,model_comparison.csv,0.4550 ± 0.0056,PASS,Khớp chính xác (+0.0196)
+E1 Accuracy,68.08% ± 1.62%,model_comparison.csv,68.08% ± 1.62%,PASS,Khớp chính xác (+3.98%)
+E1 Balanced Accuracy,0.4745 ± 0.0112,model_comparison.csv,0.4745 ± 0.0112,PASS,Khớp chính xác (+0.0078)
+E1 C2+ Recall,43.74% ± 5.08%,model_comparison.csv,43.74% ± 5.08%,PASS,Khớp chính xác (171/391)
+E1 C1 Recall,16.46% ± 1.90%,model_comparison.csv,16.46% ± 1.90%,PASS,Khớp chính xác (105/638)
+E1 C0 Recall,82.16% ± 2.49%,model_comparison.csv,82.16% ± 2.49%,PASS,Khớp chính xác (2478/3016)
+E1 C0 False Alarms,538 ca,E1_Hierarchical_RF_confusion_matrix.csv,538 ca (277 C1 + 261 C2),PASS,Khớp chính xác
+E1 C2+ Bỏ sót tại S1,120 ca (30.69%),error_propagation_analysis.csv,120 ca (30.69%),PASS,Khớp chính xác
+E1 C1 Bỏ sót tại S1,384 ca (60.19%),error_propagation_analysis.csv,384 ca (60.19%),PASS,Khớp chính xác
+Stage 2 Oracle Balanced Acc,58.69% ± 1.35%,stage_metrics.csv,58.69% ± 1.35%,PASS,Khớp chính xác (chỉ tính trên 1029 ca PHQ9>=5)
+Stage 2 Routed Accuracy,52.72% ± 3.49%,stage_metrics.csv,52.72% ± 3.49%,PASS_WITH_CLARIFICATION,"Mẫu số là 525 ca thực sự có triệu chứng vào S2, KHÔNG phải toàn bộ 1063 ca vào S2"
+E2 Macro-F1,0.4586 ± 0.0116,model_comparison.csv,0.4586 ± 0.0116,PASS,Khớp chính xác
+E2 C1 Recall,25.69% ± 7.32%,model_comparison.csv,25.69% ± 7.32%,PASS,Khớp chính xác (164/638)
+E3a Balanced Accuracy,0.4964 ± 0.0232,model_comparison.csv,0.4964 ± 0.0232,PASS,Khớp chính xác (Cao nhất hệ thống)
+E3a C2+ Recall,54.99% ± 4.50%,model_comparison.csv,55.00% ± 4.50%,PASS,Làm tròn 54.998% -> 55.00%
+Branch A Macro-F1 E0 vs E1,0.4417 vs 0.4479,multicycle_comparison.csv,0.4417 vs 0.4479,PASS,Khớp chính xác (+0.0062)
+Branch B Macro-F1 E0 vs E1,0.4436 vs 0.4502,multicycle_comparison.csv,0.4436 vs 0.4502,PASS,Khớp chính xác (+0.0066)
+Branch D Macro-F1 E0 vs E1,0.4345 vs 0.4393,multicycle_comparison.csv,0.4345 vs 0.4393,PASS,Khớp chính xác (+0.0048)
+Branch D Sample Count N,"N = 4,630",multicycle_fold_metrics.csv,"N = 4,888",FAIL_TYPO_IN_REPORT,Lỗi đánh máy trong văn bản báo cáo. Thực tế code chạy 4888 mẫu.

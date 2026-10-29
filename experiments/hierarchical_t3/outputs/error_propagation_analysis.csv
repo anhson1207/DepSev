@@ -1,0 +1,2 @@
+total_development_n,true_c0,true_c1,true_c2,case1_mild_missed_as_c0,case1_mild_missed_rate,case1_severe_missed_as_c0,case1_severe_missed_rate,case2_c0_false_alarms,case2_c0_false_alarm_rate,case2_c0_routed_to_c1,case2_c0_routed_to_c2,case3_mild_routed_to_c2,case3_severe_routed_to_c1
+4045,3016,638,391,384,0.6018808777429467,120,0.3069053708439898,538,0.1783819628647215,277,261,149,100

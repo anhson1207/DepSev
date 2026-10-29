@@ -1,0 +1,35 @@
+feature,description,group,feature_type,source_file,dtype,missing_count,missing_percent,unique_values
+BMXBMI,Body mass index (kg/m²),P,numerical,examination.csv,float64,48,0.9497,394
+BMXWAIST,Waist circumference (cm),P,numerical,examination.csv,float64,175,3.4626,790
+BPXPLS,60-second pulse rate,P,numerical,examination.csv,float64,124,2.4535,44
+SBP_mean,Mean of available systolic blood pressure measurements,P,numerical,examination.csv,float64,132,2.6118,190
+DBP_mean,Mean of available diastolic blood pressure measurements,P,numerical,examination.csv,float64,132,2.6118,158
+LBXGH,"Glycohemoglobin (HbA1c, %)",P,numerical,labs.csv,float64,136,2.6909,96
+LBXTC,Total cholesterol (mg/dL),P,numerical,labs.csv,float64,176,3.4824,244
+LBDHDD,Direct HDL cholesterol (mg/dL),P,numerical,labs.csv,float64,176,3.4824,109
+LBXSCR,Creatinine (mg/dL),P,numerical,labs.csv,float64,190,3.7594,199
+LBXSAL,Albumin (g/dL),P,numerical,labs.csv,float64,190,3.7594,31
+BPQ020,Ever told had high blood pressure,C,categorical,questionnaire.csv,float64,0,0.0,3
+DIQ010,Doctor told participant they have diabetes,C,categorical,questionnaire.csv,float64,0,0.0,4
+MCQ160B,Ever told had congestive heart failure,C,categorical,questionnaire.csv,float64,0,0.0,3
+MCQ160C,Ever told had coronary heart disease,C,categorical,questionnaire.csv,float64,0,0.0,3
+MCQ160D,Ever told had angina,C,categorical,questionnaire.csv,float64,0,0.0,3
+MCQ160E,Ever told had a heart attack,C,categorical,questionnaire.csv,float64,0,0.0,3
+MCQ160F,Ever told had a stroke,C,categorical,questionnaire.csv,float64,0,0.0,3
+MCQ220,Ever told had cancer or malignancy,C,categorical,questionnaire.csv,float64,0,0.0,2
+HUQ010,General health condition,C,categorical,questionnaire.csv,int64,0,0.0,7
+PAQ605,Vigorous-intensity work activity,L,categorical,questionnaire.csv,float64,0,0.0,2
+PAQ620,Moderate-intensity work activity,L,categorical,questionnaire.csv,float64,0,0.0,3
+PAQ650,Vigorous recreational activity,L,categorical,questionnaire.csv,float64,0,0.0,2
+PAQ665,Moderate recreational activity,L,categorical,questionnaire.csv,float64,0,0.0,2
+PAD680,Minutes of sedentary activity per day,L,numerical,questionnaire.csv,float64,5,0.0989,33
+SMQ020,Smoked at least 100 cigarettes in life,L,categorical,questionnaire.csv,float64,0,0.0,3
+SMQ040,Current cigarette smoking status,L,categorical,questionnaire.csv,float64,2845,56.292,3
+ALQ101,Had at least 12 alcoholic drinks in one year,L,categorical,questionnaire.csv,float64,1,0.0198,3
+ALQ130,Average alcoholic drinks per day in past 12 months,L,numerical,questionnaire.csv,float64,1614,31.9351,21
+SLD010H,Hours of sleep on weekdays or workdays,L,numerical,questionnaire.csv,float64,3,0.0594,12
+RIDAGEYR,Age in years,D,numerical,demographic.csv,int64,0,0.0,61
+RIAGENDR,Sex,D,categorical,demographic.csv,int64,0,0.0,2
+RIDRETH1,Race and ethnicity category,D,categorical,demographic.csv,int64,0,0.0,5
+DMDEDUC2,Education level for adults,D,categorical,demographic.csv,float64,0,0.0,6
+INDFMPIR,Family income-to-poverty ratio,D,numerical,demographic.csv,float64,364,7.2022,416

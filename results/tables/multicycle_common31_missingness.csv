@@ -1,0 +1,94 @@
+feature,feature_type,cycle,cohort_n,n_missing,missing_percent,between_cycle_gap_pp,flag,structural_note
+BMXBMI,numerical,2011_2012,4639,55,1.1856003449019186,0.2445201485025733,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BMXBMI,numerical,2013_2014,5054,48,0.9497427779976256,0.2445201485025733,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BMXBMI,numerical,2015_2016,4888,46,0.9410801963993453,0.2445201485025733,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BMXWAIST,numerical,2011_2012,4639,159,3.4274628152619098,0.6641902125613308,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BMXWAIST,numerical,2013_2014,5054,175,3.4626038781163437,0.6641902125613308,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BMXWAIST,numerical,2015_2016,4888,200,4.091653027823241,0.6641902125613308,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BPXPLS,numerical,2011_2012,4639,111,2.3927570597111445,1.144173207590429,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BPXPLS,numerical,2013_2014,5054,124,2.453502176493866,1.144173207590429,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BPXPLS,numerical,2015_2016,4888,64,1.309328968903437,1.144173207590429,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+SBP_mean,numerical,2011_2012,4639,113,2.4358697995257597,1.1387975494771039,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+SBP_mean,numerical,2013_2014,5054,132,2.6117926394934705,1.1387975494771039,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+SBP_mean,numerical,2015_2016,4888,72,1.4729950900163666,1.1387975494771039,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DBP_mean,numerical,2011_2012,4639,113,2.4358697995257597,1.1387975494771039,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DBP_mean,numerical,2013_2014,5054,132,2.6117926394934705,1.1387975494771039,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DBP_mean,numerical,2015_2016,4888,72,1.4729950900163666,1.1387975494771039,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXGH,numerical,2011_2012,4639,194,4.181935762017677,1.503006482525549,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXGH,numerical,2013_2014,5054,136,2.6909378709932725,1.503006482525549,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXGH,numerical,2015_2016,4888,205,4.193944353518821,1.503006482525549,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXTC,numerical,2011_2012,4639,288,6.208234533304592,2.725844347313298,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXTC,numerical,2013_2014,5054,176,3.4823901859912936,2.725844347313298,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXTC,numerical,2015_2016,4888,242,4.950900163666121,2.725844347313298,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBDHDD,numerical,2011_2012,4639,288,6.208234533304592,2.725844347313298,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBDHDD,numerical,2013_2014,5054,176,3.4823901859912936,2.725844347313298,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBDHDD,numerical,2015_2016,4888,242,4.950900163666121,2.725844347313298,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXSCR,numerical,2011_2012,4639,309,6.660918301358051,2.9015198051174496,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXSCR,numerical,2013_2014,5054,190,3.7593984962406015,2.9015198051174496,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXSCR,numerical,2015_2016,4888,250,5.114566284779051,2.9015198051174496,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXSAL,numerical,2011_2012,4639,309,6.660918301358051,2.9015198051174496,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXSAL,numerical,2013_2014,5054,190,3.7593984962406015,2.9015198051174496,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+LBXSAL,numerical,2015_2016,4888,250,5.114566284779051,2.9015198051174496,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BPQ020,categorical,2011_2012,4639,7,0.15089458935115327,0.07174935785135113,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BPQ020,categorical,2013_2014,5054,4,0.07914523149980214,0.07174935785135113,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+BPQ020,categorical,2015_2016,4888,4,0.08183306055646482,0.07174935785135113,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DIQ010,categorical,2011_2012,4639,2,0.04311273981461522,0.01826205560273339,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DIQ010,categorical,2013_2014,5054,3,0.0593589236248516,0.01826205560273339,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DIQ010,categorical,2015_2016,4888,3,0.06137479541734861,0.01826205560273339,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160B,categorical,2011_2012,4639,10,0.21556369907307613,0.14589568503047612,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160B,categorical,2013_2014,5054,4,0.07914523149980214,0.14589568503047612,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160B,categorical,2015_2016,4888,11,0.22504091653027825,0.14589568503047612,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160C,categorical,2011_2012,4639,15,0.3233455486096141,0.23310440370026622,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160C,categorical,2013_2014,5054,12,0.2374356944994064,0.23310440370026622,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160C,categorical,2015_2016,4888,23,0.47054009819967263,0.23310440370026622,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160D,categorical,2011_2012,4639,13,0.2802328087949989,0.20108757729519677,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160D,categorical,2013_2014,5054,4,0.07914523149980214,0.20108757729519677,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160D,categorical,2015_2016,4888,13,0.26595744680851063,0.20108757729519677,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160E,categorical,2011_2012,4639,3,0.06466910972192283,0.10363524022391235,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160E,categorical,2013_2014,5054,2,0.03957261574990107,0.10363524022391235,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160E,categorical,2015_2016,4888,7,0.1432078559738134,0.10363524022391235,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160F,categorical,2011_2012,4639,2,0.04311273981461522,0.05581879956013745,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160F,categorical,2013_2014,5054,5,0.09893153937475267,0.05581879956013745,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ160F,categorical,2015_2016,4888,4,0.08183306055646482,0.05581879956013745,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ220,categorical,2011_2012,4639,4,0.08622547962923044,0.08622547962923044,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ220,categorical,2013_2014,5054,0,0.0,0.08622547962923044,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+MCQ220,categorical,2015_2016,4888,3,0.06137479541734861,0.08622547962923044,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+HUQ010,categorical,2011_2012,4639,1,0.02155636990730761,0.14210975120562203,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+HUQ010,categorical,2013_2014,5054,5,0.09893153937475267,0.14210975120562203,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+HUQ010,categorical,2015_2016,4888,8,0.16366612111292964,0.14210975120562203,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ620,categorical,2011_2012,4639,1,0.02155636990730761,0.039818425510041,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ620,categorical,2013_2014,5054,2,0.03957261574990107,0.039818425510041,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ620,categorical,2015_2016,4888,3,0.06137479541734861,0.039818425510041,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ650,categorical,2011_2012,4639,0,0.0,0.020458265139116204,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ650,categorical,2013_2014,5054,0,0.0,0.020458265139116204,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ650,categorical,2015_2016,4888,1,0.020458265139116204,0.020458265139116204,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ665,categorical,2011_2012,4639,0,0.0,0.08183306055646482,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ665,categorical,2013_2014,5054,0,0.0,0.08183306055646482,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+PAQ665,categorical,2015_2016,4888,4,0.08183306055646482,0.08183306055646482,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+smoking_status,categorical,2011_2012,4639,5,0.10778184953653806,0.08317697508479616,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+smoking_status,categorical,2013_2014,5054,2,0.03957261574990107,0.08317697508479616,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+smoking_status,categorical,2015_2016,4888,6,0.12274959083469722,0.08317697508479616,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+ALQ101,categorical,2011_2012,4639,5,0.10778184953653806,0.09624371031809,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+ALQ101,categorical,2013_2014,5054,9,0.1780767708745548,0.09624371031809,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+ALQ101,categorical,2015_2016,4888,4,0.08183306055646482,0.09624371031809,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+alcohol_status,categorical,2011_2012,4639,11,0.23712006898038368,0.138188529605631,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+alcohol_status,categorical,2013_2014,5054,5,0.09893153937475267,0.138188529605631,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+alcohol_status,categorical,2015_2016,4888,7,0.1432078559738134,0.138188529605631,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+alcohol_quantity_code_common,numerical,2011_2012,4639,12,0.2586764388876913,0.10038597588808704,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+alcohol_quantity_code_common,numerical,2013_2014,5054,8,0.15829046299960428,0.10038597588808704,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+alcohol_quantity_code_common,numerical,2015_2016,4888,9,0.18412438625204583,0.10038597588808704,,Applicability represented by status/tagged0; unknown and explicit nonresponse retained separately
+RIDAGEYR,numerical,2011_2012,4639,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+RIDAGEYR,numerical,2013_2014,5054,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+RIDAGEYR,numerical,2015_2016,4888,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+RIAGENDR,categorical,2011_2012,4639,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+RIAGENDR,categorical,2013_2014,5054,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+RIAGENDR,categorical,2015_2016,4888,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+RIDRETH1,categorical,2011_2012,4639,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+RIDRETH1,categorical,2013_2014,5054,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+RIDRETH1,categorical,2015_2016,4888,0,0.0,0.0,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DMDEDUC2,categorical,2011_2012,4639,2,0.04311273981461522,0.023326431939664685,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DMDEDUC2,categorical,2013_2014,5054,1,0.019786307874950535,0.023326431939664685,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+DMDEDUC2,categorical,2015_2016,4888,1,0.020458265139116204,0.023326431939664685,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+INDFMPIR,numerical,2011_2012,4639,361,7.781849536538046,2.495001609459086,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+INDFMPIR,numerical,2013_2014,5054,364,7.202216066481995,2.495001609459086,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random
+INDFMPIR,numerical,2015_2016,4888,474,9.697217675941081,2.495001609459086,,No newly identified age-eligibility skip at age>=20; missingness is not assumed random

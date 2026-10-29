@@ -1,0 +1,35 @@
+feature,group,feature_type,source_file,source_columns,description,missing_count_development,missing_percent_development
+BMXBMI,P,numerical,examination.csv,BMXBMI,Body mass index (kg/m²),41,1.0135970333745365
+BMXWAIST,P,numerical,examination.csv,BMXWAIST,Waist circumference (cm),142,3.5105067985166873
+BPXPLS,P,numerical,examination.csv,BPXPLS,60-second pulse rate,97,2.3980222496909764
+SBP_mean,P,numerical,examination.csv,SBP_mean,Mean of available systolic blood pressure measurements,105,2.595797280593325
+DBP_mean,P,numerical,examination.csv,DBP_mean,Mean of available diastolic blood pressure measurements,105,2.595797280593325
+LBXGH,P,numerical,labs.csv,LBXGH,"Glycohemoglobin (HbA1c, %)",107,2.6452410383189124
+LBXTC,P,numerical,labs.csv,LBXTC,Total cholesterol (mg/dL),145,3.584672435105068
+LBDHDD,P,numerical,labs.csv,LBDHDD,Direct HDL cholesterol (mg/dL),145,3.584672435105068
+LBXSCR,P,numerical,labs.csv,LBXSCR,Creatinine (mg/dL),156,3.8566131025957975
+LBXSAL,P,numerical,labs.csv,LBXSAL,Albumin (g/dL),156,3.8566131025957975
+BPQ020,C,categorical,questionnaire.csv,BPQ020,Ever told had high blood pressure,2,0.049443757725587144
+DIQ010,C,categorical,questionnaire.csv,DIQ010,Doctor told participant they have diabetes,2,0.049443757725587144
+MCQ160B,C,categorical,questionnaire.csv,MCQ160B,Ever told had congestive heart failure,3,0.07416563658838071
+MCQ160C,C,categorical,questionnaire.csv,MCQ160C,Ever told had coronary heart disease,11,0.2719406674907293
+MCQ160D,C,categorical,questionnaire.csv,MCQ160D,Ever told had angina,3,0.07416563658838071
+MCQ160E,C,categorical,questionnaire.csv,MCQ160E,Ever told had a heart attack,2,0.049443757725587144
+MCQ160F,C,categorical,questionnaire.csv,MCQ160F,Ever told had a stroke,4,0.09888751545117429
+MCQ220,C,categorical,questionnaire.csv,MCQ220,Ever told had cancer or malignancy,0,0.0
+HUQ010,C,categorical,questionnaire.csv,HUQ010,General health condition,5,0.12360939431396786
+PAQ605,L,categorical,questionnaire.csv,PAQ605,Vigorous-intensity work activity,0,0.0
+PAQ620,L,categorical,questionnaire.csv,PAQ620,Moderate-intensity work activity,1,0.024721878862793572
+PAQ650,L,categorical,questionnaire.csv,PAQ650,Vigorous recreational activity,0,0.0
+PAQ665,L,categorical,questionnaire.csv,PAQ665,Moderate recreational activity,0,0.0
+PAD680,L,numerical,questionnaire.csv,PAD680,Minutes of sedentary activity per day,17,0.42027194066749074
+smoking_status,L,categorical,questionnaire.csv,SMQ020;SMQ040,Lifetime threshold and current cigarette smoking status,2,0.049443757725587144
+ALQ101,L,categorical,questionnaire.csv,ALQ101,Had at least 12 alcoholic drinks in one year,7,0.173053152039555
+alcohol_status,L,categorical,questionnaire.csv,ALQ101;ALQ110;ALQ120Q;ALQ130,Alcohol questionnaire applicability / past-year status,3,0.07416563658838071
+alcohol_quantity_code,L,numerical,questionnaire.csv,ALQ110;ALQ120Q;ALQ130,Drinks on drinking days; tagged 0 for inapplicable quantity question,6,0.14833127317676142
+SLD010H,L,numerical,questionnaire.csv,SLD010H,Hours of sleep on weekdays or workdays,6,0.14833127317676142
+RIDAGEYR,D,numerical,demographic.csv,RIDAGEYR,Age in years,0,0.0
+RIAGENDR,D,categorical,demographic.csv,RIAGENDR,Sex,0,0.0
+RIDRETH1,D,categorical,demographic.csv,RIDRETH1,Race and ethnicity category,0,0.0
+DMDEDUC2,D,categorical,demographic.csv,DMDEDUC2,Education level for adults,1,0.024721878862793572
+INDFMPIR,D,numerical,demographic.csv,INDFMPIR,Family income-to-poverty ratio,303,7.490729295426452

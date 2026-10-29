@@ -1,0 +1,24 @@
+{
+  "experiment_name": "ordinal_t3",
+  "dataset_legacy": "NHANES 2013-2014 Development Cohort (N=4,045)",
+  "features_legacy": "F4 (34 features)",
+  "cv_scheme": "Stratified 5-Fold CV (fixed folds aligned with E0-E6)",
+  "multicycle_cohorts": {
+    "Branch_A": "2013-2014 Single-cycle (N=5,054, 5 folds)",
+    "Branch_B": "2011-2016 Pooled Multi-cycle (N=14,581, 5 folds)",
+    "Branch_D": "Temporal (Train 2011-2014 N=9,693, Test 2015-2016 N=4,888)"
+  },
+  "multicycle_features": "F4_common31 (31 features)",
+  "models_evaluated": [
+    "E0_Flat_RF",
+    "E1_Hard_RF_RF",
+    "E3a_Hard_RF_LR",
+    "E4_Soft_RF_RF",
+    "E5_Soft_RF_LR",
+    "E6b_Soft_RF_LR_CostM1",
+    "E7a_Ordinal_LogReg",
+    "E7a_Ordinal_LogReg_Balanced",
+    "E7b_CumBin_LR",
+    "E7b_CumBin_RF"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "start_time": "2026-10-27T16:03:41.088433+00:00",
+  "end_time": "2026-10-27T16:06:53.683052+00:00",
+  "duration_seconds": 192.594619,
+  "legacy_samples": 4045,
+  "branch_a_samples": 5054,
+  "branch_b_samples": 14581,
+  "branch_d_train_samples": 9693,
+  "branch_d_test_samples": 4888,
+  "status": "COMPLETED"
+}

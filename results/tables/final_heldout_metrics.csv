@@ -1,0 +1,2 @@
+evaluation,model,feature_set,n,macro_f1,balanced_accuracy,macro_precision,macro_recall,weighted_f1,accuracy,historically_untouched
+supplementary held-out evaluation,Random Forest,F4,1009,0.3006320974892997,0.3196957436173122,0.32115678271975123,0.3196957436173122,0.6415147012932193,0.6184340931615461,False

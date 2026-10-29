@@ -1,0 +1,42 @@
+{
+  "experiment": "soft_hierarchical_t3_evaluation",
+  "started_utc": "2026-10-27T15:33:34.583274+00:00",
+  "completed_utc": "2026-10-27T15:36:11.929454+00:00",
+  "duration_seconds": 157.34618,
+  "python_version": "3.13.7 (main, Aug 14 2025, 11:12:11) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "legacy_development_n": 4045,
+  "models_evaluated": [
+    "E0_Flat_RF",
+    "E1_Hierarchical_RF",
+    "E3a_Hierarchical_RF_LR",
+    "E4_Calibrated_Sigmoid",
+    "E4_Soft_RF_RF",
+    "E5_Calibrated_Sigmoid",
+    "E5_Soft_RF_LR",
+    "E6a_Soft_RF_RF_CostSensitive",
+    "E6b_Soft_RF_LR_CostSensitive"
+  ],
+  "multicycle_evaluated": true,
+  "files_generated": [
+    "experiments/soft_hierarchical_t3/outputs/model_comparison.csv",
+    "experiments/soft_hierarchical_t3/outputs/probability_predictions.csv",
+    "experiments/soft_hierarchical_t3/outputs/oof_predictions.csv",
+    "experiments/soft_hierarchical_t3/outputs/multicycle_fold_metrics.csv",
+    "experiments/soft_hierarchical_t3/outputs/cost_sensitivity.csv",
+    "experiments/soft_hierarchical_t3/outputs/fold_metrics.csv",
+    "experiments/soft_hierarchical_t3/outputs/calibration_metrics.csv",
+    "experiments/soft_hierarchical_t3/outputs/multicycle_comparison.csv",
+    "experiments/soft_hierarchical_t3/outputs/figures/multicycle_soft_comparison.png",
+    "experiments/soft_hierarchical_t3/outputs/figures/legacy_model_comparison_e0_to_e6.png",
+    "experiments/soft_hierarchical_t3/outputs/figures/probability_distributions.png",
+    "experiments/soft_hierarchical_t3/outputs/figures/cost_tradeoff_curve.png",
+    "experiments/soft_hierarchical_t3/outputs/confusion_matrices/E6a_Soft_RF_RF_CostSensitive_confusion_matrix.csv",
+    "experiments/soft_hierarchical_t3/outputs/confusion_matrices/E4_Soft_RF_RF_confusion_matrix.csv",
+    "experiments/soft_hierarchical_t3/outputs/confusion_matrices/E5_Soft_RF_LR_confusion_matrix.csv",
+    "experiments/soft_hierarchical_t3/outputs/confusion_matrices/E6b_Soft_RF_LR_CostSensitive_confusion_matrix.csv",
+    "experiments/soft_hierarchical_t3/outputs/confusion_matrices/E6b_Soft_RF_LR_CostSensitive_confusion.png",
+    "experiments/soft_hierarchical_t3/outputs/confusion_matrices/E4_Soft_RF_RF_confusion.png",
+    "experiments/soft_hierarchical_t3/outputs/confusion_matrices/E6a_Soft_RF_RF_CostSensitive_confusion.png",
+    "experiments/soft_hierarchical_t3/outputs/confusion_matrices/E5_Soft_RF_LR_confusion.png"
+  ]
+}

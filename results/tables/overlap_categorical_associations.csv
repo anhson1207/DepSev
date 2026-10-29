@@ -1,0 +1,20 @@
+feature,cramers_v,n,n_levels_including_unknown,n_missing,fraction_expected_cells_below_5,estimator
+BPQ020,0.1087299852164123,4045,3,2,0.3333333333333333,uncorrected Cramer V; descriptive only
+DIQ010,0.10019726511698886,4045,4,2,0.35,uncorrected Cramer V; descriptive only
+MCQ160B,0.07976944828492025,4045,3,3,0.4666666666666667,uncorrected Cramer V; descriptive only
+MCQ160C,0.07708099909820071,4045,3,11,0.4,uncorrected Cramer V; descriptive only
+MCQ160D,0.05448954503193328,4045,3,3,0.4666666666666667,uncorrected Cramer V; descriptive only
+MCQ160E,0.07756215387249744,4045,3,2,0.4666666666666667,uncorrected Cramer V; descriptive only
+MCQ160F,0.06487714306782146,4045,3,4,0.4666666666666667,uncorrected Cramer V; descriptive only
+MCQ220,0.060593860019811895,4045,2,0,0.1,uncorrected Cramer V; descriptive only
+HUQ010,0.194970958373469,4045,6,5,0.23333333333333334,uncorrected Cramer V; descriptive only
+PAQ605,0.025668774684807688,4045,2,0,0.0,uncorrected Cramer V; descriptive only
+PAQ620,0.0452527155588227,4045,3,1,0.3333333333333333,uncorrected Cramer V; descriptive only
+PAQ650,0.12092508641801807,4045,2,0,0.0,uncorrected Cramer V; descriptive only
+PAQ665,0.1250044401821963,4045,2,0,0.0,uncorrected Cramer V; descriptive only
+smoking_status,0.08439694476488079,4045,5,2,0.28,uncorrected Cramer V; descriptive only
+ALQ101,0.02683989539338385,4045,3,7,0.26666666666666666,uncorrected Cramer V; descriptive only
+alcohol_status,0.04685507657163008,4045,4,3,0.25,uncorrected Cramer V; descriptive only
+RIAGENDR,0.14418611625031233,4045,2,0,0.0,uncorrected Cramer V; descriptive only
+RIDRETH1,0.03934668302155214,4045,5,0,0.04,uncorrected Cramer V; descriptive only
+DMDEDUC2,0.08282368135459793,4045,6,1,0.2,uncorrected Cramer V; descriptive only

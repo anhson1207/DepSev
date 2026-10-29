@@ -1,0 +1,6 @@
+class,severity,label,count,percent
+C0,0,Minimal,3764,74.4757
+C1,1,Mild,800,15.829
+C2,2,Moderate,303,5.9953
+C3,3,Moderately severe,132,2.6118
+C4,4,Severe,55,1.0882

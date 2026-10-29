@@ -1,0 +1,50 @@
+\chapter{Kết luận và hướng phát triển}
+\label{ch:ket-luan}
+
+\section{Kết quả đạt được}
+\label{sec:ket-qua-dat-duoc}
+
+Công trình nghiên cứu \textbf{“Nghiên cứu khung học máy cho dự đoán mức độ triệu chứng trầm cảm từ dữ liệu sinh lý (DepSev-ML)”} đã thực hiện một khảo sát toàn diện, có hệ thống và nghiêm ngặt về mặt phương pháp luận đối với bài toán lượng giá mức độ nghiêm trọng của triệu chứng trầm cảm PHQ-9 từ các đặc trưng sinh lý dạng bảng. 
+
+Qua các giai đoạn thực nghiệm có kiểm soát chặt chẽ, đề tài đã đạt được các kết quả cụ thể:
+\begin{enumerate}
+    \item \textbf{Khảo sát cắt bỏ đặc trưng và tinh chỉnh mô hình nền tảng:} Xác lập được vai trò then chốt của các xét nghiệm cận lâm sàng máu (HbA1c, Cholesterol, Albumin, Creatinine) và thói quen sinh hoạt (giấc ngủ, vận động thể lực) khi giúp tăng từ +14\% đến +23\% Macro-F1 so với chỉ sử dụng các dấu hiệu sinh tồn cơ bản. Thông qua quy trình Nested CV khắt khe, mô hình \texttt{Random Forest/F4} với siêu tham số tối ưu đã được lựa chọn làm xương sống chuẩn mực cho toàn bộ hệ thống.
+    \item \textbf{Lượng hóa quy luật suy giảm hiệu năng theo độ chi tiết nhãn ($T_2 \to T_5$):} Lần đầu tiên lượng hóa chính xác sự sụt giảm hiệu năng khi tăng số lượng lớp dự đoán: Macro-F1 giảm từ 0.6639 ($T_2$) xuống 0.4354 ($T_3$), 0.3380 ($T_4$) và 0.2630 ($T_5$). Nghiên cứu chứng minh bằng thực nghiệm và phân tích PCA rằng bước chuyển $T_2 \to T_3$ là điểm suy giảm lớn nhất do sự chồng lấn phân phối sinh lý dày đặc giữa nhóm người bình thường ($C_0$) và nhóm có triệu chứng nhẹ ($C_1$).
+    \item \textbf{Đánh giá tổng quát hóa trên dữ liệu đa chu kỳ quy mô lớn ($N = 14.581$):} Thực hiện quy trình hài hòa hóa dữ liệu chuẩn xác trên 3 chu kỳ NHANES liên tiếp với bộ đặc trưng $F_{4\_\text{common31}}$ gồm 31 biến số. Kết quả thực nghiệm đối chứng khẳng định việc tăng cỡ mẫu lên gấp 3 lần giúp ổn định độ nhạy của các lớp hiếm ($C_3, C_4$), nhưng không thể tự động phá vỡ trần hiệu năng Macro-F1 của bài toán phân loại đa mức chi tiết nếu không có sự đột phá về không gian đặc trưng.
+    \item \textbf{Phân tích bản chất và khắc phục Error Propagation trong Phân loại phân cấp:} Chỉ ra khiếm khuyết lâm sàng chí mạng của kiến trúc Hard Hierarchical ($E_1$) khi cơ chế cổng nhị phân cứng loại bỏ nhầm tới 120 bệnh nhân nặng quy ước ($C_2^+$) ở Giai đoạn 1. Đề xuất thành công mô hình Soft Probability Fusion kết hợp tối ưu chi phí Bayes ($E_6b$), kéo giảm số ca bỏ sót $C_2^+ \to C_0$ từ 120 ca xuống chỉ còn 62 ca (giảm 48.3\%).
+    \item \textbf{Đột phá với mô hình Phân loại thứ bậc cân bằng ($E_7a$):} Hiện thực mô hình Ordinal Logistic Regression (Proportional Odds) với ràng buộc tái tham số hóa số mũ, bảo đảm tính đơn điệu tuyệt đối của các ngưỡng cắt. Mô hình \texttt{E7a\_Ordinal\_LogReg\_Balanced} thiết lập kỷ lục mới toàn dự án về \textbf{Balanced Accuracy = 0.5151} trên Legacy Cohort và duy trì \textbf{0.5073} trên tập kiểm tra độc lập theo dòng thời gian (Branch D, $N = 4.888$), nâng độ nhạy nhận diện nhóm nặng $C_2^+$ lên mức \textbf{60.37\%}. Đồng thời, nghiên cứu cũng chỉ ra hạn chế của phương pháp Frank \& Hall ($E_7b$) khi ghi nhận tới 19.53\% số mẫu vi phạm tính đơn điệu.
+\end{enumerate}
+
+\section{Đóng góp nghiên cứu}
+\label{sec:dong-gop-khoa-hoc}
+
+Công trình mang lại những đóng góp khoa học và thực tiễn rõ nét cho lĩnh vực Tin sinh học và Học máy y tế:
+\begin{enumerate}
+    \item \textbf{Đóng góp về phương pháp luận kiểm định liêm chính (Strict Zero Leakage Methodology):} Xây dựng một quy trình chuẩn tắc khép kín, phân tách minh bạch giữa tập phát triển và tập kiểm tra, mã hóa toàn bộ đường ống tiền xử lý bên trong từng fold, loại bỏ hoàn toàn các biến mục tiêu DPQ khỏi ma trận đặc trưng, tạo nên một chuẩn mực thực nghiệm có độ tin cậy và khả năng tái lập cao.
+    \item \textbf{Tài sản dữ liệu chuẩn hóa (Harmonized Multi-cycle Dataset):} Hoàn thiện bộ dữ liệu chuẩn hóa $F_{4\_\text{common31}}$ trên gần 15.000 đối tượng qua 3 chu kỳ NHANES, giải quyết vấn đề không đồng nhất schema và cung cấp mã nguồn mở phục vụ cho các nghiên cứu tiếp theo về sức khỏe tâm thần dạng bảng.
+    \item \textbf{Làm sáng tỏ bản chất của bài toán phân tầng rủi ro trầm cảm:} Khẳng định bằng dữ liệu thực nghiệm rằng bài toán dự đoán trầm cảm từ dữ liệu sinh lý không thể chỉ nhìn vào độ chính xác Accuracy bề nổi. Nghiên cứu cung cấp một bức tranh toàn diện về các mối quan hệ đánh đổi giữa Macro-F1, Balanced Accuracy, Class MAE và sự an toàn lâm sàng (giảm thiểu bỏ sót ca bệnh nặng).
+    \item \textbf{Giải pháp kiến trúc kết hợp tối ưu:} Đề xuất thành công hai giải pháp kiến trúc có giá trị ứng dụng thực tế cao: mô hình Soft Cost-Sensitive ($E_6b$) cho các bài toán yêu cầu phạt nặng ca bỏ sót, và mô hình Ordinal Logistic Regression cân bằng ($E_7a$) cho các bài toán yêu cầu cân bằng độ nhạy đa mức độ và tôn trọng thứ tự nghiêm ngặt của bệnh học.
+\end{enumerate}
+
+\section{Hạn chế khoa học}
+\label{sec:han-che-khoa-hoc}
+
+Bên cạnh những kết quả đạt được, nghiên cứu cũng thẳng thắn thừa nhận các hạn chế khoa học mang tính khách quan:
+\begin{enumerate}
+    \item \textbf{Trần hiệu năng của dữ liệu sinh lý ngoại vi:} Bản thân thang đo PHQ-9 là công cụ tự báo cáo phản ánh trạng thái cảm xúc và nhận thức chủ quan. Các chỉ số sinh lý đo lường ở ngoại vi (huyết áp, nhân trắc, xét nghiệm máu thông thường) chỉ phản ánh các tương quan chuyển hóa gián tiếp, do đó tồn tại một "trần hiệu năng" tự nhiên đối với Macro-F1 quanh mức 0.45 -- 0.46 trên không gian 3 lớp và 0.26 -- 0.27 trên không gian 5 lớp.
+    \item \textbf{Giới hạn của thiết kế khảo sát cắt ngang (Cross-Sectional Design):} Dữ liệu NHANES thu thập các chỉ số tại một thời điểm duy nhất trong phòng khám lưu động. Nghiên cứu không có dữ liệu theo dõi dọc (longitudinal data) theo thời gian của từng cá nhân, do đó không thể theo dõi diễn tiến dao động triệu chứng của bệnh nhân.
+    \item \textbf{Sự đánh đổi về cảnh báo giả (False Positives):} Để đạt được độ nhạy trên 60\% đối với nhóm nặng $C_2^+$, mô hình \texttt{E7a\_Balanced} phải chấp nhận tỷ lệ báo động nhầm $C_0 \to C_2^+$ là 11.8\% (357 ca). Trong các chiến dịch tầm soát cộng đồng, điều này có thể làm tăng gánh nặng chi phí cho các xét nghiệm khẳng định tiếp theo.
+    \item \textbf{Giả định tuyến tính trong mô hình Proportional Odds:} Mô hình \texttt{E7a} hiện tại giả định quan hệ tuyến tính giữa biến tiềm ẩn và các đặc trưng đầu vào, chưa khai thác được các tương tác phi tuyến bậc cao phức tạp như các mô hình dựa trên cây quyết định.
+\end{enumerate}
+
+\section{Hướng phát triển tiếp theo}
+\label{sec:huong-phat-trien}
+
+Dựa trên các phát hiện thực nghiệm và các hạn chế đã xác định, những hướng nghiên cứu có cơ sở khoa học vững chắc và cần được ưu tiên triển khai trong tương lai bao gồm:
+\begin{enumerate}
+    \item \textbf{Phát triển Rừng cây tăng cường thứ bậc phi tuyến (Non-linear Ordinal Gradient Boosting):} Tích hợp hàm mất mát Cumulative Logit Loss hoặc Proportional Odds Loss trực tiếp vào thuật toán phân chia nhánh của XGBoost và LightGBM. Hướng đi này hứa hẹn sẽ kết hợp hoàn hảo ưu thế bảo đảm tính thứ bậc và không vi phạm đơn điệu của $E_7a$ với khả năng học tương tác phi tuyến cực mạnh của cây quyết định.
+    \item \textbf{Huấn luyện nhị phân có ràng buộc đơn điệu đồng thời (Constrained Joint Multi-task Training):} Cải tiến phương pháp Frank \& Hall bằng cách đưa số hạng phạt vi phạm đơn điệu $L_{\text{monotonicity}} = \lambda \sum \max(0, q_2(\mathbf{x}) - q_1(\mathbf{x}))^2$ trực tiếp vào hàm mục tiêu huấn luyện chung (Joint Loss) của mạng nơ-ron đa nhiệm (Multi-task Neural Network), triệt tiêu hiện tượng giao cắt siêu phẳng ngay từ khâu học trọng số.
+    \item \textbf{Tích hợp các chỉ dấu sinh học sâu hơn (Deep Molecular Biomarkers):} Mở rộng không gian đặc trưng bằng cách tích hợp thêm các dữ liệu chuyên biệt về nồng độ hormone căng thẳng (Cortisol huyết thanh hoặc nước bọt), các chỉ số viêm mạn tính chuyên sâu (chỉ số protein phản ứng C độ nhạy cao -- hs-CRP, Interleukin-6), và các biến thể di truyền (genetic polymorphisms) khi nguồn dữ liệu cho phép.
+    \item \textbf{Khai thác dữ liệu cảm biến đeo liên tục (Wearable Sensor Data):} Kết hợp các chỉ số xét nghiệm tĩnh với dữ liệu đo lường liên tục trong đời sống hàng ngày thu nhận từ đồng hồ thông minh hoặc thiết bị đeo (biến thiên nhịp tim HRV, chất lượng giấc ngủ vi mô, nhịp sinh học ngày đêm), hướng tới một hệ sinh thái chăm sóc sức khỏe tâm thần chủ động và cá nhân hóa cao độ.
+\end{enumerate}
+\cleardoublepage

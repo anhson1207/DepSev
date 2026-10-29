@@ -1,0 +1,333 @@
+\chapter{Cơ sở lý thuyết và các nghiên cứu liên quan}
+\label{ch:co-so-ly-thuyet}
+
+\section{Đo lường mức độ triệu chứng PHQ-9}
+\label{sec:do-luong-phq9}
+
+Thang đo Sức khỏe Bệnh nhân 9 mục (Patient Health Questionnaire-9 -- PHQ-9) là một cấu phần chẩn đoán tâm thần được tiêu chuẩn hóa, trích xuất từ bộ công cụ Đánh giá Rối loạn Tâm thần Ban đầu (PRIME-MD) do Kroenke, Spitzer và Williams phát triển vào năm 1999 và 2001 \cite{kroenke2001phq, spitzer1999validation}. Mục đích nguyên bản của PHQ-9 là cung cấp cho các bác sĩ chăm sóc ban đầu một công cụ ngắn gọn, hiệu quả nhưng có độ nhạy và độ đặc hiệu cao để sàng lọc và theo dõi diễn tiến lâm sàng của bệnh trầm cảm.
+
+\subsection{Cấu trúc thang đo và lượng hóa điểm số}
+Bảng câu hỏi PHQ-9 bao gồm 9 mục tự báo cáo, phản ánh mức độ xuất hiện của 9 nhóm triệu chứng chính trong vòng hai tuần gần nhất trước thời điểm khảo sát, tương ứng chặt chẽ với tiêu chuẩn chẩn đoán trầm cảm của DSM-IV:
+\begin{enumerate}
+    \item Ít hứng thú hoặc không tìm thấy niềm vui trong công việc hay hoạt động hàng ngày (Anhedonia).
+    \item Cảm giác buồn chán, chán nản hoặc tuyệt vọng (Depressed mood).
+    \item Khó đi vào giấc ngủ, ngủ không sâu giấc, hoặc ngủ quá nhiều (Sleep disturbance).
+    \item Cảm thấy mệt mỏi, uể oải hoặc thiếu năng lượng (Fatigue).
+    \item Ăn không ngon miệng hoặc ăn quá nhiều (Appetite changes).
+    \item Cảm thấy tồi tệ về bản thân, tự ti hoặc thất vọng về chính mình (Feelings of worthlessness).
+    \item Khó tập trung vào các công việc như đọc báo hoặc xem truyền hình (Trouble concentrating).
+    \item Di chuyển hoặc nói năng chậm chạp đến mức người khác nhận thấy; hoặc ngược lại, bồn chồn đứng ngồi không yên (Psychomotor changes).
+    \item Có ý nghĩ rằng thà chết đi còn hơn hoặc có ý nghĩ muốn tự làm tổn thương bản thân (Suicidal ideation).
+\end{enumerate}
+
+Mỗi câu hỏi được tính điểm theo thang đo Likert 4 mức độ:
+\begin{itemize}
+    \item 0 điểm: Hoàn toàn không xuất hiện (Not at all).
+    \item 1 điểm: Xuất hiện trong vài ngày (Several days).
+    \item 2 điểm: Xuất hiện hơn một nửa số ngày (More than half the days).
+    \item 3 điểm: Xuất hiện gần như mỗi ngày (Nearly every day).
+\end{itemize}
+
+Tổng điểm số PHQ-9 là đại lượng rời rạc $s = \sum_{j=1}^9 \text{DPQ}_j \in [0, 27]$. Dựa trên các nghiên cứu tâm trắc học chuẩn hóa, y văn quốc tế phân loại tổng điểm thành 5 mức độ nghiêm trọng:
+\begin{itemize}
+    \item $0 \le s \le 4$: Triệu chứng tối thiểu hoặc không có (Minimal). Không cần can thiệp y tế.
+    \item $5 \le s \le 9$: Trầm cảm mức độ nhẹ (Mild). Khuyến nghị theo dõi định kỳ và tư vấn lối sống.
+    \item $10 \le s \le 14$: Trầm cảm mức độ vừa (Moderate). Cần đánh giá tâm thần chuyên khoa, cân nhắc liệu pháp tâm lý hoặc thuốc.
+    \item $15 \le s \le 19$: Trầm cảm mức độ nặng vừa (Moderately severe). Cần can thiệp tích cực bằng liệu pháp dược lý và tâm lý kết hợp.
+    \item $20 \le s \le 27$: Trầm cảm mức độ nặng (Severe). Yêu cầu can thiệp khẩn cấp từ bác sĩ chuyên khoa tâm thần.
+\end{itemize}
+
+\subsection{Ý nghĩa của việc gộp lớp và phân biệt bản chất mục tiêu}
+Trong thực tế nghiên cứu và ứng dụng y tế cộng đồng, việc dự đoán chính xác tuyệt đối từng điểm số đơn lẻ hoặc cả 5 mức độ thường gặp khó khăn rất lớn do cỡ mẫu của các nhóm nặng rất hiếm. Do đó, các nghiên cứu dịch tễ thường áp dụng cơ chế gộp lớp:
+\begin{itemize}
+    \item \textbf{Ngưỡng cắt nhị phân $s \ge 10$:} Thường được coi là ngưỡng cắt lâm sàng truyền thống để xác định các trường hợp có khả năng cao mắc trầm cảm nghiêm trọng cần điều trị y tế (Clinical Depression).
+    \item \textbf{Ngưỡng cắt $s \ge 5$ (Triệu chứng cận lâm sàng):} Xác định những người bắt đầu xuất hiện triệu chứng. Đây là nhóm đối tượng có nguy cơ chuyển nặng nếu không có sự điều chỉnh kịp thời về lối sống và môi trường làm việc.
+    \item \textbf{Nhóm $C_2^+$ ($s \in [10, 27]$) trong DepSev-ML:} Cần nhấn mạnh rằng, theo quy ước nghiên cứu của khung làm việc DepSev-ML, nhóm $C_2^+$ được gọi là \textbf{“nhóm Nặng theo quy ước nghiên cứu”} (Severe convention), bao gồm toàn bộ các đối tượng từ mức Vừa, Nặng vừa đến Rất nặng ($C_2 \cup C_3 \cup C_4$). Việc sử dụng thuật ngữ này nhằm phân biệt rõ với mức độ $C_4$ (Severe chuẩn của PHQ-9).
+\end{itemize}
+
+Quan trọng nhất, việc dự đoán mức độ triệu chứng thông qua PHQ-9 phản ánh \textbf{mức độ nghiêm trọng của triệu chứng chủ quan} tại một thời điểm nhất định, \textbf{không đồng nghĩa với chẩn đoán bệnh lý tâm thần học} (vốn đòi hỏi quy trình khám lâm sàng cấu trúc SCID và loại trừ các bệnh lý thực thể).
+
+\section{Học máy trên dữ liệu sức khỏe dạng bảng}
+\label{sec:ml-tabular-health}
+
+Dữ liệu sức khỏe dạng bảng (Tabular Health Data), như dữ liệu từ các cuộc khảo sát y tế quốc gia NHANES, có cấu trúc gồm các hàng tương ứng với từng đối tượng và các cột tương ứng với các biến số lâm sàng, cận lâm sàng hoặc khảo sát. Khác với dữ liệu hình ảnh hay văn bản có tính chất liên tục và bất biến không gian/thời gian, dữ liệu dạng bảng y tế sở hữu các đặc trưng hình học riêng biệt đòi hỏi các kỹ thuật xử lý chuyên biệt.
+
+\subsection{Mất cân bằng lớp (Class Imbalance)}
+Trong hầu hết các bài toán y tế dự phòng, phân phối của các nhãn mục tiêu luôn bị lệch cực đoan (skewed distribution) \cite{he2009learning}. Giả sử tập dữ liệu có $K$ lớp với số lượng mẫu tương ứng là $N_0, N_1, \dots, N_{K-1}$. Tỷ số mất cân bằng (Imbalance Ratio -- IR) được định nghĩa:
+\begin{equation}
+    \text{IR} = \frac{\max_k N_k}{\min_k N_k}
+\end{equation}
+Trong tập dữ liệu NHANES nghiên cứu, lớp $C_0$ chiếm $3.016$ mẫu trong khi lớp $C_4$ chỉ có $44$ mẫu, tạo nên tỷ số mất cân bằng lên tới $\text{IR} = 3016 / 44 \approx 68.5:1$.
+
+Khi huấn luyện với các hàm mục tiêu truyền thống như Độ lỗi trung bình (Error Rate) hoặc Mất mát chéo (Cross-Entropy Loss), mô hình sẽ bị thiên kiến mạnh về phía lớp đa số:
+\begin{equation}
+    \mathcal{L}_{\text{CE}} = - \frac{1}{N} \sum_{i=1}^N \sum_{k=0}^{K-1} \mathbb{I}(y_i = k) \log P(Y = k \mid \mathbf{x}_i)
+\end{equation}
+Vì lớp $C_0$ đóng góp tới gần 75\% vào hàm tổn thất tổng thể, thuật toán tối ưu hóa (như Gradient Descent) sẽ ưu tiên giảm tổn thất của lớp $C_0$ bằng cách đẩy các ranh giới quyết định ra xa lớp đa số, dẫn đến việc các lớp thiểu số ($C_3, C_4$) bị "lấn át" hoàn toàn trong không gian dự đoán.
+
+Để khắc phục hiện tượng này, kỹ thuật gán trọng số lớp (Cost-sensitive class weighting) được áp dụng trực tiếp vào hàm mất mát:
+\begin{equation}
+    w_k = \frac{N}{K \cdot N_k}
+\end{equation}
+Trọng số $w_k$ tỷ lệ nghịch với tần số xuất hiện của lớp, giúp các mẫu thuộc lớp hiếm đóng góp vào gradient tổn thất tương đương với các mẫu thuộc lớp đa số.
+
+\subsection{Chồng lấn phân phối đặc trưng (Feature Overlap)}
+Một khó khăn học thuật cốt lõi trong y sinh học là hiện tượng chồng lấn phân phối đặc trưng giữa các trạng thái bệnh học. Đối với bệnh trầm cảm, các chỉ số sinh lý (chẳng hạn như huyết áp tâm thu, chỉ số khối cơ thể BMI, cholesterol toàn phần) không tồn tại một "ngưỡng cắt sinh học" (biological cut-off) tuyệt đối để phân tách người có triệu chứng nhẹ với người bình thường. 
+
+Về mặt toán học, nếu gọi $p(\mathbf{x} \mid Y = 0)$ và $p(\mathbf{x} \mid Y = 1)$ là phân phối xác suất có điều kiện của vectơ đặc trưng $\mathbf{x}$ trên hai lớp $C_0$ và $C_1$, diện tích chồng lấn Bayes (Bayes Error Region) được xác định bởi:
+\begin{equation}
+    \Omega_{\text{overlap}} = \int \min\left(P(Y=0)p(\mathbf{x} \mid Y=0), P(Y=1)p(\mathbf{x} \mid Y=1)\right) d\mathbf{x}
+\end{equation}
+Khi $\Omega_{\text{overlap}}$ lớn, không có bất kỳ bộ phân loại tối ưu nào (kể cả bộ phân loại tối ưu Bayes) có thể đạt được độ chính xác hoàn hảo, và sai số phân loại là không thể tránh khỏi nếu không bổ sung các chiều thông tin đặc trưng mới.
+
+\section{Các thuật toán học máy nền tảng}
+\label{sec:thuat-toan-nen-tang}
+
+Nghiên cứu khảo sát có hệ thống bốn họ thuật toán học máy đại diện cho các cách tiếp cận mô hình hóa khác nhau trên dữ liệu dạng bảng.
+
+\subsection{Hồi quy Logistic (Logistic Regression -- LR)}
+Hồi quy Logistic là mô hình phân loại tuyến tính xác suất. Trong bài toán nhị phân, mô hình giả định logit của xác suất hậu nghiệm là một hàm tuyến tính của các biến đầu vào:
+\begin{equation}
+    \log \frac{P(Y = 1 \mid \mathbf{x})}{P(Y = 0 \mid \mathbf{x})} = \mathbf{w}^T \mathbf{x} + b
+\end{equation}
+Từ đó suy ra xác suất hậu nghiệm thông qua hàm Sigmoid:
+\begin{equation}
+    P(Y = 1 \mid \mathbf{x}) = \sigma(\mathbf{w}^T \mathbf{x} + b) = \frac{1}{1 + e^{-(\mathbf{w}^T \mathbf{x} + b)}}
+\end{equation}
+
+Đối với bài toán đa lớp ($K$ lớp), mô hình Hồi quy Logistic đa thức (Multinomial Logistic Regression / Softmax Regression) sử dụng hàm Softmax:
+\begin{equation}
+    P(Y = k \mid \mathbf{x}) = \frac{e^{\mathbf{w}_k^T \mathbf{x} + b_k}}{\sum_{j=0}^{K-1} e^{\mathbf{w}_j^T \mathbf{x} + b_j}}
+\end{equation}
+
+\textbf{Ưu điểm:} Cấu trúc toán học tường minh, khả năng giải thích hệ số trọng số cao (hệ số $w_j$ thể hiện trực tiếp log-odds ratio), tốc độ huấn luyện nhanh và ít bị quá khớp khi có chuẩn hóa $L_2$.  
+\textbf{Hạn chế:} Giả định ranh giới quyết định tuyến tính, không tự động học được các tương tác phi tuyến bậc cao giữa các biến sinh lý nếu không tạo đặc trưng thủ công.  
+\textbf{Vai trò trong DepSev-ML:} Đóng vai trò là baseline tuyến tính chuẩn mực để kiểm tra mức độ quan hệ tuyến tính của các nhóm đặc trưng.
+
+\subsection{Cây quyết định (Decision Tree -- DT)}
+Cây quyết định phân chia không gian đặc trưng thành các siêu hình hộp chữ nhật trực giao thông qua việc đệ quy lựa chọn đặc trưng $x_j$ và ngưỡng phân chia $t$ tối ưu. Tiêu chuẩn phân chia phổ biến là độ giảm độ thuần khiết Gini (Gini Impurity):
+\begin{equation}
+    I_G(S) = 1 - \sum_{k=0}^{K-1} p_k^2
+\end{equation}
+với $p_k$ là tỷ lệ các mẫu thuộc lớp $k$ tại nút $S$. Phép phân chia chọn cặp $(j, t)$ sao cho tối đa hóa mức tăng độ thuần khiết (Information Gain):
+\begin{equation}
+    \Delta I_G = I_G(S) - \frac{|S_L|}{|S|} I_G(S_L) - \frac{|S_R|}{|S|} I_G(S_R)
+\end{equation}
+
+\textbf{Ưu điểm:} Dễ trực quan hóa dưới dạng cây quyết định lâm sàng, tự động xử lý tốt tương tác phi tuyến và không nhạy cảm với thang đo của biến số.  
+\textbf{Hạn chế:} Phương sai rất cao (high variance), cực kỳ nhạy cảm với nhiễu và dễ bị quá khớp (overfitting) nghiêm trọng trên tập huấn luyện.  
+\textbf{Vai trò trong DepSev-ML:} Làm viên gạch cơ sở (weak learner) cho các mô hình tập hợp rừng cây và làm mô hình tham chiếu kiểm tra độ phức tạp của dữ liệu.
+
+\subsection{Rừng ngẫu nhiên (Random Forest -- RF)}
+Được Breiman phát minh vào năm 2001 \cite{breiman2001random}, Rừng ngẫu nhiên là phương pháp học tập hợp kết hợp kỹ thuật đóng bao (Bootstrap Aggregating -- Bagging) và lấy mẫu đặc trưng ngẫu nhiên (Random Subspace Method). 
+
+Quy trình thuật toán:
+\begin{enumerate}
+    \item Từ tập huấn luyện $\mathcal{D}$ gồm $N$ mẫu, tạo ra $B$ tập mẫu phụ $\mathcal{D}_b$ bằng cách lấy mẫu có hoàn lại (bootstrap sampling) kích thước $N$.
+    \item Với mỗi tập $\mathcal{D}_b$, xây dựng một cây quyết định chưa tỉa cành. Tại mỗi nút của cây, chỉ lấy mẫu ngẫu nhiên $m \approx \sqrt{d}$ đặc trưng từ tổng số $d$ đặc trưng để tìm ngưỡng phân chia tối ưu.
+    \item Tổng hợp dự đoán của $B$ cây thông qua cơ chế bỏ phiếu theo đa số (Majority Voting) hoặc tính trung bình xác suất (Soft Voting):
+    \begin{equation}
+        P(Y = k \mid \mathbf{x}) = \frac{1}{B} \sum_{b=1}^B P_b(Y = k \mid \mathbf{x})
+    \end{equation}
+\end{enumerate}
+
+Về mặt lý thuyết, phương sai của mô hình trung bình $B$ cây có phương sai riêng lẻ $\sigma^2$ và hệ số tương quan cặp $\rho$ là:
+\begin{equation}
+    \text{Var}(\bar{f}) = \rho \sigma^2 + \frac{1 - \rho}{B} \sigma^2
+\end{equation}
+Việc lấy mẫu đặc trưng ngẫu nhiên giúp làm giảm độ tương quan $\rho$ giữa các cây, từ đó kéo giảm phương sai tổng thể của mô hình mà không làm tăng độ chệch (bias).
+
+\textbf{Ưu điểm:} Khả năng chống quá khớp mạnh mẽ, hoạt động cực kỳ ổn định trên dữ liệu dạng bảng có nhiễu, xử lý tốt cả biến số liên tục lẫn biến phân loại, và cho phép trích xuất độ quan trọng của đặc trưng (Feature Importance).  
+\textbf{Hạn chế:} Chi phí bộ nhớ lớn, tính toán chậm hơn mô hình tuyến tính khi số lượng cây lớn.  
+\textbf{Vai trò trong DepSev-ML:} Được lựa chọn làm \textbf{mô hình trung tâm (Core Backbone)} của toàn bộ framework sau các vòng kiểm định Nested CV khắt khe.
+
+\subsection{eXtreme Gradient Boosting (XGBoost)}
+XGBoost là một bước tiến vượt bậc của thuật toán Gradient Tree Boosting do Chen và Guestrin phát triển vào năm 2016 \cite{chen2016xgboost}. Khác với Bagging xây dựng các cây độc lập song song, Boosting xây dựng các cây tuần tự, trong đó mỗi cây mới được học để bù đắp phần dư (residual) hay độ dốc (gradient) của hàm mất mát từ các cây phía trước.
+
+Hàm mục tiêu cần tối thiểu hóa ở vòng lặp thứ $t$:
+\begin{equation}
+    \mathcal{L}^{(t)} = \sum_{i=1}^N l(y_i, \hat{y}_i^{(t-1)} + f_t(\mathbf{x}_i)) + \Omega(f_t)
+\end{equation}
+trong đó hàm phạt độ phức tạp của cây $\Omega(f_t)$ bao gồm số lượng lá $T$ và chuẩn $L_2$ của trọng số lá $w$:
+\begin{equation}
+    \Omega(f_t) = \gamma T + \frac{1}{2} \lambda \sum_{j=1}^T w_j^2
+\end{equation}
+
+Bằng cách khai triển Taylor bậc hai của hàm mất mát quanh giá trị dự đoán hiện tại $\hat{y}_i^{(t-1)}$, hàm mục tiêu xấp xỉ thành:
+\begin{equation}
+    \tilde{\mathcal{L}}^{(t)} \approx \sum_{i=1}^N \left[ g_i f_t(\mathbf{x}_i) + \frac{1}{2} h_i f_t^2(\mathbf{x}_i) \right] + \gamma T + \frac{1}{2} \lambda \sum_{j=1}^T w_j^2
+\end{equation}
+với $g_i = \partial_{\hat{y}^{(t-1)}} l(y_i, \hat{y}^{(t-1)})$ là gradient bậc một và $h_i = \partial^2_{\hat{y}^{(t-1)}} l(y_i, \hat{y}^{(t-1)})$ là Hessian bậc hai.
+
+\textbf{Ưu điểm:} Khả năng học các biểu diễn phi tuyến cực mạnh, hỗ trợ chuẩn hóa $L_1$ và $L_2$ ngay trong hàm mục tiêu, và xử lý giá trị khuyết thiếu tự động thông qua đường đi mặc định (default direction).  
+\textbf{Hạn chế:} Có nhiều siêu tham số cần tinh chỉnh, dễ bị quá khớp trên các tập dữ liệu nhỏ có độ nhiễu cao nếu không giới hạn độ sâu của cây.  
+\textbf{Vai trò trong DepSev-ML:} Ứng viên đối trọng mạnh nhất đối với Random Forest trong các thực nghiệm Feature Ablation và Nested Tuning.
+
+\subsection{Mô hình học kết hợp (Ensemble Learning: Soft Voting và Stacking)}
+Để tối ưu hóa hiệu năng, nghiên cứu khảo sát hai kỹ thuật học kết hợp kinh điển:
+\begin{enumerate}
+    \item \textbf{Soft Voting (Trung bình xác suất):} Tổng hợp xác suất dự đoán của các mô hình cơ sở độc lập (RF, LR, XGBoost) theo trọng số:
+    \begin{equation}
+        P_{\text{ensemble}}(Y = k \mid \mathbf{x}) = \sum_{m=1}^M \alpha_m P_m(Y = k \mid \mathbf{x}), \quad \text{với } \sum_{m=1}^M \alpha_m = 1
+    \end{equation}
+    \item \textbf{Stacking (Xếp chồng mô hình) \cite{wolpert1992stacked}:} Sử dụng xác suất dự đoán out-of-fold của các mô hình tầng 1 (base models) làm ma trận đặc trưng mới để huấn luyện một bộ phân loại tầng 2 (meta-classifier, thường là Logistic Regression).
+\end{enumerate}
+
+\section{Phân loại phân cấp (Hierarchical Classification)}
+\label{sec:ly-thuyet-hierarchical}
+
+Phân loại phân cấp là phương pháp tiếp cận bài toán phân loại đa lớp bằng cách cấu trúc không gian nhãn thành một cây phân cấp (Tree hierarchy) hoặc đồ thị có hướng không chu trình (DAG) \cite{silla2011survey}. Thay vì dự đoán trực tiếp một trong $K$ lớp phẳng, bài toán được phân rã thành các quyết định cục bộ tại từng nút của cây.
+
+Trong bài toán $T_3$ của DepSev-ML ($C_0, C_1, C_2^+$), kiến trúc phân cấp được thiết kế thành hai giai đoạn tuần tự:
+\begin{itemize}
+    \item \textbf{Giai đoạn 1 (Stage 1 -- Phân loại Có/Không triệu chứng):} Phân biệt giữa lớp bình thường $C_0$ ($s \in [0, 4]$) và nhóm có triệu chứng $C_{\ge 1} = C_1 \cup C_2^+$ ($s \in [5, 27]$).
+    \item \textbf{Giai đoạn 2 (Stage 2 -- Phân loại mức độ Nhẹ/Nặng):} Điều kiện hóa trên tập mẫu có triệu chứng, phân biệt giữa mức Nhẹ $C_1$ ($s \in [5, 9]$) và mức Nặng quy ước $C_2^+$ ($s \in [10, 27]$).
+\end{itemize}
+
+\subsection{Cơ chế định tuyến cứng (Hard Routing)}
+Trong kiến trúc Hard Hierarchical truyền thống ($E_1$), dòng quyết định được kiểm soát bởi một cổng nhị phân cứng dựa trên ngưỡng xác suất $\tau_1 = 0.5$ tại Giai đoạn 1:
+\begin{equation}
+    \hat{y}_{\text{hard}} = \begin{cases} 0 & \text{nếu } p_1(\mathbf{x}) < \tau_1 \\ \mathbb{I}(p_2(\mathbf{x}) \ge \tau_2) + 1 & \text{nếu } p_1(\mathbf{x}) \ge \tau_1 \end{cases}
+\end{equation}
+trong đó $p_1(\mathbf{x}) = P(Y \ge 1 \mid \mathbf{x})$ và $p_2(\mathbf{x}) = P(Y = 2 \mid Y \ge 1, \mathbf{x})$.
+
+\textbf{Hiện tượng lan truyền sai số (Error Propagation):} Nhược điểm chí mạng của Hard Routing là sai số tại Giai đoạn 1 là \textbf{không thể vãn hồi} (irreversible). Nếu một bệnh nhân thực tế thuộc nhóm Nặng ($C_2^+$) nhưng mô hình Giai đoạn 1 dự đoán $p_1(\mathbf{x}) = 0.49 < 0.5$, bệnh nhân này sẽ bị gán nhãn ngay lập tức là $C_0$ và không bao giờ được chuyển tiếp tới Giai đoạn 2 để đánh giá tiếp. Hiện tượng này dẫn đến việc thất thoát nghiêm trọng các ca bệnh nặng.
+
+\subsection{Định tuyến mềm dựa trên xác suất toàn phần (Soft Probability Fusion)}
+Để khắc phục sự tắc nghẽn của cổng cứng, mô hình Soft Hierarchical ($E_4, E_5$) cho phép Giai đoạn 2 tính toán xác suất có điều kiện $p_2(\mathbf{x})$ trên toàn bộ không gian mẫu. Sau đó, định lý xác suất toàn phần và công thức nhân xác suất được áp dụng để khôi phục phân phối xác suất hậu nghiệm liên tục trên 3 lớp:
+\begin{align}
+    P(C_0 \mid \mathbf{x}) &= 1 - p_1(\mathbf{x}) \label{eq:soft-p0} \\
+    P(C_1 \mid \mathbf{x}) &= p_1(\mathbf{x}) \cdot (1 - p_2(\mathbf{x})) \label{eq:soft-p1} \\
+    P(C_2^+ \mid \mathbf{x}) &= p_1(\mathbf{x}) \cdot p_2(\mathbf{x}) \label{eq:soft-p2}
+\end{align}
+
+Dễ dàng chứng minh rằng:
+\begin{equation}
+    P(C_0 \mid \mathbf{x}) + P(C_1 \mid \mathbf{x}) + P(C_2^+ \mid \mathbf{x}) = (1 - p_1) + p_1(1 - p_2) + p_1 p_2 = 1.0
+\end{equation}
+và cả ba xác suất đều nằm nghiêm ngặt trong đoạn $[0, 1]$.
+
+\textbf{Giới hạn toán học của Soft Argmax:} Khi áp dụng quy tắc quyết định chọn lớp có xác suất cực đại (Argmax decision rule):
+\begin{equation}
+    \hat{y} = \arg\max_{k \in \{0, 1, 2\}} P(C_k \mid \mathbf{x})
+\end{equation}
+ta gặp phải một định lý toán học:
+\begin{quote}
+\textit{Định lý:} Với mọi mẫu $\mathbf{x}$ thỏa mãn $p_1(\mathbf{x}) < 0.5$, ta luôn có $P(C_0 \mid \mathbf{x}) > 0.5$, trong khi $P(C_1 \mid \mathbf{x}) < 0.5$ và $P(C_2^+ \mid \mathbf{x}) < 0.5$. Do đó, quy tắc Argmax luôn luôn đưa ra quyết định $\hat{y} = 0$.
+\end{quote}
+Như vậy, Soft Argmax hoàn toàn bất lực trong việc cứu vãn các ca bệnh bị Giai đoạn 1 đánh giá dưới 0.5, tương đương về mặt quyết định với Hard Routing tại vùng $p_1 < 0.5$. Điều này dẫn dắt tới sự cần thiết của Lý thuyết Quyết định Nhạy chi phí.
+
+\section{Học máy nhạy chi phí (Cost-Sensitive Learning)}
+\label{sec:ly-thuyet-cost-sensitive}
+
+Học máy nhạy chi phí mở rộng lý thuyết ra quyết định thống kê bằng cách gán các trọng số tổn thất phi đối xứng cho từng loại sai lầm phân loại \cite{elkan2001foundations}. Trong y tế, chi phí của việc bỏ sót một ca bệnh nặng (False Negative đối với bệnh hiểm nghèo) lớn hơn rất nhiều so với chi phí của một cảnh báo nhầm (False Positive dẫn đến việc xét nghiệm lại).
+
+\subsection{Ma trận chi phí và rủi ro kỳ vọng Bayes (Bayes Risk)}
+Cho ma trận chi phí tổn thất $\mathbf{K} \in \mathbb{R}^{K \times K}$, trong đó phần tử $K_{ij} = \text{Cost}(\text{True} = i, \text{Pred} = j)$ là tổn thất phải chịu khi mẫu thực tế thuộc lớp $i$ nhưng mô hình dự đoán là lớp $j$. Các điều kiện tiêu chuẩn:
+\begin{itemize}
+    \item $K_{ii} = 0$: Không có tổn thất khi dự đoán đúng.
+    \item $K_{ij} > 0$ với mọi $i \ne j$: Tổn thất khi dự đoán sai.
+    \item $K_{2,0} \gg K_{0,2}$: Chi phí bỏ sót ca nặng sang mức tối thiểu lớn hơn nhiều chi phí cảnh báo nhầm.
+\end{itemize}
+
+Với phân phối xác suất hậu nghiệm đã biết $\mathbf{p}(\mathbf{x}) = [P(C_0 \mid \mathbf{x}), P(C_1 \mid \mathbf{x}), P(C_2^+ \mid \mathbf{x})]$, rủi ro kỳ vọng khi chọn hành động dự đoán lớp $j$ là:
+\begin{equation}
+    R(j \mid \mathbf{x}) = \mathbb{E}[\text{Loss} \mid \text{Pred}=j, \mathbf{x}] = \sum_{i=0}^{K-1} P(C_i \mid \mathbf{x}) \cdot K_{ij}
+\end{equation}
+
+Quy tắc quyết định tối ưu Bayes (Bayes Optimal Decision Rule) lựa chọn nhãn dự đoán sao cho tối thiểu hóa rủi ro kỳ vọng:
+\begin{equation}
+    \hat{y}_{\text{Bayes}} = \arg\min_{j \in \{0, \dots, K-1\}} R(j \mid \mathbf{x})
+\end{equation}
+
+Nếu ma trận chi phí là ma trận mất mát 0--1 đồng nhất ($K_{ij} = 1$ với $i \ne j$ và $K_{ii} = 0$), rủi ro kỳ vọng trở thành $R(j \mid \mathbf{x}) = 1 - P(C_j \mid \mathbf{x})$, và quy tắc tối thiểu hóa rủi ro Bayes hoàn toàn đồng nhất với quy tắc Argmax xác suất:
+\begin{equation}
+    \arg\min_j (1 - P(C_j \mid \mathbf{x})) \equiv \arg\max_j P(C_j \mid \mathbf{x})
+\end{equation}
+
+Khi áp dụng ma trận chi phí bất đối xứng lâm sàng (như ma trận $M_1$), mô hình có thể chủ động chuyển dự đoán từ $C_0$ sang $C_1$ hoặc $C_2^+$ ngay cả khi xác suất $P(C_2^+)$ chỉ đạt $0.25--0.30$, nếu chi phí $K_{2,0}$ đủ lớn để làm tăng rủi ro của việc gán nhãn $C_0$.
+
+\section{Phân loại thứ bậc (Ordinal Classification)}
+\label{sec:ly-thuyet-ordinal}
+
+Phân loại thứ bậc (còn gọi là Phân loại có thứ tự -- Ordinal Classification / Ordinal Regression) nằm ở giao điểm giữa bài toán phân loại danh nghĩa (Classification) và hồi quy (Regression) \cite{mccullagh1980regression, frank2001simple}. Các nhãn mục tiêu có quan hệ thứ tự tự nhiên nghiêm ngặt:
+\begin{equation}
+    C_0 \prec C_1 \prec C_2 \prec \dots \prec C_{K-1}
+\end{equation}
+nhưng khoảng cách số học giữa các mức độ là không thể định lượng trực tiếp như một biến thực liên tục.
+
+\subsection{Mô hình Tỷ số chênh tỷ lệ (Proportional Odds Model)}
+Mô hình Proportional Odds (Cumulative Logit Model) do McCullagh đề xuất \cite{mccullagh1980regression} là phương pháp kinh điển trong thống kê y sinh học. Mô hình giả định sự tồn tại của một biến tiềm ẩn (latent variable) liên tục không quan sát được:
+\begin{equation}
+    Y^* = \mathbf{w}^T \mathbf{x} + \epsilon
+\end{equation}
+trong đó $\epsilon$ tuân theo phân phối Logistic chuẩn (hàm phân phối tích lũy là hàm Sigmoid $\sigma(z) = 1/(1+e^{-z})$).
+
+Biến mục tiêu rời rạc $Y$ được hình thành bằng cách chia trục số của $Y^*$ thành các khoảng thông qua $K-1$ điểm cắt ngưỡng tăng dần $\theta_0 < \theta_1 < \dots < \theta_{K-2}$:
+\begin{equation}
+    Y = k \iff \theta_{k-1} < Y^* \le \theta_k, \quad \text{với } \theta_{-1} = -\infty, \theta_{K-1} = +\infty
+\end{equation}
+
+Hàm liên kết Logit tích lũy được định nghĩa:
+\begin{equation}
+    \text{logit}(P(Y \le k \mid \mathbf{x})) = \log \frac{P(Y \le k \mid \mathbf{x})}{1 - P(Y \le k \mid \mathbf{x})} = \theta_k - \mathbf{w}^T \mathbf{x}
+\end{equation}
+suy ra xác suất tích lũy:
+\begin{equation}
+    P(Y \le k \mid \mathbf{x}) = \sigma(\theta_k - \mathbf{w}^T \mathbf{x}) = \frac{1}{1 + e^{-(\theta_k - \mathbf{w}^T \mathbf{x})}}
+\end{equation}
+
+Xác suất riêng biệt cho từng lớp:
+\begin{equation}
+    P(Y = k \mid \mathbf{x}) = P(Y \le k \mid \mathbf{x}) - P(Y \le k-1 \mid \mathbf{x}) = \sigma(\theta_k - \mathbf{w}^T \mathbf{x}) - \sigma(\theta_{k-1} - \mathbf{w}^T \mathbf{x})
+\end{equation}
+
+Đặc tính then chốt của mô hình Proportional Odds là vectơ tham số $\mathbf{w}$ \textbf{không phụ thuộc vào ngưỡng cắt $k$}. Điều này có nghĩa là tác động của đặc trưng $\mathbf{x}$ lên log-odds của việc vượt qua một ngưỡng nghiêm trọng bất kỳ là hoàn toàn đồng nhất trên toàn bộ các ngưỡng. Về mặt hình học, các siêu phẳng quyết định $\theta_k - \mathbf{w}^T \mathbf{x} = 0$ là song song với nhau trong không gian đặc trưng, bảo đảm xác suất $P(Y = k \mid \mathbf{x})$ luôn dương và không bao giờ bị hiện tượng giao cắt xác suất nếu $\theta_k > \theta_{k-1}$.
+
+\subsection{Phương pháp Phân loại nhị phân tích lũy (Frank \& Hall 2001)}
+Frank và Hall \cite{frank2001simple} đề xuất phương pháp biến đổi bài toán thứ bậc $K$ lớp thành $K-1$ bài toán phân loại nhị phân độc lập. Với mỗi ngưỡng $k \in \{1, \dots, K-1\}$, xây dựng một bộ phân loại nhị phân $M_k$ để dự đoán xác suất:
+\begin{equation}
+    q_k(\mathbf{x}) = P(Y \ge k \mid \mathbf{x})
+\end{equation}
+Để tạo ra các xác suất nhị phân, dữ liệu huấn luyện được dán nhãn lại: nhãn bằng 1 nếu $y \ge k$ và bằng 0 nếu $y < k$.
+
+Sau khi có $K-1$ ước lượng xác suất $q_1(\mathbf{x}), \dots, q_{K-1}(\mathbf{x})$, xác suất từng lớp được tính:
+\begin{align}
+    P(Y = 0) &= 1 - q_1 \\
+    P(Y = k) &= q_k - q_{k+1}, \quad \forall k \in \{1, \dots, K-2\} \\
+    P(Y = K-1) &= q_{K-1}
+\end{align}
+
+\textbf{Vấn đề vi phạm tính đơn điệu (Monotonicity Violation):} Do các bộ phân loại $M_k$ được huấn luyện độc lập với các hàm mất mát riêng biệt, vectơ pháp tuyến của các siêu phẳng ranh giới là khác nhau ($\mathbf{w}_k \ne \mathbf{w}_{k+1}$). Tại những vùng không gian mà hai siêu phẳng cắt nhau, mô hình có thể tạo ra $q_{k+1}(\mathbf{x}) > q_k(\mathbf{x})$, dẫn đến việc xác suất tính toán bị âm: $P(Y = k \mid \mathbf{x}) < 0$. Do đó, phương pháp Frank \& Hall bắt buộc phải đi kèm với một phép chiếu đơn điệu (Isotonic Projection) để khôi phục tính hợp lệ của phân phối xác suất.
+
+\section{Tổng hợp các nghiên cứu liên quan}
+\label{sec:nghien-cuu-lien-quan}
+
+Bảng \ref{tab:related-works} tổng hợp các công trình tiêu biểu liên quan đến việc ứng dụng Machine Learning trong sàng lọc trầm cảm từ dữ liệu khảo sát và các kỹ thuật xử lý mất cân bằng lớp.
+
+\begin{table}{Tổng hợp so sánh các nghiên cứu liên quan}
+\centering
+\small
+\label{tab:related-works}
+\begin{tabularx}{\textwidth}{p{3.2cm} p{2.8cm} p{3.2cm} p{2.5cm} X}
+\toprule
+\textbf{Tác giả \& Năm} & \textbf{Tập dữ liệu} & \textbf{Phương pháp ML} & \textbf{Nhiệm vụ} & \textbf{Hạn chế chính} \\
+\midrule
+Kroenke et al. (2001) \cite{kroenke2001phq} & Lâm sàng sơ cấp (Primary Care) & Thống kê tâm trắc học & Đánh giá thang đo PHQ-9 & Chỉ dùng bảng câu hỏi, không có dữ liệu sinh lý khách quan. \\
+\addlinespace
+Pratt et al. (2014) \cite{pratt1991discriminant} & NHANES 2009--2012 & Phân tích dịch tễ học mô tả & Khảo sát tỷ lệ trầm cảm & Báo cáo dịch tễ học, không xây dựng mô hình dự đoán. \\
+\addlinespace
+He \& Garcia (2009) \cite{he2009learning} & Chuẩn benchmark học máy & Khảo sát kỹ thuật Imbalanced Learning & Phân loại mất cân bằng & Nghiên cứu lý thuyết tổng quát, không áp dụng cho y tế dạng bảng. \\
+\addlinespace
+Frank \& Hall (2001) \cite{frank2001simple} & UCI Machine Learning & Cumulative Binary Decomposition & Phân loại thứ bậc tổng quát & Nguy cơ vi phạm đơn điệu khi các mô hình nhị phân độc lập. \\
+\addlinespace
+Silla \& Freitas (2011) \cite{silla2011survey} & Tổng quan nhiều miền & Khảo sát Hierarchical Classification & Phân loại phân cấp cây & Chủ yếu tập trung vào phân loại văn bản và sinh học phân tử. \\
+\addlinespace
+\textbf{DepSev-ML (Nghiên cứu này)} & \textbf{NHANES 2011--2016 ($N=14.581$)} & \textbf{RF, Hard/Soft Hierarchical, Cost-Sensitive, Ordinal LR} & \textbf{Đa mức độ $T_2$--$T_5$ từ dữ liệu sinh lý} & \textbf{Trần hiệu năng Macro-F1 do tương quan sinh lý vừa phải.} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Qua tổng quan nghiên cứu, có thể nhận thấy các công trình trước đây hoặc chỉ tập trung vào phân loại nhị phân thô ($T_2$), hoặc sử dụng bảng câu hỏi mà thiếu vắng các chỉ số sinh lý khách quan, hoặc áp dụng các kỹ thuật phân cấp/thứ bậc một cách riêng rẽ mà chưa có một khảo sát thực nghiệm đối chứng toàn diện trên cùng một tập dữ liệu y tế chuẩn mực. Khung làm việc DepSev-ML được thiết kế để lấp đầy khoảng trống nghiên cứu này.
+\cleardoublepage
+

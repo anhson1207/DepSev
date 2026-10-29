@@ -1,0 +1,2 @@
+SEQN,variable,module,kaggle_value,official_read_sas_value,note
+73756,PAQ665,PAQ_H,1.0,2.0,"Actual source-value mismatch, not an IBM-zero reader artifact. Both datasets remain unchanged."

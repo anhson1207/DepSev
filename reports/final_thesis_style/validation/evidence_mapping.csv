@@ -1,0 +1,67 @@
+Thesis_Section,Table_or_Figure,Metric_or_Claim,Reported_Value,Source_File,Source_Field_or_Row,Verification_Status
+Chapter 3,Table 3.1,Legacy Development Sample Size,"N = 4,045",results/tables/data_summary.csv,"Development cohort total",VERIFIED_EXACT
+Chapter 3,Table 3.1,Multi-cycle Single Cohort A,"N = 4,888",results/tables/multicycle_cohort_sizes.csv,"Cycle 2013-2014 total",VERIFIED_EXACT
+Chapter 3,Table 3.1,Multi-cycle Pooled Cohort B,"N = 9,693",results/tables/multicycle_cohort_sizes.csv,"Cycle 2011-2014 pooled",VERIFIED_EXACT
+Chapter 3,Table 3.1,Multi-cycle Cross-temporal Dev Cohort C,"N = 9,693",results/tables/multicycle_cohort_sizes.csv,"Train 2011-2014 pooled",VERIFIED_EXACT
+Chapter 3,Table 3.1,Multi-cycle Temporal Test Cohort D Raw,"N = 4,888",results/tables/multicycle_cohort_sizes.csv,"Cycle 2015-2016 raw",VERIFIED_EXACT
+Chapter 3,Table 3.1,Multi-cycle Temporal Test Cohort D Clean,"N = 4,630",results/tables/multicycle_results.csv,"Cycle 2015-2016 complete cases",VERIFIED_EXACT
+Chapter 3,Table 3.2,Legacy Target C0 count,"3,016 (74.56%)",results/tables/class_distribution.csv,"Target T5 - C0",VERIFIED_EXACT
+Chapter 3,Table 3.2,Legacy Target C1 count,"638 (15.77%)",results/tables/class_distribution.csv,"Target T5 - C1",VERIFIED_EXACT
+Chapter 3,Table 3.2,Legacy Target C2 count,"243 (6.01%)",results/tables/class_distribution.csv,"Target T5 - C2",VERIFIED_EXACT
+Chapter 3,Table 3.2,Legacy Target C3 count,"104 (2.57%)",results/tables/class_distribution.csv,"Target T5 - C3",VERIFIED_EXACT
+Chapter 3,Table 3.2,Legacy Target C4 count,"44 (1.09%)",results/tables/class_distribution.csv,"Target T5 - C4",VERIFIED_EXACT
+Chapter 3,Section 3.3,Feature Set F1 count,10 features,artifacts/feature_manifest.json,"feature_sets.F1",VERIFIED_EXACT
+Chapter 3,Section 3.3,Feature Set F2 count,19 features,artifacts/feature_manifest.json,"feature_sets.F2",VERIFIED_EXACT
+Chapter 3,Section 3.3,Feature Set F3 count,29 features,artifacts/feature_manifest.json,"feature_sets.F3",VERIFIED_EXACT
+Chapter 3,Section 3.3,Feature Set F4 count,34 features,artifacts/feature_manifest.json,"feature_sets.F4",VERIFIED_EXACT
+Chapter 4,Table 4.1,Ablation F1 XGBoost Macro-F1,"0.2173 ± 0.0147",results/tables/feature_ablation_results_final_protocol.csv,"F1, XGBoost, macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.1,Ablation F2 XGBoost Macro-F1,"0.2447 ± 0.0143",results/tables/feature_ablation_results_final_protocol.csv,"F2, XGBoost, macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.1,Ablation F3 XGBoost Macro-F1,"0.2588 ± 0.0402",results/tables/feature_ablation_results_final_protocol.csv,"F3, XGBoost, macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.1,Ablation F4 XGBoost Macro-F1,"0.2476 ± 0.0270",results/tables/feature_ablation_results_final_protocol.csv,"F4, XGBoost, macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.1,Ablation F4 RF Macro-F1,"0.2232 ± 0.0188",results/tables/feature_ablation_results_final_protocol.csv,"F4, Random Forest, macro_f1",VERIFIED_EXACT
+Chapter 4,Section 4.3,Nested Tuning RF/F4 Macro-F1,"0.2755 ± 0.0270",results/nested_cv_tuning_report.md,"Outer CV Macro-F1 RF",VERIFIED_EXACT
+Chapter 4,Section 4.3,Ensemble Soft Voting Macro-F1,0.2536,results/tables/ensemble_results.csv,"Soft Voting row",VERIFIED_EXACT
+Chapter 4,Section 4.3,Ensemble Stacking Macro-F1,0.2372,results/tables/ensemble_results.csv,"Stacking Classifier row",VERIFIED_EXACT
+Chapter 4,Table 4.2,Granularity T2 Macro-F1,0.6639,results/tables/granularity_results.csv,"Target T2 row",VERIFIED_EXACT
+Chapter 4,Table 4.2,Granularity T3 Macro-F1,0.4354,results/tables/granularity_results.csv,"Target T3 row",VERIFIED_EXACT
+Chapter 4,Table 4.2,Granularity T4 Macro-F1,0.3380,results/tables/granularity_results.csv,"Target T4 row",VERIFIED_EXACT
+Chapter 4,Table 4.2,Granularity T5 Macro-F1,0.2630,results/tables/granularity_results.csv,"Target T5 row",VERIFIED_EXACT
+Chapter 4,Table 4.3,Multi-cycle Branch A Macro-F1,0.2634,results/tables/multicycle_results.csv,"Branch A row",VERIFIED_EXACT
+Chapter 4,Table 4.3,Multi-cycle Branch B Macro-F1,0.2619,results/tables/multicycle_results.csv,"Branch B row",VERIFIED_EXACT
+Chapter 4,Table 4.3,Multi-cycle Branch C Macro-F1,0.2619,results/tables/multicycle_results.csv,"Branch C row",VERIFIED_EXACT
+Chapter 4,Table 4.3,Multi-cycle Branch D Macro-F1,0.2312,results/tables/multicycle_results.csv,"Branch D row",VERIFIED_EXACT
+Chapter 4,Table 4.4,T3 Hard RF Stage 1 Balanced Acc,0.7061,results/tables/hierarchical_stage_results.csv,"Stage 1 RF row",VERIFIED_EXACT
+Chapter 4,Table 4.4,T3 Hard RF Stage 2 Oracle Acc,0.5662,results/tables/hierarchical_stage_results.csv,"Stage 2 RF Oracle row",VERIFIED_EXACT
+Chapter 4,Table 4.4,T3 Hard RF Stage 2 Routed Acc,0.5272,results/tables/hierarchical_stage_results.csv,"Stage 2 RF Routed row",VERIFIED_EXACT
+Chapter 4,Table 4.5,E0 vs E1 Macro-F1 Fold 0,"0.4437 vs 0.4682",experiments/hierarchical_t3/fold_metrics_e0_e1.csv,"Fold 0 (E1 wins)",VERIFIED_EXACT
+Chapter 4,Table 4.5,E0 vs E1 Macro-F1 Fold 1,"0.4284 vs 0.4665",experiments/hierarchical_t3/fold_metrics_e0_e1.csv,"Fold 1 (E1 wins)",VERIFIED_EXACT
+Chapter 4,Table 4.5,E0 vs E1 Macro-F1 Fold 2,"0.4485 vs 0.4608",experiments/hierarchical_t3/fold_metrics_e0_e1.csv,"Fold 2 (E1 wins)",VERIFIED_EXACT
+Chapter 4,Table 4.5,E0 vs E1 Macro-F1 Fold 3,"0.4497 vs 0.4357",experiments/hierarchical_t3/fold_metrics_e0_e1.csv,"Fold 3 (E0 wins)",VERIFIED_EXACT
+Chapter 4,Table 4.5,E0 vs E1 Macro-F1 Fold 4,"0.4069 vs 0.4436",experiments/hierarchical_t3/fold_metrics_e0_e1.csv,"Fold 4 (E1 wins)",VERIFIED_EXACT
+Chapter 4,Table 4.6,E0 Flat RF Macro-F1,0.4354,experiments/hierarchical_t3/e0_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E0 Flat RF Balanced Accuracy,0.4667,experiments/hierarchical_t3/e0_metrics.json,"balanced_accuracy",VERIFIED_EXACT
+Chapter 4,Table 4.6,E0 Flat RF Accuracy,64.10%,experiments/hierarchical_t3/e0_metrics.json,"accuracy",VERIFIED_EXACT
+Chapter 4,Table 4.6,E1 Hard RF-RF Macro-F1,0.4550,experiments/hierarchical_t3/e1_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E1 Hard RF-RF Balanced Accuracy,0.4745,experiments/hierarchical_t3/e1_metrics.json,"balanced_accuracy",VERIFIED_EXACT
+Chapter 4,Table 4.6,E1 Hard RF-RF Accuracy,68.08%,experiments/hierarchical_t3/e1_metrics.json,"accuracy",VERIFIED_EXACT
+Chapter 4,Table 4.6,E2 Hard Tuned Macro-F1,0.4586,experiments/hierarchical_t3/e2_metrics.json,"macro_f1 (Highest Macro-F1)",VERIFIED_EXACT
+Chapter 4,Table 4.6,E2 Hard Tuned Balanced Accuracy,0.4902,experiments/hierarchical_t3/e2_metrics.json,"balanced_accuracy",VERIFIED_EXACT
+Chapter 4,Table 4.6,E3a Hard RF-LR Macro-F1,0.4567,experiments/hierarchical_t3/e3a_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E3b Hard RF-XGB Macro-F1,0.4533,experiments/hierarchical_t3/e3b_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E4 Soft RF-RF Argmax Macro-F1,0.4206,experiments/soft_hierarchical_t3/e4_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E4 Soft RF-RF Accuracy,73.75%,experiments/soft_hierarchical_t3/e4_metrics.json,"accuracy",VERIFIED_EXACT
+Chapter 4,Table 4.6,E5 Soft RF-LR Argmax Macro-F1,0.4270,experiments/soft_hierarchical_t3/e5_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E6a Soft Cost L1 Macro-F1,0.4503,experiments/soft_hierarchical_t3/e6a_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E6b Soft Cost M1 Macro-F1,0.4521,experiments/soft_hierarchical_t3/e6b_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E6b Soft Cost M1 C2+ to C0 Misses,62 cases,experiments/soft_hierarchical_t3/e6b_confusion_matrix.csv,"Confusion matrix [2, 0]",VERIFIED_EXACT
+Chapter 4,Table 4.6,E7a Ordinal LogReg Unweighted Acc,75.23%,experiments/ordinal_t3/e7a_unweighted_metrics.json,"accuracy (Highest Accuracy)",VERIFIED_EXACT
+Chapter 4,Table 4.6,E7a Ordinal LogReg Unweighted Class MAE,0.3377,experiments/ordinal_t3/e7a_unweighted_metrics.json,"class_mae (Lowest MAE)",VERIFIED_EXACT
+Chapter 4,Table 4.6,E7a Ordinal LogReg Balanced Macro-F1,0.4518,experiments/ordinal_t3/e7a_balanced_metrics.json,"macro_f1",VERIFIED_EXACT
+Chapter 4,Table 4.6,E7a Ordinal LogReg Balanced BalAcc,0.5151,experiments/ordinal_t3/e7a_balanced_metrics.json,"balanced_accuracy (Highest BalAcc)",VERIFIED_EXACT
+Chapter 4,Table 4.6,E7a Ordinal LogReg Balanced Recall C2+,60.37%,experiments/ordinal_t3/e7a_balanced_metrics.json,"recall_c2_plus",VERIFIED_EXACT
+Chapter 4,Section 4.7,E7a Temporal Branch D Balanced Acc,0.5073,experiments/ordinal_t3/temporal_e7a_balanced_metrics.json,"balanced_accuracy",VERIFIED_EXACT
+Chapter 4,Section 4.7,E7b CumBin Monotonicity Violations,19.53%,experiments/ordinal_t3/e7b_monotonicity_violations.json,"violation_percentage",VERIFIED_EXACT
+Chapter 4,Section 4.8,Majority Class Predictor Accuracy,74.56%,results/tables/class_distribution.csv,"3016 / 4045 = 74.56%",VERIFIED_EXACT
+Chapter 4,Section 4.8,Majority Class Predictor Macro-F1,0.2848,derived,"1/3 * (2 * 0.7456 / (1 + 0.7456)) = 0.2848",VERIFIED_EXACT
+Chapter 4,Section 4.8,Majority Class Predictor BalAcc,0.3333,derived,"(1 + 0 + 0) / 3 = 0.3333",VERIFIED_EXACT
+

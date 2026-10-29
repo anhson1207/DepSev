@@ -1,0 +1,40 @@
+{
+  "experiment": "hierarchical_t3_evaluation",
+  "started_utc": "2026-10-27T13:53:29.595038+00:00",
+  "completed_utc": "2026-10-27T13:55:13.142600+00:00",
+  "duration_seconds": 103.547562,
+  "python_version": "3.13.7 (main, Aug 14 2025, 11:12:11) [Clang 16.0.0 (clang-1600.0.26.6)]",
+  "legacy_development_n": 4045,
+  "models_evaluated": [
+    "E0_Flat_RF",
+    "E1_Hierarchical_RF",
+    "E2_Hierarchical_RF_OptThresh",
+    "E3a_Hierarchical_RF_LR",
+    "E3b_Hierarchical_RF_XGB"
+  ],
+  "multicycle_evaluated": true,
+  "files_generated": [
+    "experiments/hierarchical_t3/outputs/model_comparison.csv",
+    "experiments/hierarchical_t3/outputs/error_propagation_analysis.csv",
+    "experiments/hierarchical_t3/outputs/threshold_optimization.csv",
+    "experiments/hierarchical_t3/outputs/oof_predictions.csv",
+    "experiments/hierarchical_t3/outputs/multicycle_fold_metrics.csv",
+    "experiments/hierarchical_t3/outputs/stage_metrics.csv",
+    "experiments/hierarchical_t3/outputs/fold_metrics.csv",
+    "experiments/hierarchical_t3/outputs/multicycle_comparison.csv",
+    "experiments/hierarchical_t3/outputs/figures/error_propagation_breakdown.png",
+    "experiments/hierarchical_t3/outputs/figures/legacy_model_comparison.png",
+    "experiments/hierarchical_t3/outputs/figures/multicycle_e0_vs_e1.png",
+    "experiments/hierarchical_t3/outputs/figures/per_class_tradeoffs.png",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E1_Hierarchical_RF_confusion_matrix.csv",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E2_Hierarchical_RF_OptThresh_confusion_matrix.csv",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E3b_Hierarchical_RF_XGB_confusion.png",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E3a_Hierarchical_RF_LR_confusion.png",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E0_Flat_RF_confusion_matrix.csv",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E3a_Hierarchical_RF_LR_confusion_matrix.csv",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E3b_Hierarchical_RF_XGB_confusion_matrix.csv",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E2_Hierarchical_RF_OptThresh_confusion.png",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E1_Hierarchical_RF_confusion.png",
+    "experiments/hierarchical_t3/outputs/confusion_matrices/E0_Flat_RF_confusion.png"
+  ]
+}

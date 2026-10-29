@@ -1,0 +1,4 @@
+cycle,cohort_n,SMQ040_raw_missing_n,SMQ040_structural_under100_n,ALQ130_raw_missing_n,ALQ130_valid_ge15_n,ALQ130_valid_gt15_changed_n,quantity_observed_n,quantity_not_applicable_n,quantity_unknown_n,quantity_nonresponse_n
+2011_2012,4639,2605,2601,1506,23,17,3129,1498,3,9
+2013_2014,5054,2845,2843,1614,17,12,3437,1609,2,6
+2015_2016,4888,2785,2779,1646,20,0,3238,1641,1,8
