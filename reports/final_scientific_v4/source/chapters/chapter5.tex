@@ -1,0 +1,45 @@
+\chapter{Kết luận và hướng phát triển}
+\label{ch:ket-luan}
+
+\section{Kết luận khoa học}
+\label{sec:ket-luan-khoa-hoc}
+
+Báo cáo dự án khoa học đã nghiên cứu, xây dựng và đánh giá thực nghiệm toàn diện khung học máy \textbf{DepSev-ML} cho bài toán dự đoán mức độ triệu chứng trầm cảm từ dữ liệu sinh lý và cận lâm sàng dạng bảng trong Khảo sát Kiểm tra Sức khỏe và Dinh dưỡng Quốc gia Hoa Kỳ (NHANES). Thông qua quy trình thực nghiệm nghiêm ngặt có kiểm soát rò rỉ dữ liệu (Zero Data Leakage), nghiên cứu đã giải đáp thỏa đáng năm câu hỏi khoa học trọng tâm:
+
+\begin{enumerate}
+    \item \textbf{Về đóng góp của các nhóm đặc trưng (RQ1):} Các chỉ số thể chất và xét nghiệm hóa sinh máu đơn thuần ($F_1$) chỉ mang lại hiệu năng dự đoán khiêm tốn (Macro-F1 $\approx 0.19$--$0.21$). Việc bổ sung tiền sử bệnh lý mạn tính ($F_2$) tạo ra bước nhảy vọt lớn nhất (+12.6\% đến +23.1\% Macro-F1), kết hợp cùng hành vi lối sống ($F_3$) và nhân khẩu học ($F_4$) nâng hiệu năng lên mức trần Macro-F1 = \textbf{0.2707}.
+    \item \textbf{Về quy luật suy giảm theo độ chi tiết nhãn (RQ2):} Hiệu năng phân loại suy giảm mạnh khi số lượng lớp tăng từ $T_2$ (Macro-F1 = 0.6639) xuống $T_5$ (Macro-F1 = 0.2630). Bước sụt giảm nghiêm trọng nhất xảy ra ngay khi chuyển từ 2 lớp sang 3 lớp do lớp triệu chứng nhẹ $C_1$ bị tách khỏi lớp bình thường $C_0$ trong khi các đặc trưng sinh lý hoàn toàn chồng lấn.
+    \item \textbf{Về tác động của mở rộng dữ liệu đa chu kỳ (RQ3):} Mở rộng cỡ mẫu gấp 3.6 lần (từ $N = 4.045$ lên $N = 14.581$) trên 3 chu kỳ NHANES chỉ giúp ổn định nhẹ Balanced Accuracy (0.2841 lên 0.3076) nhưng không cải thiện Macro-F1 nhất quán, chứng minh rằng sự suy thoái xuất phát từ giới hạn thông tin nội tại của dữ liệu sinh lý ngoại vi chứ không phải do thiếu hụt cỡ mẫu.
+    \item \textbf{Về hiệu quả của phân loại phân cấp (RQ4):} Mô hình phân cấp cứng cải thiện nhẹ Macro-F1 lên 0.4550 nhưng làm phát sinh điểm nghẽn nghiêm trọng khi loại bỏ nhầm 120 ca nặng quy ước ($C_2^+$) ngay từ Giai đoạn 1 do hiện tượng lan truyền sai số một chiều.
+    \item \textbf{Về khả năng của Soft, Cost-Sensitive và Ordinal Classification (RQ5):} Mô hình phân cấp mềm kết hợp tối ưu chi phí Bayes ($E_{6b}$) đã giải quyết triệt để điểm nghẽn, giúp giảm 74.2\% số ca bỏ sót nặng (từ 120 ca xuống còn 31 ca). Đồng thời, mô hình Hồi quy Logistic thứ bậc cân bằng ($E_{7a}$) đạt Balanced Accuracy cao nhất toàn nghiên cứu (\textbf{0.5151}) và duy trì sự ổn định vượt trội khi kiểm định ngoại suy trên chu kỳ tương lai độc lập NHANES 2015--2016 (\textbf{0.5073}).
+\end{enumerate}
+
+\section{Đóng góp của đề tài}
+\label{sec:dong-gop-de-tai}
+
+\begin{enumerate}
+    \item \textbf{Về mặt phương pháp luận khoa học:} Xây dựng một framework thực nghiệm chuẩn mực, minh bạch, có kiểm định chéo lồng nhau nghiêm ngặt (Nested 5-Fold CV) và tuyệt đối không rò rỉ dữ liệu y sinh.
+    \item \textbf{Về mặt thực nghiệm và phân tích dữ liệu:} Cung cấp bằng chứng thực nghiệm rõ ràng về trần hiệu năng và nguyên nhân chồng lấn phân phối sinh lý học giữa các mức độ trầm cảm trên dữ liệu cộng đồng; làm sáng tỏ sự khác biệt bản chất giữa định tuyến cứng và định tuyến mềm.
+    \item \textbf{Về mặt ứng dụng lâm sàng:} Đưa ra giải pháp lượng hóa sự đánh đổi an toàn y tế thông qua ma trận chi phí Bayes, cung cấp công cụ linh hoạt cho các chuyên gia y tế công cộng trong việc cân đối giữa tỷ lệ bỏ sót ca bệnh nặng và gánh nặng báo động nhầm.
+\end{enumerate}
+
+\section{Những hạn chế của nghiên cứu}
+\label{sec:han-che-nghien-cuu}
+
+Nghiên cứu tồn tại những giới hạn khách quan cần được nhìn nhận thẳng thắn:
+\begin{enumerate}
+    \item \textbf{Bản chất dữ liệu khảo sát cắt ngang (Cross-sectional):} Dữ liệu NHANES thu thập tại một thời điểm duy nhất, không phản ánh được diễn tiến theo thời gian (longitudinal changes) của các chỉ số sinh lý trong quá trình khởi phát và hồi phục trầm cảm.
+    \item \textbf{Tính chất gián tiếp của tín hiệu sinh lý ngoại vi:} Các xét nghiệm máu và dấu hiệu sinh tồn ngoại vi chỉ phản ánh các rối loạn chuyển hóa toàn thân thứ phát, không thể đo lường trực tiếp hoạt động thần kinh trung ương như hình ảnh học chức năng não (fMRI) hay điện não đồ (EEG).
+    \item \textbf{Độ nhiễu của thang đo tự báo cáo:} Nhãn mục tiêu dựa trên PHQ-9 tự điền vẫn chịu ảnh hưởng bởi cảm xúc chủ quan và độ trung thực của người tham gia khảo sát.
+\end{enumerate}
+
+\section{Hướng phát triển trong tương lai}
+\label{sec:huong-phat-trien}
+
+Nhằm khắc phục các hạn chế trên, các hướng nghiên cứu tiếp theo bao gồm:
+\begin{enumerate}
+    \item \textbf{Tích hợp dữ liệu đa phương thức (Multimodal Fusion):} Kết hợp các chỉ số sinh lý dạng bảng với tín hiệu âm thanh giọng nói, biểu cảm khuôn mặt và văn bản tự sự nhằm tăng cường độ phân giải thông tin.
+    \item \textbf{Khai thác dữ liệu chuỗi thời gian liên tục từ thiết bị đeo (Wearable Sensors):} Thu thập dữ liệu nhịp tim liên tục (PPG), độ biến thiên nhịp tim (HRV), gia tốc kế vận động và chất lượng giấc ngủ theo thời gian thực để phát hiện sớm các biến động tâm lý.
+    \item \textbf{Mở rộng các mô hình học máy thứ bậc sâu (Deep Ordinal Neural Networks):} Phát triển các kiến trúc mạng nơ-ron học thứ bậc trực tiếp với các hàm mất mát nhạy chi phí tùy biến và tích hợp các phương pháp giải thích mô hình (XAI) hỗ trợ quyết định lâm sàng.
+\end{enumerate}
+

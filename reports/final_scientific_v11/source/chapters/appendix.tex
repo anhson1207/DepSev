@@ -1,0 +1,80 @@
+\chapter{Danh mục chi tiết 34 đặc trưng NHANES}
+\label{app:feature-inventory}
+
+Bảng \ref{tab:feature-inventory} trình bày đầy đủ danh mục 34 biến số đầu vào trong không gian đặc trưng $F_4$, bao gồm mã định danh của CDC NHANES, tên biến, kiểu dữ liệu và mô tả lâm sàng tương ứng.
+
+\input{tables/table_feature_inventory}
+
+\chapter{Cấu hình siêu tham số mô hình}
+\label{app:hyperparameters}
+
+\section{Cấu hình Random Forest cố định}
+Mô hình cơ sở chính của nghiên cứu sử dụng thuật toán Random Forest với cấu hình siêu tham số xác định từ quy trình Nested Cross-Validation:
+\begin{itemize}
+    \item Số lượng cây quyết định (\textnormal{n\_estimators}): 150 cây.
+    \item Độ sâu tối đa của cây (\textnormal{max\_depth}): 8 tầng.
+    \item Tỷ lệ đặc trưng lấy mẫu ngẫu nhiên (\textnormal{max\_features}): 0.5 (50\% số đặc trưng).
+    \item Số lượng mẫu tối thiểu để phân nhánh (\textnormal{min\_samples\_split}): 10 mẫu.
+    \item Số lượng mẫu tối thiểu tại nút lá (\textnormal{min\_samples\_leaf}): 8 mẫu.
+    \item Cơ chế trọng số lớp (\textnormal{class\_weight}): \textnormal{'balanced\_subsample'}.
+    \item Tiêu chuẩn chia nhánh (\textnormal{criterion}): Chỉ số Gini (\textnormal{'gini'}).
+    \item Hạt giống ngẫu nhiên (\textnormal{random\_state}): Cố định 42.
+\end{itemize}
+
+\section{Cấu hình các mô hình cơ sở khác}
+\begin{itemize}
+    \item \textbf{Logistic Regression (LR):} Chuẩn hóa $L_2$, thuật toán tối ưu lbfgs, số vòng lặp tối đa 1.000, tham số điều hòa $C = 1.0$, \textnormal{class\_weight = 'balanced'}.
+    \item \textbf{XGBoost (XGB):} \textnormal{n\_estimators = 100, max\_depth = 4, learning\_rate = 0.05, subsample = 0.8, colsample\_bytree = 0.8}.
+    \item \textbf{Ordinal Logistic Regression (OLR):} Tối ưu hóa hàm hợp lý logarit qua SciPy minimize với thuật toán L-BFGS-B, dung sai hội tụ $10^{-6}$, khởi tạo các ngưỡng cắt đơn điệu bằng phân vị mẫu.
+\end{itemize}
+
+\FloatBarrier
+\chapter{Kết quả chi tiết theo Fold của Nested Cross-Validation}
+\label{app:fold-results}
+\suppressfloats[t]
+
+Bảng \ref{tab:app-fold-results} tổng hợp chi tiết Macro-F1 trên từng fold kiểm tra ngoài mẫu (Outer Folds) của 4 thuật toán trên tập Legacy Development ($N = 4.045$, bài toán 5 mức $T_5$, không gian đặc trưng $F_4$), trích xuất từ dữ liệu lưu trữ tại \textnormal{nested\_cv\_baseline\_comparison.csv}.
+
+\begin{table}{Chi tiết hiệu năng Macro-F1 theo từng Outer Fold trên không gian $F_4$ ($T_5$)}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\label{tab:app-fold-results}
+\begin{tabularx}{\textwidth}{l *{6}{>{\centering\arraybackslash}X}}
+\toprule
+\textbf{Mô hình} & \textbf{Fold 1} & \textbf{Fold 2} & \textbf{Fold 3} & \textbf{Fold 4} & \textbf{Fold 5} & \textbf{Trung bình $\pm$ SD} \\
+\midrule
+Logistic Regression & 0.2599 & 0.2198 & 0.2566 & 0.2382 & 0.2292 & 0.2407 $\pm$ 0.0173 \\
+Decision Tree       & 0.2538 & 0.2404 & 0.2634 & 0.2239 & 0.2245 & 0.2412 $\pm$ 0.0175 \\
+XGBoost (Tuned)     & 0.3017 & 0.2207 & 0.2925 & 0.2341 & 0.2615 & 0.2621 $\pm$ 0.0353 \\
+\textbf{Random Forest (Frozen)} & 0.3111 & 0.2615 & 0.2936 & 0.2425 & 0.2690 & \textbf{0.2755 $\pm$ 0.0270} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+\FloatBarrier
+
+\chapter{Các biến thể Ma trận Chi phí và Giải thuật CBC}
+\label{app:cost-matrices}
+
+\section{Bốn ma trận chi phí Bayes khảo sát trong nghiên cứu}
+Nghiên cứu khảo sát 4 ma trận chi phí bất đối xứng $\mathbf{C} \in \mathbb{R}^{3 \times 3}$, trong đó phần tử $\mathbf{C}(i, j)$ định nghĩa chi phí phạt khi mẫu có nhãn thực tế là lớp $i$ nhưng bị mô hình dự đoán nhầm thành lớp $j$ ($i, j \in \{0, 1, 2\}$, tương ứng với $\{C_0, C_1, C_2^+\}$):
+\begin{itemize}
+    \item \textbf{Ma trận đồng nhất $M_0$ (Uniform Cost / tương đương 0--1 loss):} Chi phí phạt mọi lỗi sai đều bằng 1: $\mathbf{C}(i, j) = 1.0$ với $i \ne j$, và $\mathbf{C}(i, i) = 0$.
+    \item \textbf{Ma trận lâm sàng vừa phải $M_1$ (Moderate Penalty):} Phạt lỗi bỏ sót ca nặng sang bình thường $\mathbf{C}(2, 0) = 3.0$; phạt lỗi nhầm nặng sang nhẹ $\mathbf{C}(2, 1) = 1.5$; lỗi nhầm nhẹ sang bình thường $\mathbf{C}(1, 0) = 1.5$; báo động nhầm nặng $\mathbf{C}(0, 2) = 1.5$. Các lỗi phân loại sai khác giữ mức 1.0.
+    \item \textbf{Ma trận lâm sàng tăng cường $M_2$ (High Penalty):} Tăng mức phạt bảo vệ ca nặng với $\mathbf{C}(2, 0) = 5.0$; $\mathbf{C}(2, 1) = 2.0$; $\mathbf{C}(1, 0) = 2.0$; $\mathbf{C}(0, 2) = 2.0$.
+    \item \textbf{Ma trận lâm sàng tối đa $M_3$ (Extreme Penalty):} Ưu tiên cao nhất cho việc tránh bỏ sót ca nặng với $\mathbf{C}(2, 0) = 8.0$; $\mathbf{C}(2, 1) = 3.0$; $\mathbf{C}(1, 0) = 2.5$; $\mathbf{C}(0, 2) = 2.5$.
+\end{itemize}
+
+\section{Giải thuật hiệu chỉnh tính đơn điệu trong Cumulative Binary Classification}
+Trong giải thuật phân loại nhị phân tích lũy ($E_{7b}$), hai bộ phân loại nhị phân độc lập dự đoán xác suất vượt ngưỡng:
+\begin{align}
+    \hat{P}_1 &= P(Y \ge 1 \mid \mathbf{x}) \\
+    \hat{P}_2 &= P(Y \ge 2 \mid \mathbf{x})
+\end{align}
+Về mặt lý thuyết xác suất thứ bậc, điều kiện đơn điệu đòi hỏi $\hat{P}_1 \ge \hat{P}_2$ với mọi $\mathbf{x}$. Tuy nhiên, do hai mô hình được huấn luyện riêng biệt, hiện tượng vi phạm đơn điệu $\hat{P}_2 > \hat{P}_1$ xuất hiện trên thực nghiệm (chiếm 19.53\% ở mô hình Logistic Regression và 5.32\% ở mô hình Random Forest). 
+
+Giải thuật hiệu chỉnh đơn điệu (Isotonic Probability Clipping) được áp dụng khi xuất hiện vi phạm:
+\begin{equation}
+    \tilde{P}_2 = \min\left(\hat{P}_1, \hat{P}_2\right)
+\end{equation}
+Khi đó, xác suất suy luận của lớp trung gian $P(C_1 \mid \mathbf{x}) = \hat{P}_1 - \tilde{P}_2 \ge 0$ được bảo đảm không âm về mặt giải tích. Tuy nhiên, tại các điểm xảy ra vi phạm, phép cắt này gán $\tilde{P}_2 = \hat{P}_1$, dẫn đến $P(C_1 \mid \mathbf{x}) = 0$, gây ra hiện tượng suy giảm độ nhạy của lớp trung gian $C_1$ (Recall $C_1 \approx 0\%$) như quan sát được trên thực nghiệm.

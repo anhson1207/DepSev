@@ -1,0 +1,63 @@
+\chapter{Phụ lục tra cứu kỹ thuật}
+\label{ch:phu-luc}
+
+\section{Danh mục 34 biến số trong không gian đặc trưng $F_4$}
+\label{sec:app-feature-inventory}
+
+Bảng \ref{tab:feature-inventory} trình bày đầy đủ danh mục 34 biến số đầu vào trong không gian đặc trưng $F_4$, bao gồm mã định danh của CDC NHANES, tên biến, kiểu dữ liệu và mô tả lâm sàng tương ứng.
+
+\input{tables/table_feature_inventory}
+
+\section{Cấu hình siêu tham số mô hình}
+\label{sec:app-hyperparameters}
+
+Mô hình cơ sở Random Forest sử dụng cấu hình siêu tham số xác định từ quy trình Nested Cross-Validation:
+\begin{itemize}
+    \item Số lượng cây quyết định (\textnormal{n\_estimators}): 150 cây.
+    \item Độ sâu tối đa của cây (\textnormal{max\_depth}): 8 tầng.
+    \item Tỷ lệ đặc trưng lấy mẫu ngẫu nhiên (\textnormal{max\_features}): 0.5 (50\% số đặc trưng).
+    \item Số lượng mẫu tối thiểu để phân nhánh (\textnormal{min\_samples\_split}): 10 mẫu; tại nút lá (\textnormal{min\_samples\_leaf}): 8 mẫu.
+    \item Cơ chế trọng số lớp: \textnormal{'balanced\_subsample'}; Tiêu chuẩn chia nhánh: chỉ số Gini.
+\end{itemize}
+
+Cấu hình các mô hình cơ sở khác:
+\begin{itemize}
+    \item \textit{Logistic Regression (LR):} Chuẩn hóa $L_2$, thuật toán tối ưu lbfgs, tham số điều hòa $C = 1.0$, trọng số lớp balanced.
+    \item \textit{XGBoost (XGB):} \textnormal{n\_estimators = 100, max\_depth = 4, learning\_rate = 0.05, subsample = 0.8, colsample\_bytree = 0.8}.
+    \item \textit{Ordinal Logistic Regression (OLR):} Tối ưu hóa hàm hợp lý logarit qua SciPy minimize với thuật toán L-BFGS-B, khởi tạo các ngưỡng cắt đơn điệu bằng phân vị mẫu.
+\end{itemize}
+
+\section{Kết quả chi tiết theo Fold của kiểm định chéo lồng nhau}
+\label{sec:app-fold-results}
+
+Bảng \ref{tab:app-fold-results} tổng hợp Macro-F1 trên từng fold kiểm tra ngoài mẫu (Outer Folds) của 4 thuật toán trên bài toán 5 mức $T_5$ ($F_4$).
+
+\begin{table}[htbp]{Chi tiết hiệu năng Macro-F1 theo từng Outer Fold trên không gian $F_4$ ($T_5$).}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\label{tab:app-fold-results}
+\begin{tabularx}{\textwidth}{l *{6}{>{\centering\arraybackslash}X}}
+\toprule
+\textbf{Mô hình} & \textbf{Fold 1} & \textbf{Fold 2} & \textbf{Fold 3} & \textbf{Fold 4} & \textbf{Fold 5} & \textbf{Trung bình $\pm$ SD} \\
+\midrule
+Logistic Regression & 0.2599 & 0.2198 & 0.2566 & 0.2382 & 0.2292 & 0.2407 $\pm$ 0.0173 \\
+Decision Tree       & 0.2538 & 0.2404 & 0.2634 & 0.2239 & 0.2245 & 0.2412 $\pm$ 0.0175 \\
+XGBoost (Tuned)     & 0.3017 & 0.2207 & 0.2925 & 0.2341 & 0.2615 & 0.2621 $\pm$ 0.0353 \\
+Random Forest (Frozen) & 0.3111 & 0.2615 & 0.2936 & 0.2425 & 0.2690 & 0.2755 $\pm$ 0.0270 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Bốn ma trận chi phí Bayes và giải thuật hiệu chỉnh đơn điệu}
+\label{sec:app-cost-matrices}
+
+Nghiên cứu khảo sát 4 ma trận chi phí bất đối xứng $\mathbf{C} \in \mathbb{R}^{3 \times 3}$:
+\begin{itemize}
+    \item \textit{Ma trận đồng nhất $M_0$:} $\mathbf{C}(i, j) = 1.0$ với $i \ne j$, và $\mathbf{C}(i, i) = 0$.
+    \item \textit{Ma trận lâm sàng $M_1$ (Phạt vừa phải):} $\mathbf{C}(2, 0) = 3.0$; $\mathbf{C}(2, 1) = 1.5$; $\mathbf{C}(1, 0) = 1.5$; $\mathbf{C}(0, 2) = 1.5$; các lỗi khác giữ 1.0.
+    \item \textit{Ma trận lâm sàng tăng cường $M_2$:} $\mathbf{C}(2, 0) = 5.0$; $\mathbf{C}(2, 1) = 2.0$; $\mathbf{C}(1, 0) = 2.0$; $\mathbf{C}(0, 2) = 2.0$.
+    \item \textit{Ma trận lâm sàng tối đa $M_3$:} $\mathbf{C}(2, 0) = 8.0$; $\mathbf{C}(2, 1) = 3.0$; $\mathbf{C}(1, 0) = 2.5$; $\mathbf{C}(0, 2) = 2.5$.
+\end{itemize}
+
+Trong giải thuật phân loại nhị phân tích lũy ($E_{7b}$), hai mô hình độc lập dự đoán $\hat{P}_1 = P(Y \ge 1 \mid \mathbf{x})$ và $\hat{P}_2 = P(Y \ge 2 \mid \mathbf{x})$. Khi xuất hiện vi phạm đơn điệu ($\hat{P}_2 > \hat{P}_1$), giải thuật Isotonic Probability Clipping gán $\tilde{P}_2 = \min(\hat{P}_1, \hat{P}_2)$. Điều này bảo đảm $P(C_1 \mid \mathbf{x}) = \hat{P}_1 - \tilde{P}_2 \ge 0$, nhưng tại điểm vi phạm, $P(C_1) = 0$, giải thích hiện tượng suy giảm độ nhạy của lớp trung gian $C_1$ trên thực nghiệm.

@@ -1,0 +1,35 @@
+\begin{table}{Bảng so sánh tổng hợp toàn diện các mô hình ($E_0 \to E_7$) trên Legacy Cohort ($N = 4.045$)}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\label{tab:master-comparison}
+\begin{tabularx}{\textwidth}{l X c c c c c c c}
+\toprule
+\textbf{Nhóm} & \textbf{Mô hình} & \textbf{Macro-F1} & \textbf{BalAcc} & \textbf{Acc (\%)} & \textbf{MAE} & \textbf{Rec $C_1$} & \textbf{Rec $C_2^+$} & \textbf{$C_2^+ \to C_0$} \\
+\midrule
+\textbf{Flat} & $E_0$ (Flat RF) & 0.4354 & 0.4667 & 64.10\% & 0.4638 & 16.29\% & 47.32\% & 108 ca \\
+\midrule
+\multirow{4}{*}{\textbf{Hard}} 
+  & $E_1$ (Hard RF--RF) & 0.4550 & 0.4745 & 68.08\% & 0.4133 & 16.46\% & 43.74\% & 120 ca \\
+  & $E_2$ (Hard Tuned)  & \textbf{0.4586} & 0.4745 & 65.32\% & 0.4280 & 25.69\% & 39.63\% & 95 ca \\
+  & $E_3a$ (Hard RF--LR)& 0.4567 & 0.4964 & 68.43\% & 0.4195 & 11.75\% & 55.00\% & 120 ca \\
+  & $E_3b$ (Hard RF--XGB)& 0.4575 & 0.4790 & 68.23\% & 0.4180 & 16.77\% & 44.76\% & 120 ca \\
+\midrule
+\multirow{2}{*}{\textbf{Soft}} 
+  & $E_4$ (Soft RF--RF) & 0.4206 & 0.4309 & 73.75\% & 0.3530 & 5.18\% & 30.19\% & 227 ca \\
+  & $E_5$ (Soft RF--LR) & 0.4270 & 0.4506 & 73.37\% & 0.3619 & 3.45\% & 39.13\% & 211 ca \\
+\midrule
+\multirow{2}{*}{\textbf{Cost}}
+  & $E_{6a}$ (Soft Cost RF--RF) & 0.4535 & 0.4904 & 56.91\% & 0.5216 & \textbf{40.92\%} & 44.25\% & \textbf{62 ca} \\
+  & $E_{6b}$ (Soft Cost RF--LR) & 0.4521 & 0.5025 & 56.84\% & 0.5197 & 34.64\% & 54.23\% & \textbf{62 ca} \\
+\midrule
+\multirow{4}{*}{\textbf{Ordinal}} 
+  & $E_{7a}$ (OLR Unweighted)& 0.3846 & 0.4002 & \textbf{75.23\%} & \textbf{0.3377} & 0.00\% & 22.00\% & 305 ca \\
+  & $E_{7a}$ (OLR Balanced)  & 0.4518 & \textbf{0.5151} & 56.69\% & 0.5382 & 32.93\% & 60.37\% & 68 ca \\
+  & $E_{7b}$ (CumBin LR)     & 0.3761 & 0.4949 & 63.41\% & 0.5718 & 0.00\% & \textbf{72.88\%} & 106 ca \\
+  & $E_{7b}$ (CumBin RF)     & 0.4191 & 0.4900 & 72.34\% & 0.3953 & 0.16\% & 57.30\% & 167 ca \\
+\midrule
+\textbf{Baseline} & Majority Class ($C_0$) & 0.2848 & 0.3333 & 74.56\% & 0.3518 & 0.00\% & 0.00\% & 391 ca \\
+\bottomrule
+\end{tabularx}
+\end{table}

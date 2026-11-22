@@ -1,0 +1,172 @@
+\chapter{Thực nghiệm và thảo luận}
+\label{ch:thuc-nghiem}
+
+Chương này trình bày toàn bộ kết quả thực nghiệm và các phân tích chuyên sâu nhằm giải quyết các nội dung nghiên cứu đã đề ra. Các thực nghiệm được tổ chức theo hai giai đoạn nối tiếp:
+(1) \textit{Giai đoạn 1 -- Khảo sát bài toán phân loại đa mức trên không gian 5 lớp gốc ($T_5$):} Đánh giá đóng góp của các nhóm đặc trưng ($F_1 \to F_4$), đối chuẩn các thuật toán học máy cơ sở qua kiểm định chéo lồng nhau, phân tích quy luật suy giảm hiệu năng theo độ chi tiết nhãn ($T_2 \to T_5$), và khảo sát hiện tượng chồng lấn phân phối sinh lý.
+(2) \textit{Giai đoạn 2 -- Khảo sát các hướng tiếp cận phân loại trên không gian 3 nhóm ($T_3$):} Đánh giá có hệ thống 12 cấu hình mô hình thực nghiệm ($E_0 \to E_7$); phân tích nút thắt của định tuyến cứng; định lượng sự đánh đổi rủi ro theo Luật quyết định Bayes; kiểm định tính ổn định ngoại suy theo dòng thời gian trên chu kỳ độc lập NHANES 2015--2016; và tổng hợp ma trận quyết định ứng dụng lâm sàng.
+
+\section{Thiết lập thực nghiệm và kiểm soát tính khả lập}
+\label{sec:moi-truong-thuc-nghiem}
+
+Môi trường thực nghiệm được chuẩn hóa:
+\begin{itemize}
+    \item \textit{Phần cứng:} Máy trạm Apple Silicon (ARM64), 16 GB RAM.
+    \item \textit{Phần mềm và thư viện:} macOS 15; Python 3.13; scikit-learn 1.9.1; XGBoost 3.4.1; SciPy 1.18.1 (tối ưu hóa L-BFGS-B cho mô hình OLR); NumPy 2.5.3 và pandas 3.0.6; matplotlib 3.11.2 (xuất đồ họa 300 DPI).
+    \item \textit{Kiểm soát ngẫu nhiên:} Giá trị ngẫu nhiên \textnormal{random\_state = 42} được cố định xuyên suốt tất cả các phép chia fold, khởi tạo mô hình và lấy mẫu bootstrap nhằm bảo đảm tính tái lập kết quả 100\%.
+\end{itemize}
+
+\section{Đánh giá đóng góp của các nhóm đặc trưng (Feature Ablation)}
+\label{sec:feature-ablation}
+
+Thực nghiệm Feature Ablation khảo sát mức độ đóng góp của 4 nhóm đặc trưng lũy tiến ($F_1 \to F_4$) trên bài toán 5 mức độ $T_5$ ($C_0 \to C_4$). Thực nghiệm được thực hiện qua Stratified 5-Fold Cross-Validation trên tập phát triển ($N = 4.045$). Bốn thuật toán cơ sở được đánh giá đồng thời gồm: Logistic Regression (LR), Decision Tree (DT), Random Forest (RF) và XGBoost. Kết quả chi tiết được tổng hợp trong Bảng \ref{tab:ablation-results}.
+
+\input{tables/table_ablation_results}
+
+\begin{figure}[htbp]{So sánh hiệu năng Macro-F1 của 4 thuật toán trên các nhóm đặc trưng lũy tiến $F_1 \to F_4$.}
+\centering
+\includegraphics[width=0.88\textwidth]{figures/feature_group_comparison_final_protocol.png}
+\label{fig:ablation-comparison}
+\end{figure}
+
+Từ kết quả thực nghiệm, một số nhận xét khoa học được rút ra:
+\begin{enumerate}
+    \item \textit{Đóng góp của các nhóm đặc trưng:} Nhóm $F_1$ (nhân khẩu học) chỉ mang lại Macro-F1 khiêm tốn (0.1900 với LR, 0.2089 với RF). Khi bổ sung lối sống, đo lường thể chất và sinh hóa máu ở các nhóm $F_2, F_3, F_4$, hiệu năng tăng trưởng bền vững trên mọi thuật toán. Đáng chú ý, Logistic Regression tăng từ 0.1900 lên 0.2399 $\pm$ 0.0148 (tăng +26.3\%), và Random Forest tăng từ 0.2089 lên 0.2755 $\pm$ 0.0152 (tăng +31.9\%).
+    \item \textit{Sự phân kỳ giữa Weighted-F1 và Macro-F1:} Weighted-F1 luôn đạt mức cao (xấp xỉ 0.56 -- 0.65) do bị chi phối bởi lớp đa số $C_0$ (chiếm hơn 76\% mẫu). Ngược lại, Macro-F1 dao động ở mức 0.19 -- 0.28, phản ánh đúng độ khó trong việc phân tách các lớp có triệu chứng thực tế.
+\end{enumerate}
+
+\section{So sánh các thuật toán cơ sở trên bài toán 5 lớp ($T_5$)}
+\label{sec:nested-cv-so-sanh}
+
+Để lựa chọn mô hình cơ sở không bị thiên lệch lạc quan, nghiên cứu áp dụng quy trình kiểm định chéo lồng nhau (Nested CV 5x3). Kết quả đối chuẩn giữa 4 thuật toán cơ sở trên không gian 34 đặc trưng ($F_4$) được trình bày trong Bảng \ref{tab:nested-cv-comparison}.
+
+\input{tables/table_nested_cv_comparison}
+
+Từ Bảng \ref{tab:nested-cv-comparison}, Random Forest đạt Macro-F1 trung bình cao nhất trong nhóm các mô hình phẳng được khảo sát là 0.2755 $\pm$ 0.0152 và Weighted-F1 đạt 0.6437 $\pm$ 0.0115. Dù Logistic Regression có Balanced Accuracy nhỉnh hơn ở một số fold, Random Forest thể hiện sự vượt trội về độ ổn định phương sai và khả năng nắm bắt quan hệ phi tuyến trên dữ liệu y tế dạng bảng. Vì vậy, Random Forest được lựa chọn làm mô hình cơ sở chính (Backbone Model) cho các nghiên cứu tiếp theo.
+
+\section{Khảo sát quy luật suy giảm hiệu năng theo độ chi tiết nhãn ($T_2 \to T_5$)}
+\label{sec:label-granularity}
+
+Nghiên cứu khảo sát hiệu năng của mô hình Random Forest cơ sở khi độ phân giải nhãn tăng dần từ 2 lên 3, 4 và 5 mức độ (Bảng \ref{tab:granularity-results} và Hình \ref{fig:granularity-performance}).
+
+\input{tables/table_granularity_results}
+
+\begin{figure}[htbp]{Xu hướng suy giảm hiệu năng của Random Forest khi tăng độ chi tiết nhãn từ $T_2$ đến $T_5$.}
+\centering
+\includegraphics[width=0.88\textwidth]{figures/granularity_performance.png}
+\label{fig:granularity-performance}
+\end{figure}
+
+Kết quả thực nghiệm cho thấy một quy luật suy thoái rõ nét: Macro-F1 giảm từ 0.6639 ở bài toán nhị phân $T_2$ xuống còn 0.4492 ở $T_3$, 0.3120 ở $T_4$ và chạm đáy tại 0.2755 ở $T_5$. Bước sụt giảm lớn nhất diễn ra ngay tại quá trình chuyển tiếp từ $T_2$ sang $T_3$ (giảm -32.3\% điểm Macro-F1). 
+
+\section{Phân tích nguyên nhân suy thoái: Chồng lấn phân phối sinh lý}
+\label{sec:feature-overlap-analysis}
+
+Để làm sáng tỏ nguyên nhân tại sao hiệu năng suy giảm mạnh khi tăng số lớp, nghiên cứu tiến hành phân tích tương quan và trực quan hóa phân phối đặc trưng.
+
+\begin{figure}[htbp]{Ma trận hệ số tương quan Spearman giữa các biến số cận lâm sàng và tổng điểm PHQ-9.}
+\centering
+\includegraphics[width=0.88\textwidth]{figures/correlation_matrix.png}
+\label{fig:correlation-matrix}
+\end{figure}
+
+Hình \ref{fig:correlation-matrix} chỉ ra rằng phần lớn các chỉ số sinh hóa máu ngoại vi (như cholesterol, glucose, albumin) có hệ số tương quan đơn biến với điểm PHQ-9 rất thấp ($|r| < 0.15$). 
+
+\begin{figure}[htbp]{Biểu đồ hộp thể hiện sự chồng lấn phân phối của các chỉ số sinh lý giữa các mức độ triệu chứng.}
+\centering
+\includegraphics[width=0.88\textwidth]{figures/overlap_numerical_boxplots.png}
+\label{fig:overlap-boxplots}
+\end{figure}
+
+Biểu đồ hộp (Hình \ref{fig:overlap-boxplots}) và hình chiếu PCA (Hình \ref{fig:overlap-pca}) khẳng định hiện tượng chồng lấn không gian: các mẫu thuộc lớp tối thiểu ($C_0$) và lớp nhẹ ($C_1$) gần như bao bọc lẫn nhau trong không gian đặc trưng. Điều này giải thích tại sao các thuật toán phân loại phẳng gặp khó khăn lớn trong việc xác lập siêu phẳng phân tách sắc nét giữa các mức độ kế cận.
+
+\begin{figure}[htbp]{Hình chiếu không gian hai thành phần chính (PCA) giữa nhóm tối thiểu ($C_0$) và nhóm nặng ($C_4$).}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/overlap_pca_C0_C4.png}
+\label{fig:overlap-pca}
+\end{figure}
+
+\section{Khảo sát toàn diện các mô hình trên không gian 3 nhóm ($T_3$)}
+\label{sec:t3-evaluation}
+
+Trước những giới hạn của bài toán 5 lớp phẳng, nghiên cứu mở rộng sang không gian 3 nhóm ($T_3: C_0, C_1, C_2^+$) để đánh giá 12 cấu hình mô hình thuộc 4 trường phái khác nhau ($E_0 \to E_7$). Bảng \ref{tab:master-comparison} tổng hợp toàn bộ kết quả thực nghiệm out-of-fold trên tập phát triển ($N = 4.045$).
+
+\input{tables/table_master_comparison}
+
+\begin{figure}[htbp]{So sánh trực quan hiệu năng Macro-F1 và Balanced Accuracy giữa các mô hình trên không gian $T_3$.}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/legacy_model_comparison_e0_to_e6.png}
+\label{fig:model-comparison-bars}
+\end{figure}
+
+\begin{figure}[htbp]{Quan hệ đánh đổi giữa chỉ số phân loại danh nghĩa (Macro-F1) và sai số thứ bậc (Class MAE).}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/macro_f1_vs_mae.png}
+\label{fig:macro-vs-mae}
+\end{figure}
+
+Từ Bảng \ref{tab:master-comparison} và các Hình \ref{fig:model-comparison-bars}, \ref{fig:macro-vs-mae}, một số kết luận cốt lõi được rút ra:
+\begin{enumerate}
+    \item \textit{Phân loại phân cấp cứng ($E_1 \to E_3$):} Cấu hình tối ưu siêu tham số $E_2$ (Hard RF--RF Tuned) đạt Macro-F1 cao nhất trong toàn bộ các mô hình được khảo sát là 0.4586 $\pm$ 0.0116 (Balanced Accuracy = 0.4812 $\pm$ 0.0145). Tuy nhiên, cấu hình này bộc lộ nhược điểm cơ học nghiêm trọng: có tới 98 ca nặng ($C_2^+$) bị loại nhầm ngay tại Giai đoạn 1 ($C_0$), hoàn toàn mất cơ hội được can thiệp ở Giai đoạn 2.
+    \item \textit{Phân cấp mềm kết hợp Quyết định Bayes ($E_6$):} Mô hình $E_{6b}$ (kết hợp phân cấp mềm với ma trận chi phí $M_1$) đạt Balanced Accuracy = 0.5025 $\pm$ 0.0218 và giảm mạnh số ca nặng bị bỏ sót ($C_2^+ \to C_0$) xuống chỉ còn 62 ca.
+    \item \textit{Phân loại thứ bậc ($E_7$):} Mô hình Balanced Ordinal Logistic Regression ($E_{7a}$) đạt Balanced Accuracy cao nhất toàn diện là 0.5151 $\pm$ 0.0276 và Class MAE thấp nhất (0.4346), đồng thời kiểm soát số ca nặng bị bỏ sót ở mức 58 ca.
+\end{enumerate}
+
+\begin{figure}[htbp]{So sánh số lượng sai số nhảy 2 bước giữa các mô hình: Bỏ sót ca nặng ($C_2^+ \to C_0$) và Báo động giả ($C_0 \to C_2^+$).}
+\centering
+\includegraphics[width=0.88\textwidth]{figures/2step_error_comparison.png}
+\label{fig:2step-errors}
+\end{figure}
+
+Hình \ref{fig:2step-errors} và Hình \ref{fig:confusion-group1} minh họa rõ nét cơ chế phân phối sai số của các nhóm mô hình đại diện.
+
+\begin{figure}[htbp]{Ma trận nhầm lẫn của 4 mô hình tiêu biểu: $E_0$ (Flat RF), $E_1$ (Hard RF--RF), $E_5$ (Soft RF--LR Argmax) và $E_{6b}
+\centering
+\includegraphics[width=0.92\textwidth]{figures/confusion_matrices_group1.png}
+$ (Soft Bayes Risk $M_1$).}
+\label{fig:confusion-group1}
+\end{figure}
+
+\section{Phân tích sự đánh đổi sai số và ma trận chi phí Bayes}
+\label{sec:cost-sensitive-tradeoff}
+
+Sự khác biệt giữa hai quy ước so sánh cần được phân định rõ ràng:
+\begin{itemize}
+    \item \textit{Đánh giá tác động nhân quả cô lập của Luật quyết định Bayes ($E_5$ so với $E_{6b}$):} Trên cùng một nền tảng mô hình phân cấp mềm Soft RF--LR, khi sử dụng luật Argmax thông thường ($E_5$), mô hình bỏ sót tới 211 ca nặng ($C_2^+ \to C_0$). Khi chuyển sang Luật quyết định Bayes với ma trận $M_1$ ($E_{6b}$), số ca bỏ sót giảm từ 211 xuống còn 62 ca, tương đương mức suy giảm 70.62\% ($\frac{211 - 62}{211}$). Đồng thời, Balanced Accuracy tăng từ 0.4506 lên 0.5025 (+11.5\% tương đối).
+    \item \textit{So sánh tổng thể giữa hệ thống đề xuất và Baseline phân cấp cứng ($E_1$ so với $E_{6b}$):} So với baseline phân cấp cứng $E_1$ (120 ca bỏ sót), mô hình $E_{6b}$ giảm từ 120 xuống 62 ca, đạt mức giảm 48.33\% ($\frac{120 - 62}{120}$).
+\end{itemize}
+
+\begin{figure}[htbp]{Đường cong đánh đổi giữa tỷ lệ nhận diện ca nặng ($C_2^+$ Recall) và tỷ lệ báo động nhầm ($C_0$ False Alarm Rate).}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/cost_tradeoff_curve.png}
+\label{fig:cost-tradeoff-curve}
+\end{figure}
+
+Hình \ref{fig:cost-tradeoff-curve} minh họa sự đánh đổi lâm sàng không thể tránh khỏi: để nâng cao khả năng phát hiện ca bệnh nặng ($C_2^+$ Recall tăng từ 38.2\% lên 79.2\% ở $E_{6b}$), tỷ lệ báo động nhầm từ lớp bình thường ($C_0 \to C_1 / C_2^+$) cũng tăng từ 17.5\% lên 37.3\%. Trong y tế dự phòng cộng đồng, việc chấp nhận sàng lọc lại một số ca báo động nhầm là cái giá chấp nhận được để không bỏ sót các trường hợp có nguy cơ trầm cảm nghiêm trọng.
+
+\section{Kiểm định độc lập theo dòng thời gian (Temporal Validation)}
+\label{sec:temporal-validation}
+
+Để kiểm chứng khả năng khái quát hóa và độ bền vững trước hiện tượng trôi phân phối dữ liệu theo thời gian, toàn bộ các mô hình tối ưu đã huấn luyện trên chu kỳ 2013--2014 được đóng băng và đánh giá trực tiếp trên chu kỳ độc lập NHANES 2015--2016 ($N = 4.888$, tập 31 đặc trưng $F_{4\_\text{common31}}$). Kết quả được trình bày trong Bảng \ref{tab:multicycle-temporal-results}.
+
+\input{tables/table_multicycle_results}
+
+Kết quả thực nghiệm ngoại suy xác nhận:
+\begin{enumerate}
+    \item Mô hình Balanced Ordinal Logistic Regression ($E_{7a}$) thể hiện độ ổn định xuất sắc nhất với Balanced Accuracy đạt 0.5073 trên tập dữ liệu tương lai (so với 0.5151 trên tập phát triển, độ suy giảm chỉ 1.5\%).
+    \item Mô hình tối ưu chi phí Bayes $E_{6b}$ duy trì Balanced Accuracy ở mức 0.4902 và tiếp tục bảo vệ tốt nhóm ca nặng với tỷ lệ bỏ sót thấp.
+    \item Điều này khẳng định các mô hình khai thác tính chất thứ bậc và cấu trúc xác suất mềm có khả năng chống chịu hiện tượng trôi phân phối tốt hơn so với các mô hình phân loại phẳng truyền thống.
+\end{enumerate}
+
+\section{Tổng hợp thảo luận và Ma trận quyết định ứng dụng}
+\label{sec:executive-matrix}
+
+Để phục vụ triển khai thực tiễn, Bảng \ref{tab:executive-decision-matrix} tổng hợp ma trận quyết định dựa trên 4 mô hình tiêu biểu đại diện cho các mục tiêu ứng dụng khác nhau.
+
+\input{tables/table_executive_decision_matrix}
+
+\begin{itemize}
+    \item \textit{Mô hình đối chuẩn phân loại phẳng (Random Forest Tuned trên $T_5$):} Thích hợp làm mốc tham chiếu cho các nghiên cứu tiếp theo về trích xuất đặc trưng dạng bảng.
+    \item \textit{Mô hình tối ưu điểm số thuần túy ($E_2$ Hard RF--RF trên $T_3$):} Đạt Macro-F1 cao nhất (0.4586) nhưng không phù hợp cho sàng lọc y tế do nguy cơ bỏ sót 98 ca nặng.
+    \item \textit{Mô hình an toàn y tế cộng đồng ($E_{6b}$ Soft Bayes Risk):} Phù hợp nhất cho các chương trình tầm soát y tế dự phòng diện rộng nhờ khả năng giảm thiểu tối đa các ca bệnh nặng bị bỏ sót.
+    \item \textit{Mô hình cân bằng và bền vững theo thời gian ($E_{7a}$ Balanced OLR):} Phù hợp nhất cho các hệ thống phân tầng nguy cơ ổn định lâu dài nhờ khả năng chống trôi phân phối và tính đơn điệu toán học.
+\end{itemize}

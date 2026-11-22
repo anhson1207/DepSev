@@ -1,0 +1,79 @@
+\begin{table}{So sánh kết quả các mô hình trên nhiệm vụ $T_3$ ($N = 4.045$)}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\label{tab:master-comparison}
+
+\vspace{-0.1cm}
+\textbf{Phần A: Tổng hợp các chỉ số hiệu năng phân loại tổng thể}
+\vspace{0.15cm}
+
+\begin{tabularx}{\textwidth}{l X c c c c c}
+\toprule
+\textbf{Trường phái} & \textbf{Mô hình} & \textbf{Macro-F1} & \textbf{BalAcc} & \textbf{Accuracy} & \textbf{Class MAE} & \textbf{QWK} \\
+\midrule
+\textbf{Flat} & $E_0$ (Flat RF) & 0.4354 & 0.4667 & 64.10\% & 0.4638 & 0.3204 \\
+\midrule
+\multirow{4}{*}{\textbf{Hard Hier.}} 
+  & $E_1$ (Hard RF--RF)   & 0.4550 & 0.4745 & 68.08\% & 0.4133 & 0.3705 \\
+  & $E_2$ (Hard Tuned)    & \textbf{0.4586} & 0.4745 & 65.32\% & 0.4280 & 0.3644 \\
+  & $E_{3a}$ (Hard RF--LR) & 0.4567 & 0.4964 & 68.43\% & 0.4195 & 0.3735 \\
+  & $E_{3b}$ (Hard RF--XGB)& 0.4575 & 0.4790 & 68.23\% & 0.4180 & 0.3683 \\
+\midrule
+\multirow{2}{*}{\textbf{Soft Hier.}} 
+  & $E_4$ (Soft RF--RF Argmax) & 0.4206 & 0.4309 & 73.75\% & 0.3530 & 0.3653 \\
+  & $E_5$ (Soft RF--LR Argmax) & 0.4270 & 0.4506 & 73.37\% & 0.3619 & 0.3789 \\
+\midrule
+\multirow{2}{*}{\textbf{Cost-Sens.}}
+  & $E_{6a}$ (Soft Cost RF--RF $M_1$) & 0.4535 & 0.4904 & 56.91\% & 0.5216 & 0.3235 \\
+  & $E_{6b}$ (Soft Cost RF--LR $M_1$) & 0.4521 & 0.5025 & 56.84\% & 0.5197 & 0.3344 \\
+\midrule
+\multirow{4}{*}{\textbf{Ordinal}} 
+  & $E_{7a}$ (OLR Unweighted) & 0.3846 & 0.4002 & \textbf{75.23\%} & \textbf{0.3377} & 0.2298 \\
+  & $E_{7a}$ (OLR Balanced)   & 0.4518 & \textbf{0.5151} & 56.69\% & 0.5382 & 0.3398 \\
+  & $E_{7b}$ (CumBin LR)      & 0.3761 & 0.4949 & 63.41\% & 0.5718 & 0.2958 \\
+  & $E_{7b}$ (CumBin RF)      & 0.4191 & 0.4900 & 72.34\% & 0.3953 & \textbf{0.3744} \\
+\midrule
+\textbf{Baseline} & Majority Class ($C_0$) & 0.2848 & 0.3333 & 74.56\% & 0.3518 & 0.0000 \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.35cm}
+\textbf{Phần B: Khả năng nhận diện từng lớp và chỉ số sai số sàng lọc}
+\vspace{0.15cm}
+
+\begin{tabularx}{\textwidth}{l X c c c c c}
+\toprule
+\textbf{Trường phái} & \textbf{Mô hình} & \textbf{Recall $C_0$} & \textbf{Recall $C_1$} & \textbf{Recall $C_2^+$} & \textbf{$C_2^+ \to C_0$} & \textbf{$C_0 \to C_2^+$} \\
+\midrule
+\textbf{Flat} & $E_0$ (Flat RF) & 75.36\% & 16.29\% & 47.32\% & 108 ca & 316 ca \\
+\midrule
+\multirow{4}{*}{\textbf{Hard Hier.}} 
+  & $E_1$ (Hard RF--RF)   & 82.16\% & 16.46\% & 43.74\% & 120 ca & 261 ca \\
+  & $E_2$ (Hard Tuned)    & 76.99\% & 25.69\% & 39.63\% & 98 ca & 222 ca \\
+  & $E_{3a}$ (Hard RF--LR) & 82.16\% & 11.75\% & 55.00\% & 120 ca & 300 ca \\
+  & $E_{3b}$ (Hard RF--XGB)& 82.16\% & 16.77\% & 44.76\% & 120 ca & 279 ca \\
+\midrule
+\multirow{2}{*}{\textbf{Soft Hier.}} 
+  & $E_4$ (Soft RF--RF Argmax) & 93.87\% & 5.18\% & 30.19\% & 227 ca & 139 ca \\
+  & $E_5$ (Soft RF--LR Argmax) & 92.59\% & 3.45\% & 39.13\% & 211 ca & 176 ca \\
+\midrule
+\multirow{2}{*}{\textbf{Cost-Sens.}}
+  & $E_{6a}$ (Soft Cost RF--RF $M_1$) & 61.97\% & \textbf{40.92\%} & 44.25\% & \textbf{62 ca} & 215 ca \\
+  & $E_{6b}$ (Soft Cost RF--LR $M_1$) & 61.64\% & 34.64\% & 54.23\% & \textbf{62 ca} & 294 ca \\
+\midrule
+\multirow{4}{*}{\textbf{Ordinal}} 
+  & $E_{7a}$ (OLR Unweighted) & 98.08\% & 0.00\% & 22.00\% & 305 ca & \textbf{59 ca} \\
+  & $E_{7a}$ (OLR Balanced)   & 61.24\% & 32.93\% & 60.37\% & 68 ca & 357 ca \\
+  & $E_{7b}$ (CumBin LR)      & 75.59\% & 0.00\% & \textbf{72.88\%} & 106 ca & 727 ca \\
+  & $E_{7b}$ (CumBin RF)      & 89.54\% & 0.16\% & 57.30\% & 167 ca & 313 ca \\
+\midrule
+\textbf{Baseline} & Majority Class ($C_0$) & \textbf{100.00\%} & 0.00\% & 0.00\% & 391 ca & 0 ca \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.15cm}
+\raggedright
+\scriptsize
+\textit{Ghi chú:} Các chỉ số phần trăm là giá trị trung bình qua các fold đánh giá ngoài mẫu. Số ca phân loại sai ($C_2^+ \to C_0$ và $C_0 \to C_2^+$) là số lượng tổng hợp từ toàn bộ dự đoán ngoài mẫu (pooled out-of-fold, $N = 4.045$).
+\end{table}

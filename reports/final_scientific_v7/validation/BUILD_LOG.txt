@@ -1,0 +1,29 @@
+================================================================================
+DEPSEV-ML V7 PDF BUILD LOG
+================================================================================
+Timestamp: 2026-10-30T15:33:29+07:00
+Compiler: Tectonic 0.15.0 (XeTeX-compatible self-contained engine)
+Compiler Binary: /Users/nguyenanhson/.local/bin/tectonic
+Source Directory: reports/final_scientific_v7/source/
+Target Source File: reports/final_scientific_v7/source/main.tex
+Output Target File: reports/final_scientific_v7/DepSev_ML_Scientific_Report_V7.pdf
+
+BUILD COMMAND:
+cd reports/final_scientific_v7/source && /Users/nguyenanhson/.local/bin/tectonic main.tex
+
+EXIT STATUS: 0 (SUCCESS)
+
+BUILD METRICS:
+Total Pages Generated: 89 pages
+Output PDF File Size: 9,657,320 bytes (9.21 MiB)
+SHA-256 Checksum: 3e9469f8ec69d963d24c71e83ab05243609b3221550ec0ecce5f2e2da746ef16
+
+STRUCTURAL QA CHECKS:
+- Broken references (??): 0 found
+- Margin overflow blocks (> 539 pt): 0 found
+- Table C.1 placement: Verified directly below Chapter C title on Page 85
+- Figure 4.5: Heatmap 5x5 T5 confusion matrix rendered on Page 58
+- Figure 4.9: Cohort comparison (T2-T5 Branch A/B/D) rendered on Page 62
+- Figure 4.19: Temporal validation soft comparison rendered on Page 74
+================================================================================
+

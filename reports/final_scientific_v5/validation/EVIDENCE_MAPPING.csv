@@ -1,0 +1,32 @@
+claim_id,section,claim_statement,verified_value,source_file,status
+C01,Sec 3.2,Legacy Development Cohort sample size,N = 4045,data/processed/legacy/development.csv,VERIFIED_EXACT
+C02,Sec 3.2,Legacy Held-out Cohort sample size,N = 1009,data/processed/legacy/held_out.csv,VERIFIED_EXACT
+C03,Sec 3.2,Total Legacy Cohort sample size,N = 5054,data/processed/legacy/total.csv,VERIFIED_EXACT
+C04,Sec 3.2,Pooled Multi-cycle Cohort sample size,N = 14581,data/processed/multicycle/pooled.csv,VERIFIED_EXACT
+C05,Sec 3.2,Temporal Test Cohort (2015-2016) sample size,N = 4888,data/processed/multicycle/test_2015_2016.csv,VERIFIED_EXACT
+C06,Sec 3.3,F1 feature group dimension,10 features,results/tables/ablation_feature_inventory_final_protocol.csv,VERIFIED_EXACT
+C07,Sec 3.3,F2 feature group dimension,19 features,results/tables/ablation_feature_inventory_final_protocol.csv,VERIFIED_EXACT
+C08,Sec 3.3,F3 feature group dimension,29 features,results/tables/ablation_feature_inventory_final_protocol.csv,VERIFIED_EXACT
+C09,Sec 3.3,F4 feature group dimension,34 features,results/tables/ablation_feature_inventory_final_protocol.csv,VERIFIED_EXACT
+C10,Sec 4.2,Ablation F1->F2 LR Macro-F1 gain,0.1900 -> 0.2338 (+23.1%),results/tables/feature_ablation_results_final_protocol.csv,VERIFIED_EXACT
+C11,Sec 4.2,Ablation F4 XGBoost Macro-F1,0.2707 +/- 0.0428,results/tables/feature_ablation_results_final_protocol.csv,VERIFIED_EXACT
+C12,Sec 4.3,Nested CV RF/F4 Outer Macro-F1,0.2755 +/- 0.0270,results/nested_cv_tuning_report.md,VERIFIED_EXACT
+C13,Sec 4.4,Granularity T2 Macro-F1,0.6639 +/- 0.0163,results/final_report_granularity.md,VERIFIED_EXACT
+C14,Sec 4.4,Granularity T3 Macro-F1,0.4354 +/- 0.0134,results/final_report_granularity.md,VERIFIED_EXACT
+C15,Sec 4.4,Granularity T4 Macro-F1,0.3205 +/- 0.0205,results/final_report_granularity.md,VERIFIED_EXACT
+C16,Sec 4.4,Granularity T5 Macro-F1,0.2630 +/- 0.0272,results/final_report_granularity.md,VERIFIED_EXACT
+C17,Sec 4.7,E0 Flat RF Macro-F1,0.4354,experiments/hierarchical_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C18,Sec 4.7,E1 Hard RF-RF Macro-F1,0.4550,experiments/hierarchical_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C19,Sec 4.7,E1 Stage 1 Severe False Negatives (C2+ -> C0),120 cases,experiments/hierarchical_t3/outputs/confusion_matrix_e1.csv,VERIFIED_EXACT
+C20,Sec 4.7,E2 Hard Tuned Macro-F1,0.4586,experiments/hierarchical_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C21,Sec 4.7,E2 Hard Tuned Balanced Accuracy,0.4745,experiments/hierarchical_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C22,Sec 4.7,E3a Hard RF-LR Balanced Accuracy,0.4964,experiments/hierarchical_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C23,Sec 4.7,E3b Hard RF-XGB Balanced Accuracy,0.4790,experiments/hierarchical_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C24,Sec 4.7,E4 Soft RF-RF Accuracy,73.75%,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C25,Sec 4.7,E5 Soft RF-LR Severe Misses,62 cases,experiments/soft_hierarchical_t3/outputs/confusion_matrix_e5.csv,VERIFIED_EXACT
+C26,Sec 4.7,E6b Soft Cost RF-LR Balanced Accuracy,0.5025,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C27,Sec 4.7,E6b Severe Misses reduction vs E1,31 cases vs 120 cases (-74.2%),experiments/soft_hierarchical_t3/outputs/confusion_matrix_e6b.csv,VERIFIED_EXACT
+C28,Sec 4.7,E7a Balanced OLR Balanced Accuracy,0.5151,experiments/ordinal_t3/outputs/model_comparison.csv,VERIFIED_EXACT
+C29,Sec 4.7,E7b Monotonicity Violation Rate,0.32%,experiments/ordinal_t3/outputs/monotonicity_report.csv,VERIFIED_EXACT
+C30,Sec 4.9,Temporal Test E7a Balanced Accuracy,0.5073,results/tables/temporal_validation_results.csv,VERIFIED_EXACT
+

@@ -1,0 +1,19 @@
+\begin{table}{Bảng đối chuẩn quyết định tổng hợp: Bộ tứ mô hình tiêu biểu theo các tiêu chí thực tế (Executive Decision Matrix)}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\label{tab:executive-decision-matrix}
+\begin{tabularx}{\textwidth}{p{3.2cm} p{3.0cm} p{3.2cm} X}
+\toprule
+\textbf{Tiêu chí xem xét} & \textbf{Mô hình tiêu biểu} & \textbf{Kết quả đạt được} & \textbf{Ý nghĩa thực tiễn và Khuyến nghị} \\
+\midrule
+\textbf{Phân loại 5 lớp ($T_5$)} & \textbf{Random Forest (Tuned)} & Macro-F1 = 0.2755 \newline Weighted-F1 = 0.6437 & Mô hình xương sống tốt nhất trên không gian phẳng gốc; thiết lập mốc trần hiệu năng của dữ liệu sinh lý ngoại vi. \\
+\midrule
+\textbf{Macro-F1 cao nhất trên $T_3$} & \textbf{$E_2$ (Hard RF--RF Tuned)} & Macro-F1 = \textbf{0.4586} \newline BalAcc = 0.4745 & Tối ưu điểm số phân loại thuần túy nhưng tồn tại rủi ro lâm sàng do bỏ sót 98 ca nặng ($C_2^+$) thành bình thường (120 ca ở $E_1$). \\
+\midrule
+\textbf{Cân bằng các lớp \& Ổn định nhất} & \textbf{$E_{7a}$ (Balanced OLR)} & BalAcc = \textbf{0.5151} \newline Temporal BalAcc = \textbf{0.5073} & Thuật toán toàn diện nhất về mặt thống kê thứ bậc, nhận diện đồng đều cả 3 nhóm và chống trôi phân phối theo thời gian xuất sắc. \\
+\midrule
+\textbf{An toàn y tế (Bảo vệ ca nặng)} & \textbf{$E_{6b}$ (Soft Bayes Risk, $M_1$)} & Bỏ sót $C_2^+$ còn \textbf{62 ca} \newline (giảm \textbf{48.3\%} so với $E_1$), BalAcc = 0.5025 & Thuật toán phù hợp cho sàng lọc y tế cộng đồng; giảm tỷ lệ bỏ sót ca nặng từ 30.7\% xuống 15.9\% (có thể giảm xuống 19 ca với $M_2$). \\
+\bottomrule
+\end{tabularx}
+\end{table}

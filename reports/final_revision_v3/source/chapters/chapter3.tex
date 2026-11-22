@@ -1,0 +1,282 @@
+\chapter{Phương pháp nghiên cứu và thiết kế DepSev-ML}
+\label{ch:phuong-phap}
+
+Chương này trình bày chi tiết kiến trúc hệ thống, quy trình xử lý dữ liệu và thiết kế các mô hình học máy trong khung thực nghiệm \textbf{DepSev-ML}. Để giải quyết các câu hỏi nghiên cứu đã đề ra, phương pháp luận được xây dựng dựa trên nguyên tắc module hóa, chuẩn tắc hóa quy trình tiền xử lý nhằm loại trừ rò rỉ dữ liệu, và thiết kế đa dạng các kiến trúc phân loại từ phẳng, phân cấp cứng/mềm đến thứ bậc.
+
+\section{Kiến trúc tổng thể DepSev-ML}
+\label{sec:kien-truc-tong-the}
+
+Khung làm việc DepSev-ML được tổ chức thành 7 cấu phần khoa học khép kín như mô tả trong Hình \ref{fig:overall-architecture}.
+
+\begin{figure}[htbp]{Kiến trúc tổng thể 7 module của khung học máy thực nghiệm DepSev-ML}
+\centering
+\includegraphics[width=\textwidth]{figures/depsev_overall_architecture.png}
+\label{fig:overall-architecture}
+\end{figure}
+\FloatBarrier
+
+Các cấu phần thực hiện các chức năng chuyên biệt:
+\begin{enumerate}
+    \item \textbf{Module 1 -- Data Ingestion \& Cohort Filtering:} Tiếp nhận các tệp dữ liệu gốc định dạng SAS Transport (.XPT) từ cổng thông tin CDC/NCHS, áp dụng bộ lọc tiêu chuẩn chọn đối tượng người trưởng thành ($\text{RIDAGEYR} \ge 20$) có đầy đủ 9 câu hỏi khảo sát DPQ hợp lệ.
+    \item \textbf{Module 2 -- Harmonization \& Feature Engineering:} Ghép nối các bảng khảo sát và xét nghiệm qua mã định danh SEQN; chuẩn hóa tên biến, xử lý biến điều hướng phức tạp và loại bỏ các biến có tính khuyết thiếu cấu trúc giữa các chu kỳ.
+    \item \textbf{Module 3 -- Target Space Mapping:} Ánh xạ tổng điểm PHQ-9 thành 4 không gian phân loại mục tiêu rời rạc ($T_2, T_3, T_4, T_5$) phục vụ khảo sát đa độ phân giải.
+    \item \textbf{Module 4 -- Partitioning \& Isolation Engine:} Quản lý các phân hoạch dữ liệu cố định (Stratified 5-Fold CV Folds, Development/Held-out splits) bằng mã băm SHA-256 nhằm bảo đảm tính tái lập thực nghiệm tuyệt đối.
+    \item \textbf{Module 5 -- Strict In-Fold Preprocessing Pipeline:} Thực thi quy trình điền khuyết (median/most-frequent), chuẩn hóa phương sai (StandardScaler) và mã hóa one-hot độc lập 100\% bên trong từng fold huấn luyện để triệt tiêu nguy cơ rò rỉ dữ liệu (Zero Data Leakage).
+    \item \textbf{Module 6 -- Multi-Paradigm Model Zoo:} Triển khai và tích hợp 4 họ mô hình phân loại phẳng ($E_0$), 4 cấu hình phân cấp cứng ($E_1 \to E_3$), 4 cấu hình phân cấp mềm kết hợp tối ưu chi phí Bayes ($E_4 \to E_6$) và 4 cấu hình phân loại thứ bậc ($E_7$).
+    \item \textbf{Module 7 -- Multi-Dimensional Evaluation Suite:} Đánh giá toàn diện trên cả hệ thống độ đo phân loại danh nghĩa (Macro-F1, Balanced Accuracy), độ đo hình học thứ bậc (Class MAE, Quadratic Weighted Kappa) và chỉ số an toàn lâm sàng.
+\end{enumerate}
+
+\section{Dữ liệu nghiên cứu và Quy trình hài hòa hóa đa chu kỳ}
+\label{sec:du-lieu-nghien-cuu}
+
+\subsection{Tập dữ liệu phát triển Legacy (NHANES 2013--2014)}
+\label{subsec:legacy-cohort}
+
+Tập dữ liệu Legacy được xây dựng từ chu kỳ NHANES 2013--2014, gồm $N = 5.054$ đối tượng trưởng thành có dữ liệu PHQ-9 hợp lệ:
+\begin{itemize}
+    \item \textbf{Phân hoạch phát triển (Development Cohort):} Gồm $N = 4.045$ đối tượng, được sử dụng xuyên suốt cho các thực nghiệm Stratified 5-Fold CV, Feature Ablation, Nested Hyperparameter Tuning và chuỗi thực nghiệm chính $E_0 \to E_7$.
+    \item \textbf{Phân hoạch kiểm tra bổ sung (Supplementary Held-out Cohort):} Gồm $N = 1.009$ đối tượng được lưu giữ riêng để tham khảo đối chứng.
+\end{itemize}
+
+Phân bố chi tiết các mức độ triệu chứng PHQ-9 trên tập Legacy được tổng hợp trong Bảng \ref{tab:legacy-class-dist}. Tỷ lệ lớp thiểu số rất nặng $C_4$ chỉ chiếm 1.09\%, khẳng định tính chất mất cân bằng cực đoan của bài toán.
+
+\begin{table}{Phân bố các lớp triệu chứng PHQ-9 trên tập dữ liệu Legacy ($N = 5.054$)}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\label{tab:legacy-class-dist}
+\begin{tabularx}{\textwidth}{l c >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+\toprule
+\textbf{Phân hoạch} & \textbf{Tổng $N$} & \textbf{$C_0$ (0--4)} & \textbf{$C_1$ (5--9)} & \textbf{$C_2$ (10--14)} & \textbf{$C_3$ (15--19)} & \textbf{$C_4$ (20--27)} \\
+\midrule
+Development & 4.045 & 3.016 (74.56\%) & 638 (15.77\%) & 243 (6.01\%) & 104 (2.57\%) & 44 (1.09\%) \\
+Held-out & 1.009 & 748 (74.13\%) & 162 (16.06\%) & 60 (5.95\%) & 28 (2.78\%) & 11 (1.09\%) \\
+\midrule
+\textbf{Toàn bộ} & \textbf{5.054} & \textbf{3.764 (74.48\%)} & \textbf{800 (15.83\%)} & \textbf{303 (6.00\%)} & \textbf{132 (2.61\%)} & \textbf{55 (1.09\%)} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Tập dữ liệu đa chu kỳ chính thức (Official Multi-Cycle Cohort)}
+\label{subsec:multicycle-cohort}
+
+Để kiểm tra tính ổn định trên quy mô lớn và đánh giá khả năng tổng quát hóa theo dòng thời gian, nghiên cứu tiến hành trích xuất và hài hòa hóa dữ liệu từ ba chu kỳ NHANES liên tiếp: 2011--2012, 2013--2014 và 2015--2016, nâng tổng quy mô lên $N = 14.581$ đối tượng (Bảng \ref{tab:multicycle-class-dist}).
+
+\begin{table}{Quy mô và phân bố các lớp triệu chứng trên các chu kỳ NHANES chính thức}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\label{tab:multicycle-class-dist}
+\begin{tabularx}{\textwidth}{l c >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X}
+\toprule
+\textbf{Chu kỳ / Phân nhánh} & \textbf{Tổng $N$} & \textbf{$C_0$ (\%)} & \textbf{$C_1$ (\%)} & \textbf{$C_2$ (\%)} & \textbf{$C_3$ (\%)} & \textbf{$C_4$ (\%)} \\
+\midrule
+NHANES 2011--2012 & 4.639 & 76.12\% & 14.79\% & 5.22\% & 2.61\% & 1.27\% \\
+NHANES 2013--2014 (Branch A) & 5.054 & 74.48\% & 15.83\% & 6.00\% & 2.61\% & 1.09\% \\
+NHANES 2015--2016 (Branch D Test) & 4.888 & 74.65\% & 17.21\% & 5.03\% & 2.03\% & 1.08\% \\
+\midrule
+\textbf{Pooled 2011--2016 (Branch B)} & \textbf{14.581} & \textbf{75.06\%} & \textbf{15.96\%} & \textbf{5.42\%} & \textbf{2.41\%} & \textbf{1.15\%} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Quy trình tiền xử lý và nguyên tắc Zero Data Leakage}
+\label{subsec:data-pipeline}
+
+Quy trình tiền xử lý và hài hòa hóa dữ liệu được chuẩn hóa thành một đường ống xử lý tự động như trình bày trong Hình \ref{fig:data-pipeline}.
+
+\begin{figure}[htbp]{Quy trình tiền xử lý dữ liệu và nguyên tắc cách ly bảo toàn Zero Data Leakage}
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_2_data_pipeline.png}
+\label{fig:data-pipeline}
+\end{figure}
+\FloatBarrier
+
+Quy trình bảo đảm nguyên tắc nghiêm ngặt:
+\begin{enumerate}
+    \item \textbf{Loại trừ biến khuyết cấu trúc:} Biến số xét nghiệm Triglyceride chỉ được lấy mẫu trên nhóm đối tượng nhịn ăn sáng ở một số chu kỳ, dẫn đến tỷ lệ khuyết thiếu cấu trúc vượt quá 50\%; biến này bị loại bỏ hoàn toàn để bảo đảm tính đồng nhất của 31 đặc trưng lõi ($F_{4\_\text{common31}}$).
+    \item \textbf{Cô lập tham số in-fold:} Các phép tính thống kê phục vụ điền khuyết (giá trị trung vị của biến liên tục, giá trị xuất hiện nhiều nhất của biến phân loại) và các tham số chuẩn hóa phương sai ($\mu, \sigma$ của \texttt{StandardScaler}) được tính toán độc lập 100\% trên tập huấn luyện của fold hiện tại, sau đó mới dùng các tham số này để biến đổi tập kiểm tra.
+    \item \textbf{Bảo toàn hoàn toàn nhãn mục tiêu:} Tuyệt đối không đưa bất kỳ câu hỏi nào trong 9 mục khảo sát DPQ vào ma trận đặc trưng đầu vào $\mathbf{X}$.
+\end{enumerate}
+
+\section{Hệ thống đặc trưng (Feature Spaces)}
+\label{sec:he-thong-dac-trung}
+
+Để khảo sát thực nghiệm đóng góp của từng miền thông tin y sinh học (RQ1), DepSev-ML tổ chức 34 biến số đầu vào thành 4 nhóm đặc trưng lũy tiến ($F_1 \to F_4$) như mô tả trong Hình \ref{fig:feature-groups}.
+
+\begin{figure}[htbp]{Cấu trúc 4 không gian đặc trưng lũy tiến $F_1 \to F_4$ trong DepSev-ML}
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_3_feature_groups.png}
+\label{fig:feature-groups}
+\end{figure}
+\FloatBarrier
+
+Các không gian đặc trưng được xác lập chính thức gồm:
+\begin{itemize}
+    \item \textbf{Không gian $F_1$ (10 biến cốt lõi):} Tập trung vào các đo lường thể chất khách quan và hóa sinh máu thiết yếu, gồm 5 chỉ số nhân trắc học và huyết động (BMI, chu vi vòng eo, nhịp tim nghỉ, huyết áp tâm thu trung bình, huyết áp tâm trương trung bình) kết hợp cùng 5 chỉ số xét nghiệm máu (HbA1c, Cholesterol toàn phần, HDL, Creatinine và Albumin).
+    \item \textbf{Không gian $F_2$ (19 biến = $F_1$ + Tiền sử bệnh lâm sàng):} Bổ sung 9 biến bệnh lý mạn tính: tăng huyết áp, đái tháo đường, 5 bệnh lý tim mạch và đột quỵ, tiền sử ung thư và tự đánh giá sức khỏe tổng quát.
+    \item \textbf{Không gian $F_3$ (29 biến = $F_2$ + Lối sống \& Giấc ngủ):} Bổ sung 10 chỉ số hành vi: hoạt động thể lực tại nơi làm việc và giải trí, thời gian tĩnh tại mỗi ngày, tình trạng hút thuốc, thói quen sử dụng rượu bia và thời lượng giấc ngủ ban đêm.
+    \item \textbf{Không gian $F_4$ (34 biến = $F_3$ + Nhân khẩu học \& Kinh tế xã hội):} Bổ sung 5 biến nhân khẩu học nền tảng: tuổi, giới tính sinh học, chủng tộc, trình độ học vấn và tỷ lệ thu nhập gia đình trên chuẩn nghèo (INDFMPIR).
+\end{itemize}
+
+Danh mục mã định danh CDC, tên biến kỹ thuật và giải thích ý nghĩa chi tiết của toàn bộ 34 đặc trưng được chuẩn hóa trong Bảng \ref{tab:feature-inventory}.
+
+\input{tables/table_feature_inventory}
+
+\section{Thiết kế các kiến trúc phân loại ($E_0 \to E_7$)}
+\label{sec:thiet-ke-kien-truc-mo-hinh}
+
+Trên không gian bài toán 3 nhóm gộp quy ước ($T_3$: $C_0, C_1, C_2^+$), nghiên cứu triển khai và đánh giá đối sánh có hệ thống 8 họ mô hình thực nghiệm ($E_0 \to E_7$).
+
+\subsection{Mô hình phân loại phẳng cơ sở ($E_0$)}
+\label{subsec:e0-flat}
+
+Mô hình $E_0$ sử dụng thuật toán Rừng ngẫu nhiên (Random Forest) đa lớp truyền thống làm đường cơ sở. Mô hình được huấn luyện với hàm mất mát Gini đa lớp và áp dụng kỹ thuật gán trọng số lớp cân bằng (\texttt{class\_weight='balanced\_subsample'}). Dự đoán đầu ra là lớp có xác suất hậu nghiệm cực đại thông qua hàm $\text{argmax}_k P(Y=k \mid \mathbf{x})$.
+
+\subsection{Kiến trúc phân loại phân cấp định tuyến cứng ($E_1 \to E_3$)}
+\label{subsec:hard-hierarchical}
+
+Kiến trúc phân cấp cứng phân tách bài toán 3 lớp thành hai bộ phân loại nhị phân nối tiếp (Hình \ref{fig:hard-hierarchical}):
+\begin{itemize}
+    \item \textbf{Giai đoạn 1 ($M_1$):} Bộ phân loại sàng lọc nhị phân phân biệt giữa $C_0$ (Không triệu chứng) và $C_{12} = C_1 \cup C_2^+$ (Có triệu chứng).
+    \item \textbf{Giai đoạn 2 ($M_2$):} Bộ phân loại phân tầng nhị phân chỉ được kích hoạt nếu $M_1$ dự đoán nhãn $C_{12}$, nhằm phân biệt giữa $C_1$ (Nhẹ) và $C_2^+$ (Nặng quy ước).
+\end{itemize}
+
+\begin{figure}[htbp]{Kiến trúc phân loại phân cấp định tuyến cứng hai giai đoạn và điểm nghẽn lan truyền sai số}
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_4_hard_hierarchical.png}
+\label{fig:hard-hierarchical}
+\end{figure}
+\FloatBarrier
+
+Quy tắc quyết định của phân cấp cứng:
+\begin{equation}
+    \hat{y} = \begin{cases} C_0 & \text{nếu } M_1(\mathbf{x}) = 0 \\ C_1 & \text{nếu } M_1(\mathbf{x}) = 1 \text{ và } M_2(\mathbf{x}) = 0 \\ C_2^+ & \text{nếu } M_1(\mathbf{x}) = 1 \text{ và } M_2(\mathbf{x}) = 1 \end{cases}
+\end{equation}
+
+Bốn cấu hình thực nghiệm phân cấp cứng được khảo sát:
+\begin{itemize}
+    \item $E_1$: Cấu hình thuần Rừng ngẫu nhiên (RF--RF) với siêu tham số mặc định.
+    \item $E_2$: Cấu hình RF--RF tinh chỉnh siêu tham số độc lập trên từng giai đoạn.
+    \item $E_{3a}$: Cấu hình lai ghép RF--LR (Stage 1 dùng RF, Stage 2 dùng Hồi quy Logistic).
+    \item $E_{3b}$: Cấu hình lai ghép RF--XGBoost (Stage 1 dùng RF, Stage 2 dùng XGBoost).
+\end{itemize}
+
+\textbf{Điểm nghẽn lan truyền sai số (Error Propagation):} Do quyết định ở Giai đoạn 1 là quyết định cứng, bất kỳ đối tượng nào thuộc nhóm nặng $C_2^+$ bị $M_1$ gán nhầm thành $C_0$ sẽ bị loại bỏ hoàn toàn khỏi luồng xử lý và không bao giờ có cơ hội được $M_2$ nhận diện lại. Đây là nhược điểm chí mạng của định tuyến cứng trong ứng dụng lâm sàng.
+
+\subsection{Kiến trúc phân loại phân cấp định tuyến mềm và tối ưu chi phí Bayes ($E_4 \to E_6$)}
+\label{subsec:soft-cost-hierarchical}
+
+Để triệt tiêu hiện tượng nghẽn sai số một chiều, kiến trúc phân cấp mềm (Hình \ref{fig:soft-cost-architecture}) chuyển toàn bộ quá trình ra quyết định sang miền xác suất liên tục.
+
+\begin{figure}[htbp]{Kiến trúc phân loại phân cấp mềm kết hợp lý thuyết quyết định nhạy chi phí Bayes}
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_5_soft_cost_sensitive.png}
+\label{fig:soft-cost-architecture}
+\end{figure}
+\FloatBarrier
+
+Phân phối xác suất hậu nghiệm đầy đủ $\hat{\mathbf{p}} = [\hat{P}(C_0), \hat{P}(C_1), \hat{P}(C_2^+)]^T$ được tổng hợp thông qua công thức xác suất toàn phần:
+\begin{equation}
+    \hat{P}(C_0 \mid \mathbf{x}) = P_{M_1}(C_0 \mid \mathbf{x})
+\end{equation}
+\begin{equation}
+    \hat{P}(C_1 \mid \mathbf{x}) = P_{M_1}(C_{12} \mid \mathbf{x}) \cdot P_{M_2}(C_1 \mid C_{12}, \mathbf{x})
+\end{equation}
+\begin{equation}
+    \hat{P}(C_2^+ \mid \mathbf{x}) = P_{M_1}(C_{12} \mid \mathbf{x}) \cdot P_{M_2}(C_2^+ \mid C_{12}, \mathbf{x})
+\end{equation}
+
+Từ phân phối xác suất hậu nghiệm mềm, hai cơ chế ra quyết định được áp dụng:
+\begin{enumerate}
+    \item \textbf{Cơ chế Argmax không trọng số ($E_4, E_5$):} Chọn nhãn có xác suất cực đại $\hat{y} = \arg\max_k \hat{P}(C_k \mid \mathbf{x})$. Cấu hình $E_4$ sử dụng RF--RF; $E_5$ sử dụng RF--LR.
+    \item \textbf{Cơ chế tối thiểu hóa rủi ro Bayes ($E_{6a}, E_{6b}$):} Đưa ma trận chi phí bất đối xứng $\mathbf{C} \in \mathbb{R}^{3 \times 3}$ vào hàm quyết định:
+    \begin{equation}
+        \hat{y}^* = \arg\min_{i \in \{0, 1, 2\}} \sum_{j=0}^2 \mathbf{C}(i, j) \hat{P}(C_j \mid \mathbf{x})
+    \end{equation}
+    Nghiên cứu khảo sát 4 ma trận chi phí từ $M_0$ (chi phí đồng nhất) đến $M_3$ (phạt nặng nhất sai số bỏ sót ca nặng $\mathbf{C}(0, 2) = 5$).
+\end{enumerate}
+
+\subsection{Mô hình phân loại thứ bậc ($E_7$)}
+\label{subsec:ordinal-models}
+
+Nhóm thực nghiệm $E_7$ khai thác trật tự tự nhiên $C_0 < C_1 < C_2^+$ thông qua hai phương pháp (Hình \ref{fig:ordinal-classification}):
+
+\begin{figure}[htbp]{Nguyên lý mô hình hóa thứ bậc: (a) Hồi quy Logistic thứ bậc và (b) Phân loại nhị phân tích lũy}
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_6_ordinal_classification.png}
+\label{fig:ordinal-classification}
+\end{figure}
+\FloatBarrier
+
+\begin{enumerate}
+    \item \textbf{Hồi quy Logistic thứ bậc ($E_{7a}$ -- OLR):} 
+    Mô hình giả định biến tiềm ẩn $z = \mathbf{w}^T \mathbf{x}$ cùng hai ngưỡng cắt $\theta_1 < \theta_2$. Hàm hợp lý logarit được tối ưu hóa đồng thời trên vectơ trọng số $\mathbf{w}$ và các ngưỡng cắt:
+    \begin{equation}
+        \ell(\mathbf{w}, \boldsymbol{\theta}) = \sum_{i=1}^N \log P(Y = y_i \mid \mathbf{x}_i; \mathbf{w}, \boldsymbol{\theta})
+    \end{equation}
+    Nghiên cứu khảo sát hai phiên bản: $E_{7a}$ Unweighted (không dùng trọng số lớp) và $E_{7a}$ Balanced (gán trọng số nghịch đảo tần số lớp).
+    \item \textbf{Phân loại nhị phân tích lũy ($E_{7b}$ -- Cumulative Binary Classification):} 
+    Huấn luyện hai bộ phân loại nhị phân độc lập $h_1(\mathbf{x})$ cho bài toán $Y \ge 1$ và $h_2(\mathbf{x})$ cho bài toán $Y \ge 2$. Xác suất từng lớp được suy luận bằng hiệu số tích lũy:
+    \begin{align}
+        P(Y = 0) &= 1 - P(Y \ge 1) \\
+        P(Y = 1) &= P(Y \ge 1) - P(Y \ge 2) \\
+        P(Y = 2) &= P(Y \ge 2)
+    \end{align}
+    Nếu xảy ra vi phạm đơn điệu $P(Y \ge 2) > P(Y \ge 1)$, giải thuật hiệu chỉnh ngưỡng cắt (isotonic clipping) được kích hoạt để đưa xác suất về khoảng hợp lệ.
+\end{enumerate}
+
+\section{Thiết kế giao thức kiểm thử thực nghiệm}
+\label{sec:giao-thuc-kiem-thu}
+
+Để bảo đảm độ tin cậy khoa học cao nhất, DepSev-ML áp dụng hai tầng giao thức kiểm định độc lập được minh họa trong Hình \ref{fig:evaluation-protocol}.
+
+\begin{figure}[htbp]{Hai tầng giao thức kiểm thử: Nested 5-Fold Stratified CV và Temporal Validation}
+\centering
+\includegraphics[width=\textwidth]{figures/fig3_7_evaluation_protocol.png}
+\label{fig:evaluation-protocol}
+\end{figure}
+\FloatBarrier
+
+\subsection{Quy trình kiểm định chéo lồng nhau (Nested 5-Fold Stratified CV)}
+\label{subsec:nested-cv-protocol}
+
+Trên tập dữ liệu phát triển Legacy ($N = 4.045$), quy trình kiểm định chéo lồng nhau được thực thi như sau:
+\begin{itemize}
+    \item \textbf{Outer CV (5 folds):} Phân chia dữ liệu thành 5 phần ngẫu nhiên có bảo toàn tỷ lệ lớp (Stratified Split). Tại mỗi vòng lặp, 4 fold được dùng để huấn luyện và 1 fold dùng để đánh giá ngoài mẫu (Out-Of-Fold -- OOF).
+    \item \textbf{Inner CV (3 folds trên từng Outer Training set):} Thực hiện \texttt{RandomizedSearchCV} với 12 cấu hình siêu tham số ngẫu nhiên trên độ đo Macro-F1 nhằm tìm kiếm siêu tham số tối ưu mà không nhìn thấy dữ liệu kiểm tra của Outer fold.
+    \item Kết quả báo cáo là giá trị trung bình kèm độ lệch chuẩn ($\text{Mean} \pm \text{Std}$) trên 5 outer folds.
+\end{itemize}
+
+\subsection{Giao thức kiểm định độc lập theo dòng thời gian (Temporal Validation)}
+\label{subsec:temporal-protocol}
+
+Nhằm kiểm tra tính bền vững của các mô hình trước hiện tượng trôi phân phối y sinh theo thời gian (covariate shift), nghiên cứu thiết lập giao thức kiểm định ngoại suy:
+\begin{itemize}
+    \item \textbf{Tập huấn luyện (Training Cohort):} Toàn bộ chu kỳ NHANES 2013--2014 ($N = 5.054$).
+    \item \textbf{Tập kiểm tra độc lập (Temporal Test Cohort):} Toàn bộ chu kỳ tương lai NHANES 2015--2016 ($N = 4.888$).
+\end{itemize}
+Hai tập dữ liệu hoàn toàn tách biệt về mặt thời gian khảo sát và không có bất kỳ đối tượng nào trùng lặp.
+
+\section{Hệ thống độ đo đánh giá đa chiều}
+\label{sec:he-thong-do-do}
+
+Trước sự phức tạp của bài toán y tế mất cân bằng lớp và có tính thứ bậc, nghiên cứu thiết lập bộ chỉ số đánh giá đa chiều:
+\begin{enumerate}
+    \item \textbf{Macro-F1:} Trung bình cộng F1-score của toàn bộ các lớp, phản ánh năng lực phân biệt đồng đều không phụ thuộc quy mô lớp.
+    \item \textbf{Balanced Accuracy (BalAcc):} Trung bình cộng của Recall từng lớp $\text{BalAcc} = \frac{1}{K}\sum_k \text{Recall}_k$.
+    \item \textbf{Class MAE (Sai số tuyệt đối theo lớp):} Đo lường khoảng cách trung bình giữa mức độ dự đoán và mức độ thực tế:
+    \begin{equation}
+        \text{Class MAE} = \frac{1}{N} \sum_{i=1}^N |y_i - \hat{y}_i|
+    \end{equation}
+    \item \textbf{Quadratic Weighted Kappa (QWK):} Đo lường mức độ đồng thuận giữa dự đoán và nhãn thực tế có phạt nặng các lỗi nhảy bậc xa \cite{cohen1968weighted}:
+    \begin{equation}
+        \kappa = 1 - \frac{\sum_{i,j} w_{ij} O_{ij}}{\sum_{i,j} w_{ij} E_{ij}}, \quad \text{với } w_{ij} = \frac{(i - j)^2}{(K - 1)^2}
+    \end{equation}
+    \item \textbf{Chỉ số an toàn lâm sàng (Clinical Safety Metrics):} Số lượng ca nặng bị bỏ sót thành bình thường ($C_2^+ \to C_0$) và số ca báo động nhầm ($C_0 \to C_2^+$).
+\end{enumerate}
+
+\section{Tóm tắt chương}
+\label{sec:tom-tat-chuong-3}
+
+Chương 3 đã xây dựng toàn diện phương pháp luận cho đề tài DepSev-ML: từ kiến trúc hệ thống 7 module, nguồn dữ liệu và giao thức tiền xử lý in-fold bảo toàn nguyên tắc Zero Data Leakage, 4 không gian đặc trưng lũy tiến ($F_1 \to F_4$), 8 thiết kế mô hình thực nghiệm đa trường phái ($E_0 \to E_7$), đến hai tầng giao thức kiểm thử khắt khe. Toàn bộ các kết quả thực nghiệm thu được từ phương pháp này sẽ được phân tích chi tiết trong Chương \ref{ch:thuc-nghiem}.

@@ -1,0 +1,70 @@
+Metric_Or_Experiment,Report_V6_Value,Source_File,Source_Column,Verified_Value,Status
+Nested_CV_RF_F4_MacroF1,0.2755 ± 0.0270,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (RF F4 mean/std),0.2755 ± 0.0270,VERIFIED_EXACT
+Nested_CV_RF_F4_Fold1,0.3111,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 1),0.31108,VERIFIED_EXACT
+Nested_CV_RF_F4_Fold2,0.2615,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 2),0.26151,VERIFIED_EXACT
+Nested_CV_RF_F4_Fold3,0.2936,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 3),0.29356,VERIFIED_EXACT
+Nested_CV_RF_F4_Fold4,0.2425,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 4),0.24250,VERIFIED_EXACT
+Nested_CV_RF_F4_Fold5,0.2690,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 5),0.26898,VERIFIED_EXACT
+Nested_CV_LR_F4_MacroF1,0.2407 ± 0.0173,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (LR F4 mean/std),0.2407 ± 0.0173,VERIFIED_EXACT
+Nested_CV_LR_F4_Fold1,0.2599,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 1),0.25987,VERIFIED_EXACT
+Nested_CV_LR_F4_Fold2,0.2198,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 2),0.21982,VERIFIED_EXACT
+Nested_CV_LR_F4_Fold3,0.2566,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 3),0.25657,VERIFIED_EXACT
+Nested_CV_LR_F4_Fold4,0.2382,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 4),0.23823,VERIFIED_EXACT
+Nested_CV_LR_F4_Fold5,0.2292,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 5),0.22920,VERIFIED_EXACT
+Nested_CV_DT_F4_MacroF1,0.2412 ± 0.0175,results/tables/ablation_fold_results_final_protocol.csv,macro_f1 (DT F4 mean/std),0.2412 ± 0.0175,VERIFIED_EXACT
+Nested_CV_DT_F4_Fold1,0.2538,results/tables/ablation_fold_results_final_protocol.csv,macro_f1 (Fold 1),0.25384,VERIFIED_EXACT
+Nested_CV_DT_F4_Fold2,0.2404,results/tables/ablation_fold_results_final_protocol.csv,macro_f1 (Fold 2),0.24038,VERIFIED_EXACT
+Nested_CV_DT_F4_Fold3,0.2634,results/tables/ablation_fold_results_final_protocol.csv,macro_f1 (Fold 3),0.26335,VERIFIED_EXACT
+Nested_CV_DT_F4_Fold4,0.2239,results/tables/ablation_fold_results_final_protocol.csv,macro_f1 (Fold 4),0.22386,VERIFIED_EXACT
+Nested_CV_DT_F4_Fold5,0.2245,results/tables/ablation_fold_results_final_protocol.csv,macro_f1 (Fold 5),0.22449,VERIFIED_EXACT
+Nested_CV_XGB_F4_MacroF1,0.2621 ± 0.0353,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (XGB F4 mean/std),0.2621 ± 0.0353,VERIFIED_EXACT
+Nested_CV_XGB_F4_Fold1,0.3017,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 1),0.30169,VERIFIED_EXACT
+Nested_CV_XGB_F4_Fold2,0.2207,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 2),0.22069,VERIFIED_EXACT
+Nested_CV_XGB_F4_Fold3,0.2925,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 3),0.29245,VERIFIED_EXACT
+Nested_CV_XGB_F4_Fold4,0.2341,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 4),0.23407,VERIFIED_EXACT
+Nested_CV_XGB_F4_Fold5,0.2615,results/tables/nested_cv_baseline_comparison.csv,outer_macro_f1 (Fold 5),0.26153,VERIFIED_EXACT
+Target_Granularity_T2_MacroF1,0.6639 ± 0.0113,results/tables/granularity_results.csv,macro_f1_mean (T2),0.66387,VERIFIED_EXACT
+Target_Granularity_T2_BalAcc,0.6659 ± 0.0122,results/tables/granularity_results.csv,balanced_accuracy_mean (T2),0.66591,VERIFIED_EXACT
+Target_Granularity_T3_MacroF1,0.4354 ± 0.0075,results/tables/granularity_results.csv,macro_f1_mean (T3),0.43536,VERIFIED_EXACT
+Target_Granularity_T3_BalAcc,0.4667 ± 0.0101,results/tables/granularity_results.csv,balanced_accuracy_mean (T3),0.46667,VERIFIED_EXACT
+Target_Granularity_T4_MacroF1,0.3380 ± 0.0177,results/tables/granularity_results.csv,macro_f1_mean (T4),0.33796,VERIFIED_EXACT
+Target_Granularity_T4_BalAcc,0.3661 ± 0.0202,results/tables/granularity_results.csv,balanced_accuracy_mean (T4),0.36613,VERIFIED_EXACT
+Target_Granularity_T5_MacroF1,0.2630 ± 0.0222,results/tables/granularity_results.csv,macro_f1_mean (T5),0.26301,VERIFIED_EXACT
+Target_Granularity_T5_BalAcc,0.2805 ± 0.0199,results/tables/granularity_results.csv,balanced_accuracy_mean (T5),0.28055,VERIFIED_EXACT
+T5_PerClass_C0_Recall,76.09%,results/tables/granularity_per_class_results.csv,recall_oof (T5 C0),0.76094,VERIFIED_EXACT
+T5_PerClass_C1_Recall,15.83%,results/tables/granularity_per_class_results.csv,recall_oof (T5 C1),0.15831,VERIFIED_EXACT
+T5_PerClass_C2_Recall,27.57%,results/tables/granularity_per_class_results.csv,recall_oof (T5 C2),0.27572,VERIFIED_EXACT
+T5_PerClass_C3_Recall,18.27%,results/tables/granularity_per_class_results.csv,recall_oof (T5 C3),0.18269,VERIFIED_EXACT
+T5_PerClass_C4_Recall,2.27%,results/tables/granularity_per_class_results.csv,recall_oof (T5 C4),0.02273,VERIFIED_EXACT
+E0_Flat_RF_MacroF1,0.4354 ± 0.0075,experiments/hierarchical_t3/outputs/model_comparison.csv,macro_f1_mean (E0),0.43536,VERIFIED_EXACT
+E0_Flat_RF_BalAcc,0.4667 ± 0.0101,experiments/hierarchical_t3/outputs/model_comparison.csv,balanced_accuracy_mean (E0),0.46667,VERIFIED_EXACT
+E0_Flat_RF_SevereMiss_C0,108 ca,experiments/ordinal_t3/outputs/model_comparison.csv,total_c2_to_c0 (E0),108,VERIFIED_EXACT
+E1_Hard_RF_MacroF1,0.4550 ± 0.0056,experiments/hierarchical_t3/outputs/model_comparison.csv,macro_f1_mean (E1),0.45499,VERIFIED_EXACT
+E1_Hard_RF_BalAcc,0.4745 ± 0.0112,experiments/hierarchical_t3/outputs/model_comparison.csv,balanced_accuracy_mean (E1),0.47454,VERIFIED_EXACT
+E1_Hard_RF_SevereMiss_C0,120 ca,experiments/ordinal_t3/outputs/model_comparison.csv,total_c2_to_c0 (E1),120,VERIFIED_EXACT
+E2_Hard_Tuned_MacroF1,0.4586 ± 0.0116,experiments/hierarchical_t3/outputs/model_comparison.csv,macro_f1_mean (E2),0.45856,VERIFIED_EXACT
+E2_Hard_Tuned_BalAcc,0.4745 ± 0.0174,experiments/hierarchical_t3/outputs/model_comparison.csv,balanced_accuracy_mean (E2),0.47447,VERIFIED_EXACT
+E2_Hard_Tuned_SevereMiss_C0,98 ca,experiments/hierarchical_t3/outputs/confusion_matrices/E2_Hierarchical_RF_OptThresh_confusion_matrix.csv,True_C2+_Pred_C0,98,VERIFIED_EXACT
+E4_Soft_RF_MacroF1,0.4206 ± 0.0104,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,macro_f1_mean (E4),0.42056,VERIFIED_EXACT
+E4_Soft_RF_SevereMiss_C0,227 ca,experiments/ordinal_t3/outputs/model_comparison.csv,total_c2_to_c0 (E4),227,VERIFIED_EXACT
+E5_Soft_RF_LR_MacroF1,0.4270 ± 0.0118,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,macro_f1_mean (E5),0.42696,VERIFIED_EXACT
+E5_Soft_RF_LR_SevereMiss_C0,211 ca,experiments/ordinal_t3/outputs/model_comparison.csv,total_c2_to_c0 (E5),211,VERIFIED_EXACT
+E6b_Soft_Cost_M1_MacroF1,0.4521 ± 0.0190,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,macro_f1_mean (E6b M1),0.45214,VERIFIED_EXACT
+E6b_Soft_Cost_M1_BalAcc,0.5025 ± 0.0218,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,balanced_accuracy_mean (E6b M1),0.50247,VERIFIED_EXACT
+E6b_Soft_Cost_M1_SevereMiss_C0,62 ca,experiments/soft_hierarchical_t3/outputs/confusion_matrices/E6b_Soft_RF_LR_CostSensitive_confusion_matrix.csv,True_C2+_Pred_C0,62,VERIFIED_EXACT
+E6b_Soft_Cost_M1_FalseAlarms_C2,294 ca,experiments/soft_hierarchical_t3/outputs/confusion_matrices/E6b_Soft_RF_LR_CostSensitive_confusion_matrix.csv,True_C0_Pred_C2+,294,VERIFIED_EXACT
+E6b_Soft_Cost_M1_TotalFalseAlarms,1150 ca,experiments/soft_hierarchical_t3/outputs/cost_sensitivity.csv,c0_false_alarms (RF_LR M1 sum),1150,VERIFIED_EXACT
+E6b_Soft_Cost_M2_SevereMiss_C0,19 ca,experiments/soft_hierarchical_t3/outputs/cost_sensitivity.csv,c2_missed_as_c0 (RF_LR M2 sum),19,VERIFIED_EXACT
+E6b_Soft_Cost_M2_TotalFalseAlarms,1906 ca,experiments/soft_hierarchical_t3/outputs/cost_sensitivity.csv,c0_false_alarms (RF_LR M2 sum),1906,VERIFIED_EXACT
+E6b_Soft_Cost_M3_SevereMiss_C0,7 ca,experiments/soft_hierarchical_t3/outputs/cost_sensitivity.csv,c2_missed_as_c0 (RF_LR M3 sum),7,VERIFIED_EXACT
+E6b_Soft_Cost_M3_TotalFalseAlarms,2294 ca,experiments/soft_hierarchical_t3/outputs/cost_sensitivity.csv,c0_false_alarms (RF_LR M3 sum),2294,VERIFIED_EXACT
+E7a_Ordinal_LogReg_Balanced_MacroF1,0.4518 ± 0.0188,experiments/ordinal_t3/outputs/model_comparison.csv,macro_f1_mean (E7a Balanced),0.45181,VERIFIED_EXACT
+E7a_Ordinal_LogReg_Balanced_BalAcc,0.5151 ± 0.0152,experiments/ordinal_t3/outputs/model_comparison.csv,balanced_accuracy_mean (E7a Balanced),0.51512,VERIFIED_EXACT
+E7a_Ordinal_LogReg_Balanced_SevereMiss_C0,68 ca,experiments/ordinal_t3/outputs/model_comparison.csv,total_c2_to_c0 (E7a Balanced),68,VERIFIED_EXACT
+E7b_Monotonicity_Violation_Rate_LR,19.53%,experiments/ordinal_t3/outputs/e7b_monotonicity_violations.csv,violation_rate (E7b_CumBin_LR mean),0.19530,VERIFIED_EXACT
+E7b_Monotonicity_Violation_Rate_RF,5.32% ± 1.68%,experiments/ordinal_t3/outputs/e7b_monotonicity_violations.csv,violation_rate (E7b_CumBin_RF mean/std),0.05320 ± 0.01676,VERIFIED_EXACT
+Temporal_BranchD_Train_Size,9693,src/15_soft_hierarchical_experiment.py,train_d (2011-2012 + 2013-2014),9693,VERIFIED_EXACT
+Temporal_BranchD_Test_Size,4888,src/15_soft_hierarchical_experiment.py,test_d (2015-2016),4888,VERIFIED_EXACT
+Temporal_BranchD_Common_Features,31,src/15_soft_hierarchical_experiment.py,F4_common31,31,VERIFIED_EXACT
+Temporal_BranchD_E7a_BalAcc,0.5073,experiments/ordinal_t3/outputs/multicycle_temporal_results.csv,balanced_accuracy (E7a),0.5073,VERIFIED_EXACT
+

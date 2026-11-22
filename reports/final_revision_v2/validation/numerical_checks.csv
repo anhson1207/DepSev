@@ -1,0 +1,21 @@
+Metric,Reported,Source_File,Verified_Value,Status
+T2 Macro-F1,0.6639,results/tables/granularity_results.csv,0.6639,PASS
+T3 Macro-F1 (E0),0.4354,experiments/hierarchical_t3/outputs/model_comparison.csv,0.4354,PASS
+T4 Macro-F1,0.3380,results/tables/granularity_results.csv,0.3380,PASS
+T5 Macro-F1,0.2630,results/tables/granularity_results.csv,0.2630,PASS
+XGBoost F4 Macro-F1,0.2707,results/tables/feature_ablation_results_final_protocol.csv,0.2707,PASS
+E1 Hard RF-RF Macro-F1,0.4550,experiments/hierarchical_t3/outputs/model_comparison.csv,0.4550,PASS
+E2 Hard Tuned Macro-F1,0.4586,experiments/hierarchical_t3/outputs/model_comparison.csv,0.4586,PASS
+E2 Hard Tuned BalAcc,0.4745,experiments/hierarchical_t3/outputs/model_comparison.csv,0.4745,PASS
+E3a Hard RF-LR BalAcc,0.4964,experiments/hierarchical_t3/outputs/model_comparison.csv,0.4964,PASS
+E3b Hard RF-XGB BalAcc,0.4790,experiments/hierarchical_t3/outputs/model_comparison.csv,0.4790,PASS
+E4 Soft RF-RF BalAcc,0.4309,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,0.4309,PASS
+E5 Soft RF-LR BalAcc,0.4506,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,0.4506,PASS
+E6a Soft Cost-Sensitive BalAcc,0.4904,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,0.4904,PASS
+E6a Recall C1,40.92%,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,40.92%,PASS
+E6b Soft Cost-Sensitive BalAcc,0.5025,experiments/soft_hierarchical_t3/outputs/model_comparison.csv,0.5025,PASS
+E7a OLR Balanced BalAcc,0.5151,experiments/ordinal_t3/outputs/model_comparison.csv,0.5151,PASS
+E7a OLR Balanced Recall C2+,60.37%,experiments/ordinal_t3/outputs/model_comparison.csv,60.37%,PASS
+Branch D Temporal Sample Size,4888,experiments/ordinal_t3/outputs/multicycle_comparison.csv,4888,PASS
+E1 Stage 2 Routed Accuracy,52.72%,experiments/hierarchical_t3/outputs/stage_metrics.csv,52.72%,PASS
+E1 Stage 2 Oracle BalAcc,58.69%,experiments/hierarchical_t3/outputs/stage_metrics.csv,58.69%,PASS

@@ -9,3 +9,14 @@ data/processed/*
 artifacts/*
 !artifacts/.gitkeep
 .codex-build/
+
+# LaTeX intermediate build files
+*.aux
+*.toc
+*.lof
+*.lot
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+

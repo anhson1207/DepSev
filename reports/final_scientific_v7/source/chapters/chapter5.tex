@@ -1,0 +1,55 @@
+\chapter{Kết luận và hướng phát triển}
+\label{ch:ket-luan}
+
+\section{Kết luận khoa học}
+\label{sec:ket-luan-khoa-hoc}
+
+Báo cáo đã trình bày quá trình nghiên cứu, xây dựng và đánh giá khung học máy \textbf{DepSev-ML} cho bài toán dự đoán mức độ triệu chứng trầm cảm từ dữ liệu sinh lý và cận lâm sàng dạng bảng trong Khảo sát Sức khỏe và Dinh dưỡng Quốc gia Hoa Kỳ (NHANES). Thông qua quy trình thực nghiệm có kiểm soát rò rỉ dữ liệu (Zero Data Leakage), nghiên cứu đã trả lời năm câu hỏi khoa học ban đầu:
+
+\begin{enumerate}
+    \item \textbf{Đóng góp của các nhóm đặc trưng (RQ1):} Các chỉ số thể chất và xét nghiệm máu đơn thuần ($F_1$) chỉ mang lại hiệu năng dự đoán khiêm tốn (Macro-F1 $\approx 0.19$--$0.21$). Việc bổ sung tiền sử bệnh mạn tính ($F_2$) giúp tăng rõ rệt hiệu năng (+12.6\% đến +23.1\% Macro-F1). Khi kết hợp thêm lối sống ($F_3$) và nhân khẩu học ($F_4$), mô hình đạt Macro-F1 = \textbf{0.2707}.
+    \item \textbf{Quy luật suy giảm theo độ chi tiết nhãn (RQ2):} Hiệu năng phân loại giảm khi số lượng mức độ tăng từ $T_2$ (Macro-F1 = 0.6639) xuống $T_5$ (Macro-F1 = 0.2630). Bước sụt giảm lớn nhất diễn ra khi chuyển từ 2 lớp sang 3 lớp do lớp triệu chứng nhẹ $C_1$ bị tách khỏi lớp $C_0$ trong khi các đặc trưng sinh lý ngoại vi có sự chồng lấn lớn.
+    \item \textbf{Tác động của việc mở rộng dữ liệu (RQ3):} Mở rộng cỡ mẫu từ $N = 5.054$ lên $N = 14.581$ qua 3 chu kỳ NHANES chỉ giúp cải thiện nhẹ Balanced Accuracy (0.2841 lên 0.3076) nhưng không làm tăng đáng kể Macro-F1, cho thấy giới hạn phân tách bắt nguồn từ độ đặc hiệu của các biến số sinh lý hơn là quy mô tập mẫu.
+    \item \textbf{Hiệu quả của phân loại phân cấp hai bước (RQ4):} Mô hình phân cấp cứng ($E_2$) đạt Macro-F1 cao nhất (\textbf{0.4586}) nhưng có hạn chế là bỏ sót 98 ca nặng theo quy ước ($C_2^+$) thành bình thường ($C_0$) (120 ca ở mô hình $E_1$) do cơ chế định tuyến một chiều tại Stage 1.
+    \item \textbf{Vai trò của Soft, Cost-Sensitive và Ordinal Classification (RQ5):} Mô hình phân cấp mềm kết hợp tối ưu chi phí Bayes ($E_{6b}$) với ma trận $M_1$ giúp giảm 48.33\% số ca nặng bị bỏ sót (từ 120 ca ở $E_1$ xuống còn \textbf{62 ca}) với Balanced Accuracy = \textbf{0.5025 $\pm$ 0.0163}, và giảm tiếp xuống 19 ca với ma trận phạt cao $M_2$. Đồng thời, mô hình Ordinal Logistic Regression cân bằng ($E_{7a}$) đạt Balanced Accuracy cao nhất (\textbf{0.5151 $\pm$ 0.0152}) và duy trì độ ổn định tốt qua kiểm định ngoại suy trên chu kỳ NHANES 2015--2016 (\textbf{0.5073}).
+\end{enumerate}
+
+\section{Tổng kết các mô hình tiêu biểu theo mục tiêu thực tế}
+\label{sec:khuyen-nghi-mo-hinh}
+
+Dựa trên kết quả thực nghiệm, các mô hình tiêu biểu có thể được lựa chọn tùy thuộc vào mục tiêu:
+\begin{itemize}
+    \item \textbf{Mô hình cơ sở trên không gian 5 mức ($T_5$):} \textbf{Random Forest (Tuned)} (Macro-F1 = 0.2755, Weighted-F1 = 0.6437) là mô hình cơ sở phẳng tốt nhất, phản ánh mức độ khó khăn khi phân tách chi tiết các mức độ PHQ-9 từ dữ liệu sinh lý ngoại vi.
+    \item \textbf{Mô hình đạt điểm Macro-F1 cao nhất trên $T_3$:} \textbf{$E_2$ (Hard RF--RF Tuned)} đạt Macro-F1 = \textbf{0.4586}, nhưng cần lưu ý rủi ro bỏ sót 98 ca nặng tại Stage 1.
+    \item \textbf{Mô hình cân bằng và ổn định ngoại suy trên $T_3$:} \textbf{$E_{7a}$ (Balanced OLR)} đạt Balanced Accuracy cao nhất (\textbf{0.5151}) và duy trì tốt trên dữ liệu tương lai (\textbf{0.5073}).
+    \item \textbf{Mô hình hạn chế bỏ sót ca nặng cho sàng lọc y tế ($T_3$):} \textbf{$E_{6b}$ (Soft Bayes Risk, $M_1$)} giúp giảm tỷ lệ bỏ sót ca nặng từ 30.69\% xuống 15.86\% (còn \textbf{62 ca}) với Balanced Accuracy = \textbf{0.5025 $\pm$ 0.0163}, và cho phép điều chỉnh mức phạt theo nguồn lực y tế thực tế.
+\end{itemize}
+
+\section{Đóng góp chính của đề tài}
+\label{sec:dong-gop-de-tai}
+
+\begin{enumerate}
+    \item \textbf{Về phương pháp thực nghiệm:} Xây dựng quy trình đánh giá có kiểm soát, áp dụng kiểm định chéo lồng nhau (Nested 5-Fold CV) và tiền xử lý in-fold độc lập để tránh rò rỉ dữ liệu.
+    \item \textbf{Về phân tích dữ liệu:} Cung cấp bức tranh thực nghiệm rõ ràng về sự suy giảm hiệu năng theo độ chi tiết nhãn và mức độ chồng lấn phân phối sinh lý; phân tích cơ chế lan truyền sai số một chiều của phân loại phân cấp cứng.
+    \item \textbf{Về hướng ứng dụng sàng lọc:} Thử nghiệm việc lượng hóa sự đánh đổi sai số thông qua ma trận chi phí Bayes, cung cấp cơ chế linh hoạt để cân đối giữa việc giảm bỏ sót ca nặng và mức độ báo động nhầm.
+\end{enumerate}
+
+\section{Những hạn chế của nghiên cứu}
+\label{sec:han-che-nghien-cuu}
+
+Nghiên cứu có một số hạn chế khách quan:
+\begin{enumerate}
+    \item \textbf{Bản chất dữ liệu cắt ngang (Cross-sectional):} Dữ liệu NHANES thu thập tại một thời điểm, chưa theo dõi được sự thay đổi theo thời gian của các chỉ số sinh lý trong quá trình xuất hiện hoặc thuyên giảm triệu chứng.
+    \item \textbf{Tính gián tiếp của chỉ số sinh lý ngoại vi:} Các xét nghiệm máu và chỉ số nhân trắc học chỉ phản ánh các rối loạn chuyển hóa toàn thân, không đo lường trực tiếp hoạt động thần kinh trung ương như hình ảnh não (fMRI) hay điện não đồ (EEG).
+    \item \textbf{Tính chất của thang đo tự báo cáo:} Nhãn mục tiêu dựa trên điểm PHQ-9 tự điền, do đó vẫn chịu ảnh hưởng từ cảm nhận chủ quan của người tham gia khảo sát.
+\end{enumerate}
+
+\section{Hướng phát triển tiếp theo}
+\label{sec:huong-phat-trien}
+
+Các hướng nghiên cứu tiếp theo có thể bao gồm:
+\begin{enumerate}
+    \item \textbf{Tích hợp dữ liệu đa phương thức (Multimodal Fusion):} Kết hợp các chỉ số sinh lý dạng bảng với dữ liệu giọng nói, biểu cảm khuôn mặt hoặc văn bản tự thuật để tăng lượng thông tin nhận diện.
+    \item \textbf{Khai thác dữ liệu chuỗi thời gian từ thiết bị đeo (Wearable Sensors):} Thu thập tín hiệu nhịp tim liên tục (PPG), độ biến thiên nhịp tim (HRV) và dữ liệu giấc ngủ để theo dõi biến động sinh lý theo thời gian.
+    \item \textbf{Mô hình học máy thứ bậc sâu (Deep Ordinal Networks):} Thử nghiệm các kiến trúc mạng nơ-ron học thứ bậc với hàm mất mát nhạy chi phí và tích hợp các phương pháp giải thích mô hình (XAI) nhằm hỗ trợ quyết định thực tế.
+\end{enumerate}

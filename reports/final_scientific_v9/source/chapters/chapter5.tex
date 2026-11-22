@@ -1,0 +1,68 @@
+\chapter{Kết luận và hướng phát triển}
+\label{ch:ket-luan}
+
+\section{Tổng kết các kết quả nghiên cứu đạt được}
+\label{sec:ket-luan-khoa-hoc}
+
+Báo cáo đã trình bày quá trình nghiên cứu, thiết kế và đánh giá thực nghiệm khung học máy \textbf{DepSev-ML} cho bài toán dự đoán mức độ triệu chứng trầm cảm từ dữ liệu khảo sát cộng đồng NHANES (Hoa Kỳ). Thông qua quy trình thực nghiệm tiền xử lý in-fold độc lập để kiểm soát rò rỉ dữ liệu, đề tài đã triển khai có hệ thống hai hướng nghiên cứu chính và thu được những kết quả cụ thể:
+
+\begin{enumerate}
+    \item \textbf{Kết quả trên hướng khảo sát phân loại đa mức PHQ-9 ($T_5$):}
+    \begin{itemize}
+        \item \textit{Đối chuẩn và lựa chọn mô hình cơ sở:} Đánh giá có đối chứng 4 thuật toán học máy phổ biến qua Nested Cross-Validation trên không gian 34 biến ($F_4$). Trong đó, Random Forest đạt Macro-F1 trung bình cao nhất ($0.2755 \pm 0.0270$) và Weighted-F1 đạt $0.6437 \pm 0.0087$. Mặc dù Logistic Regression có Balanced Accuracy nhỉnh hơn ở một số cấu hình, Random Forest được lựa chọn làm mô hình đối chuẩn (baseline) chính nhờ sự cân bằng tốt giữa khả năng mô hình hóa phi tuyến và tính ổn định phương sai trên dữ liệu y tế dạng bảng.
+        \item \textit{Đóng góp của các nhóm đặc trưng (RQ1):} Kết quả Feature Ablation lũy tiến ($F_1 \to F_4$) chứng minh các xét nghiệm máu và chỉ số thể chất đơn thuần ($F_1$) chỉ mang lại hiệu năng phân loại khiêm tốn (Macro-F1 $\approx 0.19$--$0.21$). Việc bổ sung tiền sử bệnh mạn tính ($F_2$) giúp tăng rõ rệt hiệu năng (+12.6\% đến +23.1\% Macro-F1). Khi kết hợp đầy đủ thói quen lối sống ($F_3$) và nhân khẩu học ($F_4$), mô hình đạt Macro-F1 = \textbf{0.2707 $\pm$ 0.0428}, khẳng định vai trò bổ trợ quan trọng của các yếu tố hành vi và xã hội.
+        \item \textit{Biến thiên hiệu năng theo độ chi tiết nhãn (RQ2):} Hiệu năng phân loại thay đổi theo độ phân giải nhãn từ $T_2$ (Macro-F1 = 0.6639) sang $T_5$ (Macro-F1 = 0.2630). Phân tích tương quan hạng Spearman, liên hệ Cramer's V và trực quan hóa PCA 2D (giải thích 21.1\% phương sai dữ liệu) làm rõ đặc tính phân phối sinh lý: các chỉ số ngoại vi giữa người có triệu chứng tối thiểu ($C_0$) và người có triệu chứng nhẹ ($C_1$) có độ chồng lấn rất lớn, khiến ranh giới phân tách phẳng giữa các lớp liền kề có độ bất định cao.
+        \item \textit{Mở rộng quy mô dữ liệu đa chu kỳ (RQ3):} Việc tăng kích thước mẫu lên 14.581 quan sát qua 3 chu kỳ NHANES giúp ổn định Balanced Accuracy trên bài toán 5 mức (tăng từ 0.2841 lên 0.3076), song không làm thay đổi đáng kể Macro-F1. Kết quả này chỉ ra rằng khả năng phân tách của mô hình phụ thuộc chủ yếu vào mức độ đặc hiệu sinh học của tập biến số hơn là số lượng mẫu quan sát.
+    \end{itemize}
+
+    \item \textbf{Kết quả trên hướng khảo sát phân loại phân cấp và thứ bậc ($T_3$):}
+    \begin{itemize}
+        \item \textit{Đánh giá so sánh nhiều hướng tiếp cận (RQ4, RQ5):} Từ các quan sát thực nghiệm về đặc điểm ranh giới trên $T_5$, nghiên cứu mở rộng khảo sát sang bài toán 3 nhóm ($C_0$: Tối thiểu, $C_1$: Nhẹ, $C_2^+$: Nặng theo quy ước) và so sánh 8 cấu hình mô hình ($E_0 \to E_7$).
+        \item \textit{Phân cấp định tuyến cứng ($E_1 \to E_3$):} Cấu hình tối ưu siêu tham số $E_2$ (Hard RF--RF Tuned) đạt Macro-F1 cao nhất trong nhóm mô hình $T_3$ (\textbf{0.4586 $\pm$ 0.0124}), cải thiện so với mô hình phẳng $E_0$ (0.4354). Tuy nhiên, mô hình bộc lộ đặc điểm lan truyền sai số một chiều khi có 98 ca nặng ($C_2^+$) bị phân loại nhầm thành $C_0$ ngay tại Stage 1 (so với 120 ca ở $E_1$).
+        \item \textit{Phân cấp mềm kết hợp tối ưu chi phí Bayes ($E_4 \to E_6$):} Mô hình phân cấp mềm $E_{6b}$ tích hợp ma trận chi phí bất đối xứng $M_1$ giúp giảm \textbf{48.33\%} số ca nặng bị bỏ sót thành bình thường (từ 120 ca ở $E_1$ xuống còn \textbf{62 ca}) với Balanced Accuracy = \textbf{0.5025 $\pm$ 0.0163}. Khi tăng mức phạt sang $M_2$, số ca bỏ sót tiếp tục giảm xuống còn \textbf{19 ca} (giảm 84.17\%), đổi lại sự gia tăng có kiểm soát của các ca báo động nhầm.
+        \item \textit{Phân loại thứ bậc ($E_7$):} Mô hình Ordinal Logistic Regression cân bằng ($E_{7a}$) đạt Balanced Accuracy cao nhất (\textbf{0.5151 $\pm$ 0.0152}), phân bổ độ nhạy đồng đều trên cả 3 mức độ ($C_0: 61.2\%$, $C_1: 32.9\%$, $C_2^+: 60.4\%$). Đồng thời, mô hình duy trì độ ổn định cao qua kiểm định ngoại suy theo thời gian trên tập dữ liệu độc lập NHANES 2015--2016 ($N = 4.888$, Balanced Accuracy = \textbf{0.5073}).
+    \end{itemize}
+\end{enumerate}
+
+\section{Bốn mô hình tiêu biểu và ý nghĩa thực nghiệm}
+\label{sec:khuyen-nghi-mo-hinh}
+
+Kết quả nghiên cứu cho thấy không có một mô hình duy nhất vượt trội trên tất cả các tiêu chí đánh giá. Tùy thuộc vào mục tiêu thực tế của bài toán, bốn mô hình tiêu biểu đã được xác định:
+\begin{itemize}
+    \item \textbf{Mô hình đối chuẩn trên không gian 5 mức ($T_5$):} \textbf{Random Forest (Tuned)} (Macro-F1 = 0.2755, Weighted-F1 = 0.6437) là mô hình cơ sở phẳng phù hợp nhất, xác lập mốc đối chuẩn và phản ánh rõ nét đặc tính phân tách của các đặc trưng sinh lý ngoại vi.
+    \item \textbf{Mô hình tối ưu Macro-F1 trên không gian 3 nhóm ($T_3$):} \textbf{$E_2$ (Hard RF--RF Tuned)} đạt Macro-F1 = \textbf{0.4586}, thích hợp cho bài toán tối ưu điểm số trung bình phân lớp nhưng cần lưu ý đặc điểm có 98 ca nặng bị phân loại nhầm ở Stage 1.
+    \item \textbf{Mô hình cân bằng phân phối và ổn định ngoại suy trên $T_3$:} \textbf{$E_{7a}$ (Balanced OLR)} đạt Balanced Accuracy = \textbf{0.5151} và duy trì tốt trên dữ liệu tương lai (\textbf{0.5073}), phù hợp cho các bài toán đòi hỏi tính khái quát hóa bền vững trước biến động dữ liệu theo thời gian.
+    \item \textbf{Mô hình kiểm soát sai số bảo vệ ca nặng trên $T_3$:} \textbf{$E_{6b}$ (Soft Bayes Risk, $M_1$)} giúp giảm tỷ lệ bỏ sót ca nặng từ 30.69\% xuống 15.86\% (còn \textbf{62 ca}) với Balanced Accuracy = \textbf{0.5025}, cung cấp cơ chế linh hoạt để điều chỉnh sự đánh đổi với số ca báo động nhầm.
+\end{itemize}
+
+Cần nhấn mạnh rằng $T_3$ và $T_5$ là hai nhiệm vụ phân loại độc lập với cấu trúc không gian nhãn khác nhau. Điểm số Macro-F1 trên $T_3$ ($\approx 0.45$) không thể so sánh trực tiếp với điểm số trên $T_5$ ($\approx 0.27$) để khẳng định mô hình nào tốt hơn, mà phản ánh hai mức độ phân giải sàng lọc khác nhau trong thực tế.
+
+\section{Đóng góp chính của đề tài}
+\label{sec:dong-gop-de-tai}
+
+\begin{enumerate}
+    \item \textbf{Về phương pháp thực nghiệm:} Xây dựng quy trình nghiên cứu thực nghiệm 7 bước có khả năng tái lập cao, áp dụng kiểm định chéo lồng nhau (Nested 5-Fold CV) và tiền xử lý in-fold độc lập để kiểm soát rò rỉ dữ liệu.
+    \item \textbf{Về khảo sát so sánh mô hình:} Triển khai và đối sánh có hệ thống nhiều hướng tiếp cận từ phân loại phẳng, phân loại phân cấp hai giai đoạn (định tuyến cứng và mềm) đến các mô hình phân loại thứ bậc, cung cấp bức tranh thực nghiệm phong phú về đặc điểm của từng hướng mô hình hóa.
+    \item \textbf{Về phân tích đặc tính dữ liệu và sự đánh đổi:} Lượng hóa vai trò của từng nhóm đặc trưng, phân tích hiện tượng chồng lấn phân phối sinh lý qua biểu đồ tương quan và PCA 2D; đồng thời ứng dụng lý thuyết quyết định Bayes để định lượng cụ thể sự đánh đổi giữa việc bảo vệ ca bệnh nặng và chi phí gia tăng ca báo động nhầm.
+\end{enumerate}
+
+\section{Những giới hạn nghiên cứu khách quan}
+\label{sec:han-che-nghien-cuu}
+
+Nghiên cứu nhìn nhận một cách trung thực các giới hạn khách quan:
+\begin{enumerate}
+    \item \textbf{Bản chất dữ liệu cắt ngang (Cross-sectional):} Dữ liệu NHANES được thu thập tại một thời điểm duy nhất cho mỗi đối tượng, do đó các mô hình chỉ phản ánh mối liên hệ tương quan thống kê tĩnh, chưa thể theo dõi sự biến thiên theo thời gian của triệu chứng hoặc suy diễn quan hệ nhân quả.
+    \item \textbf{Tính gián tiếp của chỉ số sinh lý ngoại vi:} Các xét nghiệm sinh hóa máu, huyết áp và chỉ số nhân trắc học chỉ phản ánh tình trạng chuyển hóa và thể chất toàn thân, không đo lường trực tiếp hoạt động thần kinh trung ương như hình ảnh não (fMRI) hay điện não đồ (EEG).
+    \item \textbf{Bản chất nhãn mục tiêu tự báo cáo:} Điểm số PHQ-9 dựa trên bảng câu hỏi tự điền, chịu ảnh hưởng từ cảm nhận chủ quan và định kiến xã hội (stigma) của người tham gia khảo sát, không phải là chẩn đoán xác định lâm sàng bởi bác sĩ tâm thần.
+    \item \textbf{Chưa chứng minh khả năng ứng dụng lâm sàng thực tế:} Kết quả nghiên cứu dừng lại ở mức độ khảo sát thực nghiệm học máy trên dữ liệu dịch tễ học dân số, chưa được thẩm định trong quy trình chăm sóc y tế lâm sàng thực tế.
+\end{enumerate}
+
+\section{Hướng phát triển tiếp theo}
+\label{sec:huong-phat-trien}
+
+Các hướng nghiên cứu tiếp theo có thể bao gồm:
+\begin{enumerate}
+    \item \textbf{Tích hợp dữ liệu chuỗi thời gian từ thiết bị đeo (Wearables):} Khai thác tín hiệu quang thể tích (PPG), độ biến thiên nhịp tim (HRV) và dữ liệu gia tốc kế theo dõi giấc ngủ 24/7 để bổ sung thông tin biến động sinh lý liên tục theo thời gian.
+    \item \textbf{Học máy đa phương thức (Multimodal Learning):} Kết hợp các chỉ số sinh lý dạng bảng với dữ liệu âm thanh giọng nói, biểu cảm khuôn mặt hoặc văn bản tự thuật trong quá trình phỏng vấn nhằm khai thác thông tin cảm xúc trực tiếp.
+    \item \textbf{Phát triển mạng nơ-ron học thứ bậc sâu:} Nghiên cứu các kiến trúc mạng nơ-ron học thứ bậc với hàm mất mát ràng buộc trật tự đơn điệu và tối ưu chi phí bất đối xứng, kết hợp các phương pháp giải thích mô hình (XAI) nhằm nâng cao độ tin cậy trong các ứng dụng hỗ trợ quyết định y tế.
+\end{enumerate}

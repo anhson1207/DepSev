@@ -1,0 +1,52 @@
+\begin{longtable}{p{2.5cm} p{2.2cm} p{2.5cm} p{6.5cm}}
+\caption{Danh mục hệ thống 34 đặc trưng trong không gian $F_4$ theo giao thức chính thức} \label{tab:feature-inventory} \\
+\toprule
+\textbf{Mã biến} & \textbf{Nhóm đặc trưng} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả lâm sàng / ý nghĩa} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Mã biến} & \textbf{Nhóm đặc trưng} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả lâm sàng / ý nghĩa} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\multicolumn{4}{l}{\textbf{Nhóm $F_1$ (10 đặc trưng): Dấu hiệu sinh tồn, Nhân trắc \& Xét nghiệm máu}} \\
+BMXBMI & Thể chất ($F_1$) & Liên tục (kg/m$^2$) & Chỉ số khối cơ thể (Body Mass Index) \\
+BMXWAIST & Thể chất ($F_1$) & Liên tục (cm) & Chu vi vòng eo (đo lường béo phì trung tâm) \\
+BPXPLS & Sinh tồn ($F_1$) & Rời rạc (nhịp/phút) & Tần số mạch đập khi nghỉ ngơi (60 giây) \\
+SBP\_mean & Sinh tồn ($F_1$) & Liên tục (mmHg) & Huyết áp tâm thu trung bình qua các lần đo \\
+DBP\_mean & Sinh tồn ($F_1$) & Liên tục (mmHg) & Huyết áp tâm trương trung bình qua các lần đo \\
+LBXGH & Cận lâm sàng ($F_1$) & Liên tục (\%) & Glycohemoglobin (HbA1c - chuyển hóa đường) \\
+LBXTC & Cận lâm sàng ($F_1$) & Liên tục (mg/dL) & Cholesterol toàn phần huyết thanh \\
+LBDHDD & Cận lâm sàng ($F_1$) & Liên tục (mg/dL) & HDL-Cholesterol (cholesterol tỷ trọng cao) \\
+LBXSCR & Cận lâm sàng ($F_1$) & Liên tục (mg/dL) & Creatinine huyết thanh (chức năng lọc của thận) \\
+LBXSAL & Cận lâm sàng ($F_1$) & Liên tục (g/dL) & Albumin huyết thanh (chức năng gan, dinh dưỡng) \\
+\midrule
+\multicolumn{4}{l}{\textbf{Nhóm $F_2$ (19 đặc trưng): $F_1$ + 9 tiền sử bệnh lý lâm sàng}} \\
+BPQ020 & Tiền sử ($F_2$) & Phân loại nhị phân & Bác sĩ từng chẩn đoán Tăng huyết áp \\
+DIQ010 & Tiền sử ($F_2$) & Phân loại nhị phân & Bác sĩ từng chẩn đoán Đái tháo đường \\
+MCQ160B & Tiền sử ($F_2$) & Phân loại nhị phân & Bác sĩ từng chẩn đoán Suy tim sung huyết \\
+MCQ160C & Tiền sử ($F_2$) & Phân loại nhị phân & Bác sĩ từng chẩn đoán Bệnh tim mạch vành \\
+MCQ160D & Tiền sử ($F_2$) & Phân loại nhị phân & Bác sĩ từng chẩn đoán Đau thắt ngực \\
+MCQ160E & Tiền sử ($F_2$) & Phân loại nhị phân & Tiền sử từng bị Cơn đau tim / Nhồi máu cơ tim \\
+MCQ160F & Tiền sử ($F_2$) & Phân loại nhị phân & Tiền sử từng bị Đột quỵ / Tai biến mạch máu não \\
+MCQ220 & Tiền sử ($F_2$) & Phân loại nhị phân & Tiền sử từng được chẩn đoán mắc Ung thư \\
+HUQ010 & Lâm sàng ($F_2$) & Thứ bậc (1--5) & Tự đánh giá tình trạng sức khỏe tổng quát \\
+\midrule
+\multicolumn{4}{l}{\textbf{Nhóm $F_3$ (29 đặc trưng): $F_2$ + 10 hành vi lối sống \& giấc ngủ}} \\
+PAQ605, PAQ620 & Lối sống ($F_3$) & Phân loại nhị phân & Hoạt động thể lực cường độ mạnh / vừa tại nơi làm việc \\
+PAQ650, PAQ665 & Lối sống ($F_3$) & Phân loại nhị phân & Hoạt động thể lực cường độ mạnh / vừa trong giải trí \\
+PAD680 & Lối sống ($F_3$) & Liên tục (phút/ngày) & Thời gian ngồi tĩnh tại trung bình mỗi ngày \\
+smoking\_status & Lối sống ($F_3$) & Phân loại 3 mức & Tình trạng hút thuốc lá (Never, Former, Current) \\
+ALQ101 & Lối sống ($F_3$) & Phân loại nhị phân & Uống ít nhất 12 đồ uống có cồn trong năm qua \\
+alcohol\_status & Lối sống ($F_3$) & Phân loại 3 mức & Tình trạng dùng rượu bia (Non, Moderate, Heavy) \\
+alcohol\_qty & Lối sống ($F_3$) & Thứ bậc lượng hóa & Mức độ tiêu thụ rượu bia lượng hóa \\
+SLD010H & Lối sống ($F_3$) & Liên tục (giờ) & Thời lượng giấc ngủ thông thường mỗi đêm \\
+\midrule
+\multicolumn{4}{l}{\textbf{Nhóm $F_4$ (34 đặc trưng): $F_3$ + 5 nhân khẩu học \& kinh tế xã hội}} \\
+RIDAGEYR & Nhân khẩu ($F_4$) & Liên tục (tuổi) & Tuổi của người tham gia khảo sát tại thời điểm khám \\
+RIAGENDR & Nhân khẩu ($F_4$) & Phân loại nhị phân & Giới tính sinh học (Nam / Nữ) \\
+RIDRETH1 & Nhân khẩu ($F_4$) & Phân loại 5 nhóm & Chủng tộc / Dân tộc tự xác định \\
+DMDEDUC2 & Nhân khẩu ($F_4$) & Thứ bậc (1--5) & Trình độ học vấn cao nhất đạt được (người lớn) \\
+INDFMPIR & Kinh tế ($F_4$) & Liên tục (tỷ số) & Tỷ số thu nhập gia đình trên chuẩn nghèo liên bang \\
+\end{longtable}

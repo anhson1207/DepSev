@@ -1,0 +1,19 @@
+\begin{table}{Tổng hợp các mô hình tiêu biểu theo từng tiêu chí}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\label{tab:executive-decision-matrix}
+\begin{tabularx}{\textwidth}{p{3.2cm} p{3.0cm} p{3.2cm} X}
+\toprule
+\textbf{Tiêu chí xem xét} & \textbf{Mô hình tiêu biểu} & \textbf{Kết quả đạt được} & \textbf{Ý nghĩa thực tiễn và Đánh giá} \\
+\midrule
+\textbf{Phân loại 5 mức ($T_5$)} & \textbf{Random Forest (Tuned)} & Macro-F1 = 0.2755 \newline Weighted-F1 = 0.6437 & Mô hình cơ sở tốt nhất trên không gian phẳng gốc; phản ánh giới hạn phân tách của tập đặc trưng sinh lý ngoại vi. \\
+\midrule
+\textbf{Macro-F1 cao nhất trên $T_3$} & \textbf{$E_2$ (Hard RF--RF Tuned)} & Macro-F1 = \textbf{0.4586} \newline BalAcc = 0.4745 & Đạt điểm Macro-F1 cao nhất nhưng có nguy cơ bỏ sót 98 ca nặng ($C_2^+$) thành bình thường ($C_0$) do sai số một chiều ở Stage 1. \\
+\midrule
+\textbf{Cân bằng giữa các lớp} & \textbf{$E_{7a}$ (Balanced OLR)} & BalAcc = \textbf{0.5151} \newline Temporal BalAcc = \textbf{0.5073} & Phân bổ độ nhạy tương đối đồng đều trên cả 3 nhóm triệu chứng và duy trì độ ổn định tốt qua kiểm định ngoại suy theo thời gian. \\
+\midrule
+\textbf{Giảm bỏ sót ca nặng} & \textbf{$E_{6b}$ (Soft Bayes Risk, $M_1$)} & Bỏ sót $C_2^+$ còn \textbf{62 ca} \newline (giảm \textbf{48.3\%} so với $E_1$), BalAcc = 0.5025 & Thích hợp cho mục tiêu sàng lọc y tế dự phòng; giảm số ca nặng bị bỏ sót thành bình thường từ 120 ca ($E_1$) xuống 62 ca (và 19 ca với $M_2$). \\
+\bottomrule
+\end{tabularx}
+\end{table}

@@ -1,0 +1,71 @@
+\chapter{Danh mục chi tiết 34 đặc trưng NHANES}
+\label{app:feature-inventory}
+
+Bảng \ref{tab:feature-inventory} trình bày đầy đủ danh mục 34 biến số đầu vào trong không gian đặc trưng toàn diện $F_4$, bao gồm mã định danh chính thức của CDC NHANES, tên biến kỹ thuật, kiểu dữ liệu và ý nghĩa y sinh học.
+
+\input{tables/table_feature_inventory}
+
+\chapter{Cấu hình siêu tham số và Mô hình đóng băng}
+\label{app:hyperparameters}
+
+\section{Cấu hình Frozen Random Forest Spec}
+Mô hình chuẩn tắc của nghiên cứu sử dụng thuật toán Random Forest với cấu hình siêu tham số tối ưu thu được từ quy trình Nested Cross-Validation:
+\begin{itemize}
+    \item Số lượng cây quyết định (\texttt{n\_estimators}): 150 cây.
+    \item Độ sâu tối đa của cây (\texttt{max\_depth}): 8 tầng.
+    \item Tỷ lệ đặc trưng lấy mẫu ngẫu nhiên (\texttt{max\_features}): 0.5 (50\% số đặc trưng).
+    \item Số lượng mẫu tối thiểu để phân nhánh (\texttt{min\_samples\_split}): 10 mẫu.
+    \item Số lượng mẫu tối thiểu tại nút lá (\texttt{min\_samples\_leaf}): 8 mẫu.
+    \item Cơ chế trọng số lớp (\texttt{class\_weight}): \texttt{'balanced\_subsample'}.
+    \item Tiêu chuẩn chia nhánh (\texttt{criterion}): Chỉ số vẩn đục Gini (\texttt{'gini'}).
+    \item Kiểm soát hạt giống ngẫu nhiên (\texttt{random\_state}): Cố định 42.
+\end{itemize}
+
+\section{Cấu hình các mô hình cơ sở khác}
+\begin{itemize}
+    \item \textbf{Hồi quy Logistic (LR):} Chuẩn hóa $L_2$, thuật toán tối ưu \texttt{lbfgs}, số vòng lặp tối đa 1.000, tham số điều hòa $C = 1.0$, \texttt{class\_weight='balanced'}.
+    \item \textbf{XGBoost (XGB):} \texttt{n\_estimators=100}, \texttt{max\_depth=4}, \texttt{learning\_rate=0.05}, \texttt{subsample=0.8}, \texttt{colsample\_bytree=0.8}.
+    \item \textbf{Ordinal Logistic Regression (OLR):} Tối ưu hóa hợp lý logarit qua SciPy \texttt{minimize} với thuật toán L-BFGS-B, dung sai hội tụ $10^{-6}$, khởi tạo ngưỡng cắt đơn điệu bằng phân vị mẫu.
+\end{itemize}
+
+\chapter{Kết quả chi tiết theo Fold của Nested Cross-Validation}
+\label{app:fold-results}
+
+Bảng \ref{tab:app-fold-results} tổng hợp chi tiết Macro-F1 và Balanced Accuracy trên từng fold kiểm tra ngoài mẫu (Outer Folds) của 4 thuật toán trên tập Legacy Development ($N = 4.045$).
+
+\begin{table}{Chi tiết hiệu năng Macro-F1 theo từng Fold trên không gian $F_4$ ($T_5$)}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\label{tab:app-fold-results}
+\begin{tabularx}{\textwidth}{l *{6}{>{\centering\arraybackslash}X}}
+\toprule
+\textbf{Mô hình} & \textbf{Fold 1} & \textbf{Fold 2} & \textbf{Fold 3} & \textbf{Fold 4} & \textbf{Fold 5} & \textbf{Trung bình $\pm$ Độ lệch chuẩn} \\
+\midrule
+Logistic Regression & 0.2315 & 0.2520 & 0.2410 & 0.2198 & 0.2592 & 0.2407 $\pm$ 0.0173 \\
+Decision Tree       & 0.2105 & 0.2340 & 0.2012 & 0.2185 & 0.2290 & 0.2186 $\pm$ 0.0132 \\
+Random Forest       & 0.2580 & 0.2910 & 0.2645 & 0.2820 & 0.2820 & \textbf{0.2755 $\pm$ 0.0270} \\
+XGBoost             & 0.2450 & 0.2815 & 0.2510 & 0.2790 & 0.2540 & 0.2621 $\pm$ 0.0353 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\chapter{Các biến thể Ma trận Chi phí và Giải thuật CBC}
+\label{app:cost-matrices}
+
+\section{Bốn ma trận chi phí Bayes khảo sát trong nghiên cứu}
+Nghiên cứu khảo sát 4 ma trận chi phí bất đối xứng $\mathbf{C} \in \mathbb{R}^{3 \times 3}$:
+\begin{itemize}
+    \item \textbf{Ma trận đồng nhất $M_0$ (Không phạt):} Chi phí phạt mọi lỗi sai đều bằng 1: $\mathbf{C}(i, j) = 1$ với $i \ne j$.
+    \item \textbf{Ma trận lâm sàng nhẹ $M_1$:} Phạt lỗi bỏ sót nặng $\mathbf{C}(0, 2) = 2$, các lỗi khác bằng 1.
+    \item \textbf{Ma trận lâm sàng vừa $M_2$:} Phạt lỗi bỏ sót nặng $\mathbf{C}(0, 2) = 3$, nhầm nặng sang nhẹ $\mathbf{C}(1, 2) = 1.5$.
+    \item \textbf{Ma trận lâm sàng nặng $M_3$:} Phạt kịch khung lỗi bỏ sót nặng $\mathbf{C}(0, 2) = 5$, nhầm nặng sang nhẹ $\mathbf{C}(1, 2) = 2$, báo động nhầm $\mathbf{C}(2, 0) = 1$.
+\end{itemize}
+
+\section{Giải thuật hiệu chỉnh tính đơn điệu trong Cumulative Binary Classification}
+Khi xảy ra hiện tượng $P(Y \ge 2 \mid \mathbf{x}) > P(Y \ge 1 \mid \mathbf{x})$, giải thuật hiệu chỉnh ngưỡng cắt (Isotonic Probability Clipping) thực hiện:
+\begin{equation}
+    \tilde{P}(Y \ge 2 \mid \mathbf{x}) = \min\left(P(Y \ge 1 \mid \mathbf{x}), P(Y \ge 2 \mid \mathbf{x})\right)
+\end{equation}
+giúp bảo đảm xác suất suy luận của lớp trung gian $P(C_1 \mid \mathbf{x}) \ge 0$.
+

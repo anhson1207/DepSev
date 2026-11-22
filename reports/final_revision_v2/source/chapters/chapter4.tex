@@ -1,0 +1,361 @@
+\chapter{Thực nghiệm và đánh giá}
+\label{ch:thuc-nghiem}
+
+\section{Môi trường thực nghiệm}
+\label{sec:moi-truong-thuc-nghiem}
+
+Để đảm bảo tính khả lập (reproducibility) và tính minh bạch tuyệt đối của toàn bộ quá trình nghiên cứu, tất cả các thực nghiệm trong framework DepSev-ML được thực thi trên môi trường phần cứng và phần mềm chuẩn tắc:
+\begin{itemize}
+    \item \textbf{Phần cứng (Hardware):} Máy trạm cá nhân Apple Silicon (kiến trúc ARM64, vi xử lý Apple M-series), bộ nhớ RAM 16 GB, ổ cứng thể rắn SSD tốc độ cao.
+    \item \textbf{Hệ điều hành (Operating System):} macOS (Darwin Kernel Version 24.6.0).
+    \item \textbf{Môi trường phần mềm và Ngôn ngữ lập trình:} Python phiên bản 3.13.7 (Clang 16.0.0) chạy trong môi trường ảo hóa độc lập (\texttt{.venv}).
+    \item \textbf{Các thư viện tính toán khoa học cốt lõi:}
+    \begin{itemize}
+        \item \texttt{scikit-learn}: Phiên bản 1.9.1 (cung cấp các thuật toán nền tảng, tiền xử lý, kiểm định chéo và các độ đo đánh giá).
+        \item \texttt{numpy}: Phiên bản 2.5.3 (xử lý ma trận và tính toán đại số tuyến tính tối ưu hóa).
+        \item \texttt{pandas}: Phiên bản 3.0.6 (quản lý, lọc và biến đổi dữ liệu dạng bảng).
+        \item \texttt{scipy}: Phiên bản 1.18.1 (tối ưu hóa phi tuyến bậc hai L-BFGS-B cho mô hình Ordinal Logistic Regression).
+        \item \texttt{xgboost}: Phiên bản 3.4.1 (thuật toán eXtreme Gradient Boosting với hỗ trợ trọng số lớp động).
+        \item \texttt{matplotlib} (3.11.2) và \texttt{seaborn}: Trực quan hóa dữ liệu và xuất bản biểu đồ khoa học độ phân giải cao (300 DPI).
+    \end{itemize}
+    \item \textbf{Quản lý hạt giống ngẫu nhiên (Random Seed Control):} Tham số \texttt{random\_state = 42} được cố định nghiêm ngặt trên toàn bộ các phép chia fold, khởi tạo mô hình và lấy mẫu bootstrap nhằm triệt tiêu phương sai ngẫu nhiên giữa các lần chạy.
+\end{itemize}
+
+\section{Thực nghiệm Baseline và Cắt bỏ đặc trưng (Feature Ablation)}
+\label{sec:feature-ablation}
+
+\subsection{Mục tiêu và thiết lập thực nghiệm}
+Thực nghiệm Feature Ablation nhằm trả lời câu hỏi nghiên cứu \textbf{RQ1}: Khảo sát sự đóng góp thực tế của bốn nhóm đặc trưng lũy tiến ($F_1 \to F_4$) đối với khả năng dự đoán mức độ PHQ-9 (nhiệm vụ 5 lớp $T_5$: $C_0 \to C_4$). Thực nghiệm được thực hiện thông qua Stratified 5-Fold Cross-Validation trên tập Legacy Development Cohort ($N = 4.045$). Bốn thuật toán học máy cơ sở được đánh giá song song: Hồi quy Logistic (LR), Cây quyết định (DT), Rừng ngẫu nhiên (RF) và eXtreme Gradient Boosting (XGBoost).
+
+\subsection{Kết quả thực nghiệm}
+Số liệu out-of-fold chi tiết được trích xuất từ file kết quả gốc \texttt{results/tables/feature\_ablation\_results\_final\_protocol.csv} và được tổng hợp trong Bảng \ref{tab:ablation-results}. Hình \ref{fig:ablation-comparison} trực quan hóa xu hướng biến thiên Macro-F1 và Balanced Accuracy.
+
+\input{tables/table_ablation_results}
+
+\begin{figure}{So sánh hiệu năng Macro-F1 của 4 thuật toán trên các nhóm đặc trưng lũy tiến $F_1 \to F_4$}
+\centering
+\includegraphics[width=0.9\textwidth]{figures/feature_group_comparison_final_protocol.png}
+\label{fig:ablation-comparison}
+\end{figure}
+
+\subsection{Phân tích khoa học}
+Từ kết quả Bảng \ref{tab:ablation-results}, một số phát hiện then chốt được rút ra:
+\begin{enumerate}
+    \item \textbf{Đóng góp rõ nét của nhóm Tiền sử bệnh lý lâm sàng ($F_1 \to F_2$):} Theo phân chia nhóm đặc trưng chính thức, nhóm $F_1$ (10 biến) đã bao gồm 5 chỉ số thể chất/sinh tồn và 5 xét nghiệm máu thiết yếu (HbA1c, Cholesterol, HDL, Creatinine, Albumin). Bước chuyển $F_1 \to F_2$ bổ sung 9 biến tiền sử bệnh lý mạn tính và chẩn đoán lâm sàng của bác sĩ (tăng huyết áp, đái tháo đường, 5 bệnh lý tim mạch/đột quỵ, ung thư và tự đánh giá sức khỏe), tạo ra mức tăng hiệu năng rõ nét nhất trên toàn bộ các mô hình: Macro-F1 của Hồi quy Logistic tăng từ 0.1900 lên 0.2338 (+23.1\%), Random Forest tăng từ 0.2052 lên 0.2350 (+14.5\%), và XGBoost tăng từ 0.2173 lên 0.2447 (+12.6\%). Điều này xác nhận giả thuyết y sinh rằng tiền sử bệnh mạn tính cung cấp tín hiệu bổ sung giá trị cho các chỉ số hóa sinh máu.
+    \item \textbf{Đóng góp của nhóm Lối sống và Nhân khẩu học ($F_3, F_4$):} Nhóm đặc trưng lối sống (giấc ngủ, vận động thể lực, hút thuốc, sử dụng rượu bia) và nhân khẩu học (tuổi, giới tính, học vấn, tỷ lệ nghèo) tiếp tục nâng hiệu năng của XGBoost lên mức Macro-F1 = \textbf{0.2707 $\pm$ 0.0428} (Balanced Accuracy = 0.2837 $\pm$ 0.0485). Đối với Random Forest chưa tinh chỉnh, việc tăng từ 19 lên 34 đặc trưng khiến Macro-F1 giảm nhẹ (từ 0.2350 xuống 0.2232 $\pm$ 0.0099), do việc lấy mẫu ngẫu nhiên $\sqrt{d}$ đặc trưng tại mỗi nhánh bị phân tán bởi các biến tương quan yếu, đặt ra yêu cầu phải tinh chỉnh siêu tham số có kiểm soát.
+    \item \textbf{Sự khác biệt giữa Weighted-F1 và Macro-F1:} Weighted-F1 luôn đạt giá trị rất cao (từ 0.49 đến 0.67) do bị chi phối bởi lớp đa số $C_0$ (chiếm ~75\%). Ngược lại, Macro-F1 dao động quanh mức 0.19 -- 0.27, phản ánh trung thực thách thức trong việc nhận diện các mức độ triệu chứng thiểu số ($C_2, C_3, C_4$).
+\end{enumerate}
+
+\subsection{Kết nối phương pháp luận: Từ lựa chọn đặc trưng đến tối ưu hóa mô hình}
+Kết quả Feature Ablation khẳng định rằng không gian đặc trưng đầy đủ $F_4$ mang lại tiềm năng biểu diễn tốt nhất, song các mô hình với siêu tham số mặc định chưa khai thác triệt để tiềm năng này do hiện tượng phân tán ngẫu nhiên và mất cân bằng lớp. Do đó, bước tiếp theo là tối ưu hóa có hệ thống các siêu tham số mô hình thông qua quy trình kiểm định lồng nhau (Nested CV) khắt khe nhằm tìm ra cấu hình đường cơ sở tối ưu, đồng thời kiểm tra khả năng cải thiện thông qua các kỹ thuật học kết hợp (Ensemble Learning).
+
+\FloatBarrier
+\section{Tinh chỉnh siêu tham số và Mô hình học kết hợp}
+\label{sec:tuning-va-ensemble}
+
+\subsection{Tinh chỉnh Nested Cross-Validation}
+Để lựa chọn cấu hình mô hình tối ưu một cách khách quan nhất và ngăn ngừa hiện tượng quá lạc quan trong đánh giá (optimistic bias), nghiên cứu áp dụng quy trình kiểm định lồng nhau (Nested CV) \cite{varma2006bias}:
+\begin{itemize}
+    \item \textbf{Outer CV (5 folds):} Đánh giá hiệu năng tổng quát hóa khách quan.
+    \item \textbf{Inner CV (3 folds trên Outer Training):} Thực hiện \texttt{RandomizedSearchCV} với 12 cấu hình siêu tham số ngẫu nhiên cho mỗi ứng viên trên độ đo Macro-F1.
+\end{itemize}
+
+Bốn ứng viên được đưa vào Nested Tuning gồm: \texttt{LR/F4}, \texttt{RF/F4}, \texttt{XGB/F3} và \texttt{XGB/F4}. Kết quả Nested CV (trích xuất từ \texttt{results/nested\_cv\_tuning\_report.md}):
+\begin{itemize}
+    \item \texttt{LR/F4}: Macro-F1 outer đạt $0.2407 \pm 0.0173$.
+    \item \texttt{XGB/F3}: Macro-F1 outer đạt $0.2516 \pm 0.0267$.
+    \item \texttt{XGB/F4}: Macro-F1 outer đạt $0.2621 \pm 0.0353$.
+    \item \textbf{\texttt{RF/F4} (Dẫn đầu):} Macro-F1 outer đạt \textbf{0.2755 $\pm$ 0.0270} (tăng +0.0523 so với baseline RF chưa tinh chỉnh).
+\end{itemize}
+
+Bộ siêu tham số tối ưu của Random Forest trên toàn bộ tập Development: \texttt{n\_estimators = 150}, \texttt{max\_depth = 8}, \texttt{max\_features = 0.5}, \texttt{min\_samples\_split = 10}, \texttt{min\_samples\_leaf = 8}, \texttt{class\_weight = 'balanced\_subsample'}, \texttt{criterion = 'gini'}. Cấu hình này được khóa chính thức thành \textbf{Frozen Random Forest Spec} trong file cấu hình \texttt{artifacts/final\_model\_spec.json}.
+
+\subsection{Thực nghiệm Mô hình học kết hợp (Ensemble Study)}
+Nghiên cứu tiếp tục kiểm tra xem liệu việc kết hợp các mô hình (Soft Voting và Stacking) có mang lại lợi ích thực sự so với mô hình Random Forest đơn nhất hay không. Kết quả từ \texttt{results/tables/ensemble\_results.csv}:
+\begin{itemize}
+    \item \texttt{Frozen Random Forest (Single)}: Macro-F1 = \textbf{0.2741 $\pm$ 0.0252}, Balanced Accuracy = \textbf{0.3015 $\pm$ 0.0294}.
+    \item \texttt{Soft Voting (RF + XGBoost)}: Macro-F1 = 0.2748 $\pm$ 0.0248 (chỉ tăng không đáng kể +0.0007).
+    \item \texttt{Stacking Classifier (Meta-LR)}: Macro-F1 = 0.2585 $\pm$ 0.0226 (suy giảm -0.0156).
+\end{itemize}
+
+Theo quy tắc ra quyết định thận trọng (Conservative Selection Rule) đã cam kết trong đề tài: \textit{Một mô hình phức tạp hơn chỉ được chấp nhận nếu cải thiện Macro-F1 ít nhất +0.01 và thắng ít nhất 4/5 folds}. Soft Voting và Stacking đều không thỏa mãn tiêu chí này. Do đó, nghiên cứu quyết định giữ nguyên \textbf{Random Forest đã tinh chỉnh làm mô hình chuẩn tắc duy nhất}, đảm bảo sự tinh gọn và khả năng kiểm soát thuật toán cao nhất.
+
+\subsection{Kết nối phương pháp luận: Từ mô hình tối ưu đến khảo sát độ chi tiết nhãn}
+Sau khi xác lập mô hình Frozen Random Forest trên không gian đặc trưng $F_4$ làm đường cơ sở chuẩn tắc, một câu hỏi phương pháp luận nền tảng được đặt ra: Tại sao hiệu năng phân loại 5 lớp ($T_5$) lại dừng lại ở mức Macro-F1 $\approx 0.27$? Liệu nguyên nhân nằm ở bản thân kiến trúc mô hình hay xuất phát từ cấu trúc phân phối nội tại của các mức độ triệu chứng PHQ-9? Để giải đáp câu hỏi này, Mục \ref{sec:target-granularity} tiến hành khảo sát sự suy thoái hiệu năng trên các mức độ chi tiết nhãn từ $T_2$ đến $T_5$.
+
+\FloatBarrier
+\section{Phân tích độ chi tiết nhãn mục tiêu ($T_2 \to T_5$)}
+\label{sec:target-granularity}
+
+\subsection{Mục tiêu và kết quả thực nghiệm}
+Đây là một trong những phát hiện phương pháp luận trọng tâm nhất của đề tài, nhằm giải quyết câu hỏi \textbf{RQ2}: Lượng hóa quy luật suy giảm hiệu năng khi bài toán chuyển đổi từ phân loại nhị phân thô ($T_2$) sang các mức độ chi tiết ($T_3, T_4, T_5$) trên cùng một mô hình Frozen Random Forest và không gian đặc trưng $F_4$ ($N = 4.045$).
+
+Kết quả thực nghiệm out-of-fold được đối chiếu từ \texttt{results/final\_report\_granularity.md} và trình bày trong Bảng \ref{tab:granularity-results}. Hình \ref{fig:granularity-curves} minh họa trực quan sự suy giảm này.
+
+\input{tables/table_granularity_results}
+
+\begin{figure}{Đồ thị thể hiện sự suy giảm nghiêm trọng của Macro-F1 và Balanced Accuracy từ $T_2$ đến $T_5$}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/granularity_performance.png}
+\label{fig:granularity-curves}
+\end{figure}
+
+\subsection{Phân tích nguyên nhân suy giảm và vị trí điểm nghẽn}
+Từ Bảng \ref{tab:granularity-results}, sự sụt giảm hiệu năng giữa các bước chuyển đổi được lượng hóa:
+\begin{itemize}
+    \item \textbf{Bước chuyển $T_2 \to T_3$:} Macro-F1 sụt giảm tới \textbf{-0.2285} (từ 0.6639 xuống 0.4354, tương đương giảm 34.4\%). Đây là bước sụt giảm lớn nhất trong toàn bộ chuỗi thực nghiệm!
+    \item \textbf{Bước chuyển $T_3 \to T_4$:} Macro-F1 giảm \textbf{-0.0974} (từ 0.4354 xuống 0.3380).
+    \item \textbf{Bước chuyển $T_4 \to T_5$:} Macro-F1 giảm \textbf{-0.0750} (từ 0.3380 xuống 0.2630).
+\end{itemize}
+
+\textbf{Tại sao bước chuyển $T_2 \to T_3$ lại gây suy giảm mạnh nhất?}  
+Trong nhiệm vụ nhị phân $T_2$, toàn bộ các đối tượng có triệu chứng từ nhẹ đến nặng ($s \ge 5$) được gộp chung thành một lớp dương tính. Mô hình chỉ cần phân tách giữa người hoàn toàn bình thường và người có bất kỳ dấu hiệu bất thường nào. Tuy nhiên, khi chuyển sang $T_3$, nhóm triệu chứng nhẹ ($C_1$: PHQ-9 từ 5 đến 9 điểm) bị tách ra thành một lớp riêng biệt nằm kẹp giữa $C_0$ và $C_2^+$. 
+
+Phân tích ma trận nhầm lẫn của $T_3$ (Hình \ref{fig:granularity-t3-cm}) dựa trên kết quả kiểm định Out-of-fold thực tế (\texttt{results/tables/granularity\_oof\_predictions.csv}) cho thấy: Trong tổng số 638 bệnh nhân có triệu chứng nhẹ ($C_1$), có tới \textbf{347 mẫu (54.39\%)} bị mô hình nhầm lẫn thành $C_0$ (bình thường), \textbf{187 mẫu (29.31\%)} bị nhầm thành $C_2^+$ (nặng), và chỉ có \textbf{104 mẫu (16.30\%)} được phân loại chính xác vào lớp $C_1$. Độ nhạy (Recall) của lớp $C_1$ chỉ đạt vỏn vẹn \textbf{16.29\%}!
+
+\begin{figure}{Ma trận nhầm lẫn Out-of-fold của nhiệm vụ 3 lớp $T_3$, chỉ ra điểm nghẽn nghiêm trọng tại lớp $C_1$}
+\centering
+\includegraphics[width=0.65\textwidth]{figures/granularity_T3_confusion.png}
+\label{fig:granularity-t3-cm}
+\end{figure}
+
+Phân tích thành phần chính (PCA) trên không gian đặc trưng sinh lý (Hình \ref{fig:overlap-pca}) cho thấy rõ: Các điểm dữ liệu của $C_0$ và $C_1$ chồng lấn gần như hoàn toàn lên nhau. Sự khác biệt về huyết áp, đường huyết hay mỡ máu giữa một người có 4 điểm PHQ-9 (xếp vào $C_0$) và một người có 5 điểm PHQ-9 (xếp vào $C_1$) là cực kỳ mong manh và không mang tính phân tách thống kê rõ rệt.
+
+\begin{figure}{Trực quan hóa không gian đặc trưng bằng PCA: Sự chồng lấn phân phối sinh lý dày đặc giữa các mức độ triệu chứng}
+\centering
+\includegraphics[width=0.95\textwidth]{figures/overlap_pca_C0_C4.png}
+\label{fig:overlap-pca}
+\end{figure}
+
+\subsection{Kết nối phương pháp luận: Từ cỡ mẫu đơn chu kỳ đến khảo sát đa chu kỳ quy mô lớn}
+Hiện tượng suy giảm hiệu năng nghiêm trọng tại bước chuyển $T_2 \to T_3$ và trần hiệu năng tại $T_5$ (Macro-F1 $\approx 0.26$) trên tập Legacy Cohort ($N = 4.045$) đặt ra một câu hỏi then chốt: Liệu hiện tượng này có phải do hạn chế về quy mô dữ liệu? Nếu tăng cỡ mẫu lên gấp 3 lần bằng cách gộp các chu kỳ NHANES tiếp theo ($N = 14.581$), liệu mô hình có vượt qua được ranh giới chồng lấn phân phối để cải thiện Macro-F1 hay không? Mục \ref{sec:thuc-nghiem-multicycle} sẽ kiểm chứng giả thuyết này thông qua thiết kế thực nghiệm đa chu kỳ có đối chứng.
+
+\FloatBarrier
+\section{Thực nghiệm Tổng quát hóa trên Multi-Cycle Cohort}
+\label{sec:thuc-nghiem-multicycle}
+
+Để trả lời câu hỏi nghiên cứu \textbf{RQ3}, framework DepSev-ML được mở rộng đánh giá trên tập dữ liệu đa chu kỳ chính thức với không gian đặc trưng hài hòa $F_{4\_\text{common31}}$ gồm 31 biến số. Bốn nhánh thực nghiệm có kiểm soát được thiết kế:
+\begin{itemize}
+    \item \textbf{Branch A (Single-cycle 2013--2014, $N = 5.054$):} Đóng vai trò là đối chứng chu kỳ đơn hợp lệ trong cùng không gian đặc trưng Common31.
+    \item \textbf{Branch B (Pooled Multi-cycle 2011--2016, $N = 14.581$):} Gộp toàn bộ 3 chu kỳ để tăng cỡ mẫu lên gấp gần 3 lần.
+    \item \textbf{Branch C (Matched-N, $N = 5.054$):} Lấy mẫu ngẫu nhiên từ tập Pooled sao cho cỡ mẫu đúng bằng Branch A nhằm cô lập tác động của quy mô mẫu khỏi thành phần chu kỳ.
+    \item \textbf{Branch D (Temporal Evaluation):} Huấn luyện trên hai chu kỳ quá khứ 2011--2014 ($N = 9.693$), kiểm tra độc lập trên chu kỳ tương lai 2015--2016 ($N = 4.888$).
+\end{itemize}
+
+Kết quả thực nghiệm trên nhiệm vụ 5 lớp $T_5$ (trích xuất từ \texttt{results/final\_report\_integrated.md}):
+\begin{itemize}
+    \item \textbf{Macro-F1 không tăng khi gộp dữ liệu:} Branch A đạt Macro-F1 = \textbf{0.2634 $\pm$ 0.0152}, trong khi Branch B đạt Macro-F1 = \textbf{0.2619 $\pm$ 0.0098}. Sự khác biệt là hoàn toàn không đáng kể (-0.0015).
+    \item \textbf{Balanced Accuracy cải thiện nhẹ:} Tăng từ \textbf{0.2841 $\pm$ 0.0142} (Branch A) lên \textbf{0.3076 $\pm$ 0.0118} (Branch B).
+    \item \textbf{Recall của các lớp nặng hiếm mẫu ($C_3, C_4$) được cải thiện:} Khi số lượng mẫu $C_4$ trong tập huấn luyện tăng từ 55 lên 167 mẫu, độ nhạy Recall $C_4$ tăng từ 10.91\% lên 17.37\%. Tuy nhiên, độ chính xác dự đoán (Precision) của $C_4$ vẫn ở mức rất thấp (khoảng 3--5\%), do đó điểm F1 của các lớp này hầu như không thay đổi và không kéo tăng được Macro-F1 tổng thể.
+    \item \textbf{Kiểm định thời gian (Branch D):} Trên tập dữ liệu độc lập NHANES 2015--2016 ($N = 4.888$ đối tượng, gồm đầy đủ tất cả mẫu hợp lệ mà không có bất kỳ mẫu nào bị loại bỏ), mô hình 5 lớp duy trì Macro-F1 = \textbf{0.2584} và Balanced Accuracy = \textbf{0.3012}, chứng minh mô hình không bị quá khớp theo thời gian nhưng sự hạn chế về khả năng phân tách đa mức vẫn tồn tại khách quan.
+
+\end{itemize}
+
+\textbf{Kết quả kiểm định theo dòng thời gian trên nhiệm vụ 3 lớp $T_3$:}  
+Bảng \ref{tab:multicycle-temporal-results} tổng hợp hiệu năng của các mô hình $T_3$ trên tập kiểm định thời gian Branch D ($N = 4.888$). Kết quả cho thấy mô hình Ordinal Logistic Regression cân bằng ($E_{7a}$) tiếp tục duy trì Balanced Accuracy cao nhất (\textbf{0.5073}) và nhận diện được \textbf{59.30\%} số ca bệnh nặng $C_2^+$.
+
+\input{tables/table_multicycle_results}
+
+\textbf{Kết luận RQ3:} Việc mở rộng cỡ mẫu đa chu kỳ giúp mô hình ước lượng phân phối của các lớp hiếm ổn định hơn (tăng nhẹ Balanced Accuracy và Recall lớp nặng), nhưng không thể đảo ngược hoàn toàn sự suy giảm hiệu năng của bài toán phân loại đa mức nếu không gian đặc trưng sinh lý ngoại vi vẫn có độ chồng lấn phân phối cao.
+
+\FloatBarrier
+\section{Định hướng nghiên cứu mở rộng: Chuyển dịch mục tiêu sang Nhiệm vụ T3}
+\label{sec:dinh-huong-t3}
+
+\subsection{Cơ sở lý luận và Động lực chuyển đổi sang Nhiệm vụ T3}
+Các phát hiện thực nghiệm từ Mục \ref{sec:target-granularity} và Mục \ref{sec:thuc-nghiem-multicycle} đã chỉ ra một rào cản mang tính bản chất: Trên nhiệm vụ 5 mức độ tiêu chuẩn ($T_5$), mô hình học máy đạt trần hiệu năng quanh mức Macro-F1 $\approx 0.26$, ngay cả khi quy mô tập dữ liệu được mở rộng lên 14.581 mẫu qua 3 chu kỳ NHANES liên tiếp. Nguyên nhân cốt lõi không nằm ở thuật toán hay dung lượng mẫu, mà xuất phát từ sự kết hợp giữa tỷ số mất cân bằng cực đoan ($\text{IR} \approx 68.5:1$) và mức độ chồng lấn phân phối sinh lý học dày đặc giữa các trạng thái lâm sàng kế cận (đặc biệt là giữa $C_0$ và $C_1$, cũng như giữa $C_2, C_3$ và $C_4$).
+
+Trong bối cảnh y tế dự phòng và thực hành sàng lọc sức khỏe cộng đồng, mục tiêu ưu tiên hàng đầu không phải là phân định tuyệt đối giữa các mức độ cận kề (chẳng hạn phân biệt giữa mức Trầm cảm vừa và Nặng vừa), mà là \textbf{phân luồng can thiệp y tế (Clinical Triage)}:
+\begin{enumerate}
+    \item \textbf{Nhóm không có triệu chứng ($C_0$, $0 \le s \le 4$):} Chiếm đa số trong quần thể, không đòi hỏi can thiệp y tế.
+    \item \textbf{Nhóm triệu chứng nhẹ ($C_1$, $5 \le s \le 9$):} Xuất hiện triệu chứng dưới ngưỡng chẩn đoán, cần được khuyến nghị điều chỉnh lối sống, giảm căng thẳng và theo dõi diễn tiến định kỳ.
+    \item \textbf{Nhóm Nặng theo quy ước nghiên cứu ($C_2^+$, $10 \le s \le 27$):} Vượt qua ngưỡng cắt lâm sàng truyền thống ($s \ge 10$), bao gồm toàn bộ các đối tượng từ mức vừa đến rất nặng ($C_2 \cup C_3 \cup C_4$), là đối tượng bắt buộc phải được chuyển tuyến khám chuyên khoa tâm thần và can thiệp điều trị.
+\end{enumerate}
+
+Do đó, nghiên cứu tiến hành \textbf{chuyển dịch mục tiêu sang Nhiệm vụ 3 nhóm ($T_3$)} như một hướng nghiên cứu mở rộng có tính thực tiễn cao. 
+
+\subsection{Làm rõ ranh giới phương pháp luận giữa T5 và T3}
+Cần thiết lập một tuyên bố phương pháp luận rõ ràng nhằm tránh mọi ngộ nhận khoa học:
+\begin{quote}
+\textit{Tuyên bố nguyên tắc:} Việc chuyển dịch sang nhiệm vụ $T_3$ \textbf{không đồng nghĩa với việc giải quyết hay vượt qua trần hiệu năng của bài toán $T_5$}. Đây là hai bài toán với không gian nhãn hoàn toàn khác biệt ($|\mathcal{Y}| = 3$ so với $|\mathcal{Y}| = 5$), do đó các chỉ số hiệu năng (Macro-F1, Balanced Accuracy) giữa $T_3$ và $T_5$ không thể so sánh số học trực tiếp với nhau.
+\end{quote}
+
+Mục đích thực sự của việc tập trung vào nhiệm vụ $T_3$ là thiết lập một \textbf{môi trường thực nghiệm chuẩn mực (Benchmark Environment)} có ý nghĩa lâm sàng rõ rệt, từ đó đánh giá có hệ thống xem liệu các kiến trúc học máy nâng cao — bao gồm Phân loại phân cấp hai tầng cứng ($E_1 \to E_3$), Phân loại phân cấp mềm kết hợp Nhạy chi phí ($E_4 \to E_6$), và Phân loại thứ bậc ($E_7$) — có thể giải quyết được hiện tượng lan truyền sai số và bảo vệ an toàn cho nhóm bệnh nhân nặng ($C_2^+$) hay không.
+
+\FloatBarrier
+\section{Thực nghiệm $T_3$ – So sánh Phân loại Phẳng và Phân cấp Cứng}
+\label{sec:thuc-nghiem-t3-hard}
+
+Để tìm giải pháp kiến trúc khắc phục hiện tượng suy giảm hiệu năng trên không gian 3 lớp $T_3$ ($C_0, C_1, C_2^+$), nghiên cứu triển khai nhóm thực nghiệm Phân loại phân cấp hai tầng cứng ($E_1 \to E_3b$) đối chứng với mô hình Phân loại phẳng $E_0$ (Random Forest phẳng).
+
+Các mô hình được đánh giá bao gồm:
+\begin{itemize}
+    \item \texttt{E0\_Flat\_RF}: Random Forest phân loại trực tiếp 3 lớp.
+    \item \texttt{E1\_Hard\_RF\_RF}: Hard Hierarchical RF (Tầng 1) + RF (Tầng 2), ngưỡng cắt $\tau_1 = \tau_2 = 0.5$.
+    \item \texttt{E2\_Hard\_Tuned}: Hard Hierarchical RF--RF với ngưỡng cắt được tối ưu hóa tương thích theo từng fold qua Inner CV ($\tau_1 \in [0.45, 0.50], \tau_2 \in [0.50, 0.55]$, trung bình $\tau_1 = 0.47, \tau_2 = 0.53$).
+    \item \texttt{E3a\_Hard\_RF\_LR}: Hard Hierarchical RF (Tầng 1) + Hồi quy Logistic cân bằng (Tầng 2).
+    \item \texttt{E3b\_Hard\_RF\_XGB}: Hard Hierarchical RF (Tầng 1) + XGBoost cân bằng (Tầng 2).
+\end{itemize}
+
+Kết quả thực nghiệm out-of-fold trên Legacy Development Cohort ($N = 4.045$) được tổng hợp trong Bảng \ref{tab:hard-hierarchical-results}.
+
+\input{tables/table_hard_hierarchical}
+
+\textbf{Phân tích chuyên sâu về hiệu năng và Lan truyền sai số của Hard Routing:}
+\begin{enumerate}
+    \item \textbf{Ưu thế ổn định của $E_1$ so với $E_0$ qua các Folds:} Đối chiếu kết quả kiểm định chéo từng fold (\texttt{experiments/hierarchical\_t3/outputs/fold\_metrics.csv}) cho thấy mô hình Hard Hierarchical $E_1$ đạt Macro-F1 cao hơn Flat RF $E_0$ trên \textbf{cả 5/5 folds} (Fold 1: +0.0105; Fold 2: +0.0181; Fold 3: +0.0151; Fold 4: +0.0219; Fold 5: +0.0326), nâng Macro-F1 trung bình từ 0.4354 lên 0.4550 $\pm$ 0.0056.
+    \item \textbf{Làm rõ bản chất độ chính xác Giai đoạn 2 (Routed vs Oracle vs End-to-end):} Để tránh hiểu nhầm số liệu thực nghiệm, cần phân biệt rõ ba góc độ đánh giá của bộ phân loại Tầng 2 (\texttt{experiments/hierarchical\_t3/outputs/stage\_metrics.csv}):
+    \begin{itemize}
+        \item \textit{Routed Evaluation (Độ chính xác thực tế trên luồng điều hướng):} Đạt trung bình \textbf{52.72\%}. Mẫu số của độ đo này là các mẫu được Tầng 1 dự đoán là có triệu chứng (bao gồm cả các ca dương tính thật và các ca báo động nhầm $C_0 \to \text{Symptomatic}$).
+        \item \textit{Oracle Evaluation (Độ chính xác lý thuyết nếu Tầng 1 hoàn hảo):} Đạt Balanced Accuracy \textbf{58.69\%}. Đánh giá trên tập mẫu thực sự có triệu chứng ($C_1 \cup C_2^+$, $N = 1.029$).
+        \item \textit{End-to-end Evaluation (Độ chính xác toàn hệ thống 3 lớp):} Mô hình $E_1$ đạt \textbf{68.08\%} trên toàn bộ $N = 4.045$ đối tượng.
+    \end{itemize}
+    \item \textbf{Khiếm khuyết tắc nghẽn lâm sàng của cổng cứng:} Tại Giai đoạn 1, cổng phân loại nhị phân cứng với ngưỡng $\tau_1 = 0.5$ đã loại bỏ nhầm \textbf{120 bệnh nhân thuộc nhóm Nặng quy ước ($C_2^+$)} (chiếm tới 30.7\% tổng số 391 bệnh nhân nặng). Những bệnh nhân này bị dán nhãn ngay lập tức là $C_0$ (bình thường) và không bao giờ có cơ hội được Giai đoạn 2 xem xét. Đây là minh chứng thực nghiệm điển hình cho hiện tượng lan truyền sai số một chiều trong kiến trúc phân cấp cứng.
+\end{enumerate}
+
+\subsection{Kết nối phương pháp luận: Từ hạn chế của cổng cứng đến định tuyến mềm}
+Sự thất thoát 120 bệnh nhân nặng tại Giai đoạn 1 của mô hình Hard Hierarchical cho thấy ranh giới quyết định nhị phân cứng ($\tau_1 = 0.5$) là nguyên nhân trực tiếp dẫn tới hiện tượng lan truyền sai số một chiều. Để khắc phục điểm nghẽn này, phương pháp luận cần chuyển đổi từ việc ra quyết định rời rạc sang việc bảo toàn phân phối xác suất liên tục trên toàn bộ không gian mẫu (Soft Probability Fusion), đồng thời kết hợp cơ chế phạt lỗi bất đối xứng để bảo vệ các ca bệnh nặng. Mục \ref{sec:thuc-nghiem-soft-cost} sẽ triển khai nhóm thực nghiệm này.
+
+\FloatBarrier
+\section{Thực nghiệm Soft Hierarchical và Quyết định Nhạy chi phí ($E_4 \to E_6$)}
+\label{sec:thuc-nghiem-soft-cost}
+
+Để khắc phục hiện tượng tắc nghẽn của cổng cứng, nhóm thực nghiệm $E_4 \to E_6b$ được triển khai:
+\begin{itemize}
+    \item \texttt{$E\_4$ (Soft RF--RF)}: Tích hợp xác suất toàn phần, ra quyết định bằng Argmax.
+    \item \texttt{$E\_5$ (Soft RF--LR)}: Tích hợp xác suất toàn phần với Tầng 2 là Logistic Regression, ra quyết định bằng Argmax.
+    \item \texttt{$E\_6a$ (Soft RF--RF + Cost M1)}: Tối ưu hóa rủi ro Bayes với ma trận chi phí lâm sàng $M_1$.
+    \item \texttt{$E\_6b$ (Soft RF--LR + Cost M1)}: Tối ưu hóa rủi ro Bayes với ma trận chi phí $M_1$.
+\end{itemize}
+
+Kết quả thực nghiệm out-of-fold trên Legacy Development Cohort ($N = 4.045$) được trình bày trong Bảng \ref{tab:soft-cost-results}. Hình \ref{fig:cost-curve} thể hiện đường cong đánh đổi chi phí khi tăng mức phạt qua các ma trận $M_0 \to M_3$.
+
+\input{tables/table_soft_hierarchical}
+
+\begin{figure}{Đường cong đánh đổi giữa việc giảm số ca bỏ sót nặng ($C_2^+ \to C_0$) và sự gia tăng cảnh báo giả ($C_0 \to C_2^+$) qua các ma trận chi phí $M_0 \to M_3$}
+\centering
+\includegraphics[width=0.85\textwidth]{figures/cost_tradeoff_curve.png}
+\label{fig:cost-curve}
+\end{figure}
+
+\textbf{Phân tích khoa học:}
+1. \textbf{Hạn chế của Soft Argmax ($E_4, E_5$):} Khi chỉ dùng Argmax xác suất mà không có ma trận chi phí, mô hình bị thiên lệch cực mạnh về lớp đa số $C_0$ (Recall $C_0 > 92\%$, nhưng Recall $C_1 < 5.2\%$). Số ca nặng $C_2^+$ bị bỏ sót thành $C_0$ tăng vọt lên \textbf{211 ca} ($E_5$) và \textbf{227 ca} ($E_4$).  
+2. \textbf{Hiệu quả kiểm soát ca bỏ sót của Ma trận chi phí lâm sàng $M_1$ ($E_{6a}, E_{6b}$):} Khi áp dụng quy tắc rủi ro Bayes với ma trận $M_1$, cả hai mô hình $E_{6a}$ (RF--RF) và $E_{6b}$ (RF--LR) đều kéo giảm số ca bỏ sót nguy hiểm $C_2^+ \to C_0$ xuống chỉ còn đúng \textbf{62 ca} (giảm hơn 70\% so với mô hình Soft không trọng số). Đặc biệt, mô hình $E_{6a}$ đạt Recall lớp nhẹ $C_1$ lên tới \textbf{40.92\%} (mức cao nhất trong toàn bộ các mô hình thực nghiệm), trong khi $E_{6b}$ đạt Recall lớp nặng $C_2^+$ lên tới \textbf{54.23\%} và Balanced Accuracy đạt \textbf{0.5025}.
+3. \textbf{Cảnh báo về sự đánh đổi khi tăng phạt cực đoan ($M_2, M_3$):} Nếu tiếp tục tăng mức phạt qua $M_2$ và $M_3$, số ca $C_2^+ \to C_0$ có thể giảm xuống 19 và 7 ca, nhưng số ca cảnh báo giả $C_0 \to C_2^+$ sẽ bùng nổ lên tới 1.906 và 2.294 ca, phá hủy hoàn toàn độ đặc hiệu của hệ thống sàng lọc. Do đó $M_1$ là điểm cân bằng tối ưu duy nhất.
+
+\subsection{Kết nối phương pháp luận: Từ ma trận chi phí đến mô hình hóa thứ bậc}
+Mặc dù mô hình Soft Cost-Sensitive ($E_{6a}, E_{6b}$) đã kéo giảm thành công số ca bỏ sót nặng từ 120 xuống 62 ca, bản chất của phương pháp này vẫn xem 3 lớp như các nhãn danh nghĩa rời rạc và chỉ can thiệp bằng ma trận phạt chi phí ở khâu hậu xử lý xác suất. Trong khi đó, các mức độ PHQ-9 vốn có quan hệ thứ tự tự nhiên nghiêm ngặt ($C_0 \prec C_1 \prec C_2^+$). Câu hỏi đặt ra là: Liệu việc tích hợp trực tiếp quan hệ thứ tự này ngay từ hàm mục tiêu huấn luyện thông qua các mô hình Phân loại thứ bậc (Ordinal Classification) có mang lại giải pháp căn cơ và thanh lịch hơn hay không? Mục \ref{sec:thuc-nghiem-ordinal} sẽ khảo sát nhóm thực nghiệm $E_7$.
+
+\FloatBarrier
+\section{Thực nghiệm Phân loại Thứ bậc (Ordinal Classification -- $E_7$)}
+\label{sec:thuc-nghiem-ordinal}
+
+\subsection{Mục tiêu và các mô hình thử nghiệm}
+Thực nghiệm $E_7$ nhằm trả lời câu hỏi cốt lõi: Khai thác trực tiếp thứ tự tự nhiên $C_0 \prec C_1 \prec C_2^+$ thông qua các mô hình Ordinal Classification có mang lại hiệu năng vượt trội và giải quyết được sự đánh đổi giữa các chỉ số hay không. Bốn mô hình được đánh giá:
+\begin{itemize}
+    \item \texttt{E7a\_Ordinal\_LogReg}: Mô hình Proportional Odds Cumulative Logit, không dùng trọng số.
+    \item \texttt{E7a\_Ordinal\_LogReg\_Balanced}: Mô hình Proportional Odds với \texttt{class\_weight="balanced"}.
+    \item \texttt{E7b\_CumBin\_LR}: Mô hình Frank \& Hall với bộ phân loại cơ sở là Logistic Regression.
+    \item \texttt{E7b\_CumBin\_RF}: Mô hình Frank \& Hall với bộ phân loại cơ sở là Random Forest.
+\end{itemize}
+
+Kết quả thực nghiệm out-of-fold chi tiết trên Legacy Development ($N = 4.045$) được trình bày trong Bảng \ref{tab:ordinal-results}.
+
+\input{tables/table_ordinal_results}
+
+\subsection{Phân tích hiện tượng suy biến lớp trung gian và vi phạm đơn điệu}
+Thực nghiệm $E_7$ mang lại hai phát hiện khoa học đặc biệt quan trọng:
+
+\textbf{1. Nghịch lý của Class MAE trong E7a không trọng số:}  
+Mô hình \texttt{E7a} không trọng số đạt \textbf{Class MAE thấp nhất (0.3377)} và \textbf{Accuracy cao nhất (75.23\%)} trong toàn bộ các mô hình của dự án. Tuy nhiên, mô hình hoàn toàn không nhận diện được bất kỳ mẫu nào thuộc lớp $C_1$ (\textbf{Recall $C_1 = 0.00\%$}).  
+*Làm rõ cơ chế tối ưu hóa:* Về mặt toán học, mô hình $E_{7a}$ tối ưu hóa hàm Negative Log-Likelihood với điều chuẩn $L_2$ trên các trọng số $\mathbf{w}$ (Negative Log-Likelihood của mô hình logit tích lũy), chứ không phải tối thiểu hóa trực tiếp Class MAE trong quá trình huấn luyện. Class MAE là chỉ số đánh giá hình học hậu kỳ. Dưới hiện tượng mất cân bằng lớp cực đoan (lớp $C_0$ chiếm ~75\%), nghiệm cực đại hợp lý (Maximum Likelihood) tự nhiên đẩy các ngưỡng cắt $\theta_0, \theta_1$ sao cho xác suất tích lũy dồn phần lớn về lớp đa số $C_0$. Khi đó, 74.5\% mẫu có khoảng cách lỗi bằng 0, 15.8\% mẫu $C_1$ chỉ chịu lỗi bằng 1, và 9.7\% mẫu $C_2^+$ chịu lỗi bằng 2, dẫn tới giá trị kỳ vọng của Class MAE hậu kỳ đạt mức rất thấp. Điều này chứng minh rằng: \textbf{Chỉ dựa vào Class MAE thấp để kết luận mô hình thứ bậc tốt là một sai lầm nghiêm trọng trên dữ liệu y tế mất cân bằng nếu không kiểm tra độ nhạy từng lớp.}
+
+\textbf{2. Sự suy giảm nghiêm trọng của phương pháp Frank \& Hall (E7b):}  
+Do hai bộ phân loại nhị phân $P(Y \ge 1)$ và $P(Y \ge 2)$ được huấn luyện độc lập, các siêu phẳng quyết định bị cắt nhau trong không gian đặc trưng. Thống kê out-of-fold ghi nhận \textbf{19.53\% số mẫu kiểm tra bị vi phạm tính đơn điệu ($q_2 > q_1$)} đối với Logistic Regression và \textbf{5.32\%} đối với Random Forest (Hình \ref{fig:monotonicity-violations}). Sau phép chiếu đẳng điệu $(q_1 + q_2)/2$, khoảng cách xác suất của lớp $C_1$ bị triệt tiêu hoàn toàn, khiến Recall $C_1$ của $E_{7b}$ rơi về 0.00\% (LR) và 0.16\% (RF), đồng thời gây ra tới \textbf{727 ca cảnh báo giả nặng ($C_0 \to C_2^+$)}.
+
+\begin{figure}{Tỷ lệ vi phạm tính đơn điệu ($q_2 > q_1$) trên 5 folds kiểm định chéo của phương pháp Frank \& Hall ($E_7b$)}
+\centering
+\includegraphics[width=0.75\textwidth]{figures/monotonicity_violation_distribution.png}
+\label{fig:monotonicity-violations}
+\end{figure}
+
+\textbf{3. Hiệu năng cân bằng của E7a Balanced:}  
+Khi tích hợp \texttt{class\_weight="balanced"}, mô hình \texttt{E7a\_Ordinal\_LogReg\_Balanced} duy trì các siêu phẳng song song tuyệt đối (không bao giờ vi phạm đơn điệu), cải thiện đáng kể độ nhạy trên cả ba lớp: Recall $C_0 = 61.24\%$, Recall $C_1 = 32.93\%$, và đạt \textbf{Recall $C_2^+ = 60.37\%$} (cao nhất trong các mô hình cân bằng). Balanced Accuracy đạt mức cao nhất trong toàn bộ nghiên cứu: \textbf{0.5151 $\pm$ 0.0276}.
+
+\subsection{Kết nối phương pháp luận: Tổng kết các trường phái tiếp cận}
+Sau khi hoàn thành các khảo sát thực nghiệm riêng lẻ cho từng trường phái — từ phân loại phẳng ($E_0$), phân loại phân cấp cứng ($E_1 \to E_3$), phân cấp mềm nhạy chi phí ($E_4 \to E_6$), đến phân loại thứ bậc ($E_7$) — việc thiết lập một bức tranh đối chiếu toàn diện trên cùng một không gian độ đo đa chiều là bắt buộc để đánh giá khách quan các mối quan hệ đánh đổi lâm sàng. Mục \ref{sec:so-sanh-tong-hop-e0-e7} trình bày bảng tổng hợp chuẩn tắc và các phân tích tương quan sâu sắc.
+
+\FloatBarrier
+\section{Bảng so sánh tổng hợp toàn diện (E0 -- E7) trên Legacy Cohort}
+\label{sec:so-sanh-tong-hop-e0-e7}
+
+Bảng \ref{tab:master-comparison} tổng hợp toàn bộ 10 mô hình đại diện cho ba trường phái học máy trên cùng tập Legacy Development ($N = 4.045$, Stratified 5-Fold CV cố định). Hình \ref{fig:master-mae-f1} trực quan hóa mối tương quan giữa Macro-F1 và Class MAE, và Hình \ref{fig:master-2step} so sánh chi tiết các lỗi 2 mức nghiêm trọng.
+
+\input{tables/table_master_comparison}
+
+\begin{figure}{Biểu đồ phân tán so sánh Macro-F1 (cao hơn là tốt hơn) và Class MAE (thấp hơn là tốt hơn)}
+\centering
+\includegraphics[width=0.88\textwidth]{figures/macro_f1_vs_mae.png}
+\label{fig:master-mae-f1}
+\end{figure}
+
+\begin{figure}{So sánh số ca sai lệch nghiêm trọng 2 mức: Bỏ sót nặng ($C_2^+ \to C_0$) vs Báo động giả ($C_0 \to C_2^+$)}
+\centering
+\includegraphics[width=0.88\textwidth]{figures/2step_error_comparison.png}
+\label{fig:master-2step}
+\end{figure}
+
+\begin{figure}{So sánh ma trận nhầm lẫn Out-of-fold của các mô hình đại diện then chốt trên Legacy Cohort}
+\centering
+\includegraphics[width=0.95\textwidth]{figures/confusion_matrices_comparison.png}
+\label{fig:master-cms}
+\end{figure}
+
+\section{Phân tích chuyên sâu về hiệu năng và Đánh giá phản biện}
+\label{sec:phan-tich-hieu-nang-thap}
+
+Một câu hỏi cốt lõi mà bất kỳ nhà nghiên cứu hoặc hội đồng phản biện nào cũng sẽ đặt ra khi xem xét kết quả của DepSev-ML:  
+\begin{quote}
+\textit{“Tại sao các mô hình học máy phức tạp (Ensemble, Hierarchical, Cost-Sensitive, Ordinal) chỉ đạt Macro-F1 trong khoảng $0.43 - 0.46$ và Accuracy chỉ đạt $56\% - 68\%$, trong khi một mô hình ngây thơ (Majority Baseline) dự đoán toàn bộ là $C_0$ có thể đạt Accuracy lên tới $74.56\%$?”}
+\end{quote}
+
+Để trả lời câu hỏi này một cách khoa học và thuyết phục, nghiên cứu đưa ra ba luận điểm phân tích thực nghiệm sâu sắc:
+
+\subsection{Sự đánh lừa của chỉ số Accuracy trên dữ liệu mất cân bằng}
+Mô hình Majority-Class Baseline gán nhãn dự đoán $\hat{y} = 0$ cho 100\% các quan sát. Trên tập Legacy Development Cohort ($N = 4.045$), mô hình này đạt:
+\begin{itemize}
+    \item $\text{Accuracy} = 3016 / 4045 = \mathbf{74.56\%}$.
+    \item $\text{Macro-F1} = \frac{1}{3} \left( \frac{2 \times 0.7456 \times 1.0}{0.7456 + 1.0} + 0 + 0 \right) = \mathbf{0.2847}$.
+    \item $\text{Balanced Accuracy} = \frac{1}{3} (1.0 + 0.0 + 0.0) = \mathbf{0.3333}$.
+    \item $\text{Recall } C_1 = \mathbf{0.00\%}$; $\text{Recall } C_2^+ = \mathbf{0.00\%}$.
+\end{itemize}
+
+Về mặt ứng dụng y tế, Majority-Class Baseline hoàn toàn \textbf{vô giá trị} vì nó bỏ sót 100\% các ca có triệu chứng trầm cảm ($1.029$ ca bệnh nhân). Nếu một hệ thống y tế chỉ nhìn vào Accuracy để đánh giá, nó sẽ ưu tiên chọn một mô hình không có khả năng phát hiện bệnh!
+
+Ngược lại, mô hình \texttt{E7a\_Ordinal\_LogReg\_Balanced} dù có Accuracy là $56.69\%$ (thấp hơn 74.56\%), nhưng đạt \textbf{Balanced Accuracy = 51.51\%} (cao hơn 33.33\% tới +18.2\%) và nhận diện được \textbf{60.37\% các ca bệnh nặng} ($C_2^+$) cùng \textbf{32.93\% các ca nhẹ} ($C_1$). Đây chính là giá trị thực tiễn đích thực của học máy có kiểm soát.
+
+\subsection{Bản chất sinh học của hiện tượng chồng lấn đặc trưng (Feature Overlap)}
+Trầm cảm là một hội chứng tâm thần kinh phức tạp có căn nguyên đa yếu tố (gen di truyền, sang chấn tâm lý xã hội, môi trường sống, sự mất cân bằng chất dẫn truyền thần kinh Serotonin/Dopamine trong não bộ). Các chỉ số sinh lý ngoại vi (như huyết áp, men gan, mỡ máu, chỉ số đường huyết) chỉ phản ánh các biến đổi chuyển hóa gián tiếp đi kèm. 
+
+Hiện tượng diện tích chồng lấn Bayes $\Omega_{\text{overlap}}$ giữa người bình thường ($C_0$) và người trầm cảm nhẹ ($C_1$) rất lớn (Hình \ref{fig:overlap-pca}) tạo nên một rào cản hiệu năng đối với các bộ phân loại hiện tại trong khoảng Macro-F1 từ $0.45$ đến $0.46$. Trong giới hạn của các biến số sinh lý ngoại vi và xét nghiệm máu thường quy hiện có trong NHANES, việc nâng cao hơn nữa hiệu năng phân tách đòi hỏi phải bổ sung các chiều dữ liệu y sinh chuyên sâu hơn (như các chỉ dấu phân tử sinh học, hormone căng thẳng Cortisol hoặc dữ liệu theo dõi hành vi liên tục từ thiết bị đeo).
+
+\subsection{Bản đồ đánh đổi và tính không thể thay thế tuyệt đối}
+Thực nghiệm khẳng định không có một mô hình nào là tối ưu toàn diện trên mọi thước đo:
+\begin{itemize}
+    \item Nếu ưu tiên \textbf{Accuracy cao nhất và MAE thấp nhất}: Chọn \texttt{E7a Unweighted} (Acc 75.23\%, MAE 0.3377), nhưng phải chấp nhận mất hoàn toàn nhóm nhẹ $C_1$.
+    \item Nếu ưu tiên \textbf{Macro-F1 cao nhất}: Chọn \texttt{E2} (Macro-F1 0.4586) hoặc \texttt{E3a} (0.4567), nhưng phải chấp nhận 120 ca nặng bị tắc nghẽn ở Giai đoạn 1.
+    \item Nếu ưu tiên \textbf{An toàn lâm sàng, giảm thiểu tối đa ca bỏ sót nặng}: Chọn \texttt{E6b} (chỉ bỏ sót 62 ca $C_2^+ \to C_0$).
+    \item Nếu ưu tiên \textbf{Cân bằng đa lớp toàn diện và nhận diện ca nặng tốt nhất}: Chọn \texttt{E7a\_Ordinal\_LogReg\_Balanced} (Balanced Accuracy 0.5151, Recall $C_2^+ = 60.37\%$).
+\end{itemize}
+
+\section{Thảo luận và Trả lời các câu hỏi nghiên cứu}
+\label{sec:thao-luan-rq}
+
+\begin{itemize}
+    \item \textbf{Trả lời RQ1:} Nhóm xét nghiệm cận lâm sàng máu ($F_2$) và lối sống ($F_3$) đóng góp thực chất nhất vào mức tăng hiệu năng (+14\% đến +23\% Macro-F1 so với chỉ dùng dấu hiệu sinh tồn $F_1$). Việc kết hợp toàn diện $F_4$ mang lại lợi thế lớn nhất khi mô hình được tinh chỉnh siêu tham số có kiểm soát.
+    \item \textbf{Trả lời RQ2:} Hiệu năng suy giảm mạnh nhất tại bước chuyển $T_2 \to T_3$ (Macro-F1 giảm 34.4\%), với điểm nghẽn tập trung tại ranh giới phân tách lớp nhẹ $C_1$ do sự chồng lấn phân phối sinh lý với lớp bình thường $C_0$.
+    \item \textbf{Trả lời RQ3:} Mở rộng dữ liệu lên 3 chu kỳ NHANES ($N = 14.581$) giúp ổn định phân phối của các lớp hiếm $C_3/C_4$, nhưng không giúp cải thiện Macro-F1 tổng thể do trần chồng lấn đặc trưng.
+    \item \textbf{Trả lời RQ4:} Phân loại phân cấp hai tầng cứng cải thiện nhẹ Macro-F1 (+0.02 so với Flat RF) nhưng gây ra hiện tượng lan truyền sai số nghiêm trọng khi loại bỏ nhầm 30.7\% số ca bệnh nặng ở Giai đoạn 1.
+    \item \textbf{Trả lời RQ5:} Mô hình Soft Hierarchical nhạy chi phí ($E_{6a}, E_{6b}$) và Ordinal Logistic Regression cân bằng ($E_{7a}$) đã khắc phục hiệu quả sự tắc nghẽn của cổng cứng, giảm số ca bỏ sót nặng $C_2^+ \to C_0$ từ 120 ca xuống còn 62--68 ca, nâng Balanced Accuracy lên mức cao nhất 0.5151 và duy trì độ ổn định trên tập kiểm tra theo dòng thời gian (Branch D, Balanced Accuracy = 0.5073).
+\end{itemize}
+\cleardoublepage

@@ -1,0 +1,148 @@
+note: Running TeX ...
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold Italic.ttf`; build may not be reproducible in other environments
+warning: algorithm2e.sty:284: 
+Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
+warning: algorithm2e.sty:299: Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
+warning: algorithm2e.sty:550: Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
+warning: main.tex:116: Underfull \hbox (badness 1460) in paragraph at lines 115--116
+warning: main.tex:116: Underfull \hbox (badness 1226) in paragraph at lines 115--116
+warning: main.tex:124: Underfull \hbox (badness 7256) in paragraph at lines 122--124
+warning: main.tex:144: Underfull \hbox (badness 10000) in paragraph at lines 144--144
+warning: main.tex:146: Underfull \hbox (badness 1303) in paragraph at lines 146--146
+warning: main.tex:147: Underfull \hbox (badness 1424) in paragraph at lines 146--147
+warning: main.tex:147: Underfull \hbox (badness 10000) in paragraph at lines 147--147
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1436) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 3158) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1189) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 2142) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 3108) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 7981) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1661) in paragraph at lines 198--198
+warning: chapters/chapter3:1: Underfull \hbox (badness 1975) in paragraph at lines 1--1
+warning: chapters/chapter3:248: Underfull \hbox (badness 10000) in paragraph at lines 247--248
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 6675) in paragraph at lines 57--58
+warning: main.tex:214: Underfull \hbox (badness 1924) in paragraph at lines 211--214
+warning: main.tex:244: Underfull \hbox (badness 4217) in paragraph at lines 241--244
+warning: main.tex:249: Underfull \hbox (badness 1354) in paragraph at lines 246--249
+warning: main.tex:254: Underfull \hbox (badness 2343) in paragraph at lines 251--254
+note: Rerunning TeX because "main.toc" changed ...
+warning: algorithm2e.sty:284: 
+Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
+warning: algorithm2e.sty:299: Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
+warning: algorithm2e.sty:550: Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
+warning: main.tex:116: Underfull \hbox (badness 1460) in paragraph at lines 115--116
+warning: main.tex:116: Underfull \hbox (badness 1226) in paragraph at lines 115--116
+warning: main.tex:124: Underfull \hbox (badness 7256) in paragraph at lines 122--124
+warning: main.toc:23: Underfull \hbox (badness 1102) in paragraph at lines 23--23
+warning: main.tex:144: Underfull \hbox (badness 10000) in paragraph at lines 144--144
+warning: main.tex:146: Underfull \hbox (badness 1303) in paragraph at lines 146--146
+warning: main.tex:147: Underfull \hbox (badness 1424) in paragraph at lines 146--147
+warning: main.tex:147: Underfull \hbox (badness 10000) in paragraph at lines 147--147
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1436) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 3158) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1189) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 2142) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 3108) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 7981) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1661) in paragraph at lines 198--198
+warning: chapters/chapter3:1: Underfull \hbox (badness 1975) in paragraph at lines 1--1
+warning: chapters/chapter3:248: Underfull \hbox (badness 10000) in paragraph at lines 247--248
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 6675) in paragraph at lines 57--58
+warning: main.tex:214: Underfull \hbox (badness 1924) in paragraph at lines 211--214
+warning: main.tex:244: Underfull \hbox (badness 4217) in paragraph at lines 241--244
+warning: main.tex:249: Underfull \hbox (badness 1354) in paragraph at lines 246--249
+warning: main.tex:254: Underfull \hbox (badness 2343) in paragraph at lines 251--254
+note: Rerunning TeX because "main.aux" changed ...
+warning: algorithm2e.sty:284: 
+Invalid UTF-8 byte or sequence at line 284 replaced by U+FFFD.
+warning: algorithm2e.sty:299: Invalid UTF-8 byte or sequence at line 299 replaced by U+FFFD.
+warning: algorithm2e.sty:550: Invalid UTF-8 byte or sequence at line 550 replaced by U+FFFD.
+warning: main.tex:116: Underfull \hbox (badness 1460) in paragraph at lines 115--116
+warning: main.tex:116: Underfull \hbox (badness 1226) in paragraph at lines 115--116
+warning: main.tex:124: Underfull \hbox (badness 7256) in paragraph at lines 122--124
+warning: main.toc:23: Underfull \hbox (badness 1102) in paragraph at lines 23--23
+warning: main.tex:144: Underfull \hbox (badness 10000) in paragraph at lines 144--144
+warning: main.tex:146: Underfull \hbox (badness 1303) in paragraph at lines 146--146
+warning: main.tex:147: Underfull \hbox (badness 1424) in paragraph at lines 146--147
+warning: main.tex:147: Underfull \hbox (badness 10000) in paragraph at lines 147--147
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1436) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 3158) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1189) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 2142) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 3108) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 10000) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 7981) in paragraph at lines 198--198
+warning: chapters/chapter2:198: Underfull \hbox (badness 1661) in paragraph at lines 198--198
+warning: chapters/chapter3:1: Underfull \hbox (badness 1975) in paragraph at lines 1--1
+warning: chapters/chapter3:248: Underfull \hbox (badness 10000) in paragraph at lines 247--248
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 6675) in paragraph at lines 57--58
+warning: main.tex:214: Underfull \hbox (badness 1924) in paragraph at lines 211--214
+warning: main.tex:244: Underfull \hbox (badness 4217) in paragraph at lines 241--244
+warning: main.tex:249: Underfull \hbox (badness 1354) in paragraph at lines 246--249
+warning: main.tex:254: Underfull \hbox (badness 2343) in paragraph at lines 251--254
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `../main.pdf` (7.51 MiB)
+note: Skipped writing 5 intermediate files (use --keep-intermediates to keep them)

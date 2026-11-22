@@ -1,0 +1,288 @@
+\documentclass{uetgraduation}
+
+% --- Các gói hỗ trợ toán học và bảng biểu nâng cao ---
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{placeins}
+
+% --- Đồng bộ bộ đếm bảng cho longtable và uetgraduation ---
+\makeatletter
+\let\c@table\c@a@table
+\renewcommand\thetable{\thechapter.\@arabic\c@a@table}
+\def\fnum@table{Bảng \thetable}
+\let\l@table\l@a@table
+\makeatother
+
+% --- Cấu hình liên kết và đánh dấu Bookmarks ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linktoc=all,
+    linkcolor=black,
+    citecolor=blue,
+    urlcolor=blue,
+    pdfauthor={Nguyễn Anh Sơn},
+    pdftitle={Nghiên cứu khung học máy cho dự đoán mức độ triệu chứng trầm cảm từ dữ liệu sinh lý (DepSev-ML)},
+    pdfsubject={Báo cáo dự án khoa học},
+    pdfkeywords={DepSev-ML, PHQ-9, Machine Learning, NHANES, Depression Severity}
+}
+
+\begin{document}
+
+% ==================== THÔNG TIN BÌA VÀ PHỤ BÌA (CHUẨN VNU-UET) ====================
+\studentname{Nguyễn Anh Sơn}
+\englishstudentname{Nguyen Anh Son}
+\title{Nghiên cứu khung học máy cho dự đoán mức độ triệu chứng trầm cảm từ dữ liệu sinh lý (DepSev-ML)}
+\documenttype{Báo cáo dự án khoa học}
+\major{Khoa học máy tính}
+\year{2026}
+\supervisor{TS. Vũ Thị Hồng Nhạn}
+\englishtitle{A Machine Learning Framework for Depression Severity Prediction from Physiological Data (DepSev-ML)}
+\englishdocumenttype{Scientific Research Project Report}
+\englishmajor{Computer Science}
+\englishsupervisor{Dr. Vu Thi Hong Nhan}
+
+% Khởi tạo các trang bìa chính, bìa phụ tiếng Việt và bìa phụ tiếng Anh
+\makecovers
+
+% Bật đánh số trang từ phần Preamble
+\pagestyle{plain}
+
+% ==================== PHẦN MỞ ĐẦU (PREAMBLE) ====================
+\begin{preamble}{Lời cảm ơn}
+Lời mở đầu, em xin gửi lời cảm ơn chân thành và sâu sắc nhất đến TS. Vũ Thị Hồng Nhạn, Cán bộ hướng dẫn khoa học, Trường Đại học Công nghệ -- Đại học Quốc gia Hà Nội. Sự chỉ dẫn tận tình, những định hướng học thuật chuẩn xác, cùng với sự khắt khe về tính liêm chính khoa học và phương pháp luận nghiên cứu từ Cô đã giúp em vượt qua nhiều thử thách để hoàn thành công trình nghiên cứu khoa học này.
+
+Em cũng xin bày tỏ lòng biết ơn chân thành đến các Thầy, Cô giáo tại Khoa Công nghệ Thông tin, Trường Đại học Công nghệ -- Đại học Quốc gia Hà Nội, những người đã truyền dạy cho em nền tảng tri thức vững chắc về khoa học máy tính, học máy và kỹ thuật dữ liệu trong suốt quá trình học tập và nghiên cứu tại trường.
+
+Đồng thời, em xin gửi lời cảm ơn chân thành đến Trung tâm Thống kê Y tế Quốc gia Hoa Kỳ (NCHS) thuộc Trung tâm Kiểm soát và Phòng ngừa Dịch bệnh (CDC) đã công khai bộ dữ liệu Khảo sát Kiểm tra Sức khỏe và Dinh dưỡng Quốc gia (NHANES), tạo tiền đề dữ liệu thực nghiệm quý báu cho đề tài.
+
+Cuối cùng, em xin gửi lời tri ân sâu sắc đến gia đình, người thân và bạn bè -- những người luôn là điểm tựa tinh thần vững chắc, luôn đồng hành, động viên và chia sẻ với em trong suốt thời gian qua.
+
+Mặc dù đã nỗ lực hết mình với tinh thần nghiên cứu nghiêm túc, nhưng do tính chất phức tạp của bài toán dự đoán sức khỏe tâm thần từ dữ liệu sinh lý đa chiều, báo cáo khó tránh khỏi những hạn chế nhất định. Em rất mong nhận được những ý kiến đóng góp quý báu từ quý Thầy, Cô và Hội đồng chuyên môn để nghiên cứu được hoàn thiện hơn nữa.
+
+\vspace{1.5cm}
+\begin{flushright}
+\textit{Hà Nội, năm 2026}\\[0.2cm]
+\textbf{Sinh viên thực hiện}\\[1.5cm]
+\textbf{Nguyễn Anh Sơn}
+\end{flushright}
+\end{preamble}
+
+\begin{preamble}{Lời cam đoan}
+Em xin cam đoan rằng công trình nghiên cứu khoa học với đề tài: \textbf{“Nghiên cứu khung học máy cho dự đoán mức độ triệu chứng trầm cảm từ dữ liệu sinh lý (DepSev-ML)”} là kết quả của quá trình nghiên cứu độc lập, nghiêm túc và thực chất bởi em, dưới sự hướng dẫn khoa học của TS. Vũ Thị Hồng Nhạn.
+
+Toàn bộ các số liệu, bảng biểu, đồ thị và kết quả thực nghiệm được trình bày trong báo cáo này đều phản ánh đúng các kết quả thu được từ các thực nghiệm thực tế trên tập dữ liệu NHANES (các chu kỳ 2011--2012, 2013--2014, 2015--2016) và được lưu trữ đầy đủ trong kho mã nguồn của dự án DepSev-ML. Em cam kết tuyệt đối không ngụy tạo số liệu, không thay đổi kết quả để làm đẹp báo cáo và không che giấu những hạn chế của mô hình.
+
+Tất cả các tài liệu tham khảo, lý thuyết, thuật toán và công cụ kế thừa từ các công trình nghiên cứu của các tác giả khác đều đã được trích dẫn nguồn gốc rõ ràng, đầy đủ và minh bạch theo quy chuẩn học thuật quốc tế. Nghiên cứu tuân thủ nghiêm ngặt các quy định về liêm chính học thuật của Trường Đại học Công nghệ -- Đại học Quốc gia Hà Nội.
+
+\vspace{1.5cm}
+\begin{flushright}
+\textit{Hà Nội, năm 2026}\\[0.2cm]
+\textbf{Người cam đoan}\\[1.5cm]
+\textbf{Nguyễn Anh Sơn}
+\end{flushright}
+\end{preamble}
+
+\begin{preamble}{Tóm tắt}
+\textbf{Tóm tắt:} Đánh giá mức độ nghiêm trọng của triệu chứng trầm cảm hiện nay chủ yếu dựa vào bảng câu hỏi tự điền Patient Health Questionnaire-9 (PHQ-9), vốn phụ thuộc vào tính chủ quan của người tham gia khảo sát. Mặc dù các mô hình học máy nhị phân phân biệt giữa người có và không có triệu chứng đã đạt kết quả khả quan, việc mở rộng bài toán sang dự đoán mức độ đa lớp chi tiết đối mặt với sự suy giảm hiệu năng do mất cân bằng lớp và sự chồng lấn phân phối dữ liệu sinh lý giữa các mức độ kế cận.
+
+Báo cáo dự án khoa học này nghiên cứu, phát triển và đánh giá thực nghiệm khung học máy \textbf{DepSev-ML} (\textit{A Machine Learning Framework for Depression Severity Prediction from Physiological Data}) nhằm dự đoán mức độ triệu chứng trầm cảm từ các chỉ số nhân trắc học, dấu hiệu sinh tồn, xét nghiệm sinh hóa máu, hành vi lối sống và nhân khẩu học trong Khảo sát Sức khỏe và Dinh dưỡng Quốc gia Hoa Kỳ (NHANES). Trên tập dữ liệu phát triển gồm 4.045 đối tượng và tập dữ liệu đa chu kỳ gồm 14.581 đối tượng, nghiên cứu tiến hành khảo sát các thuật toán học máy phẳng, kiến trúc phân loại phân cấp hai giai đoạn (định tuyến cứng và định tuyến mềm kết hợp tối ưu chi phí Bayes), và phương pháp phân loại thứ bậc.
+
+Kết quả thực nghiệm chỉ ra những phát hiện chính: (1) Trên không gian 5 mức độ tiêu chuẩn ($T_5$), hiệu năng mô hình suy giảm mạnh khi số lượng lớp tăng (Macro-F1 giảm từ 0.6639 ở bài toán nhị phân xuống 0.2630 ở bài toán 5 lớp), trong đó bước sụt giảm lớn nhất xảy ra khi triệu chứng nhẹ tách thành lớp độc lập do chồng lấn với lớp tối thiểu; việc tăng cỡ mẫu qua gộp đa chu kỳ không giúp cải thiện Macro-F1 mà chỉ ổn định nhẹ Balanced Accuracy từ 0.2841 lên 0.3076. (2) Trước rào cản này, nghiên cứu tái cấu trúc bài toán sang không gian 3 nhóm ($T_3$) và nhận thấy mô hình phân cấp cứng cải thiện nhẹ Macro-F1 (0.4550) nhưng loại bỏ nhầm 120 ca nặng quy ước ở giai đoạn đầu do hiện tượng lan truyền sai số một chiều. (3) Mô hình phân cấp mềm kết hợp tối ưu rủi ro Bayes giúp giảm số ca bỏ sót nặng xuống còn 62 ca (và 19 ca với ma trận phạt cao $M_2$), đồng thời mô hình Ordinal Logistic Regression cân bằng đạt Balanced Accuracy cao nhất (0.5151) và duy trì độ ổn định trên tập kiểm định độc lập theo dòng thời gian ($N = 4.888$, Balanced Accuracy = 0.5073). (4) Nghiên cứu làm rõ sự đánh đổi khi tối ưu sai số thứ bậc trên dữ liệu mất cân bằng sẽ gây suy giảm lớp trung gian, khẳng định sự cần thiết của việc đánh giá đa chiều.
+
+\textbf{Giới hạn nghiên cứu:} Do bản chất dữ liệu khảo sát cắt ngang và các biến số sinh lý ngoại vi chỉ phản ánh tương quan chuyển hóa gián tiếp, các mô hình chưa thể thay thế quy trình chẩn đoán lâm sàng chuyên sâu mà đóng vai trò là công cụ hỗ trợ phân tầng nguy cơ ban đầu trong nghiên cứu dịch tễ học sức khỏe cộng đồng.
+
+\vspace{0.6cm}
+\noindent \textit{\textbf{Từ khóa:} Trầm cảm, PHQ-9, Dữ liệu sinh lý, Học máy, Random Forest, Phân loại phân cấp, Phân loại thứ bậc, Quyết định nhạy chi phí, NHANES, DepSev-ML.}
+\end{preamble}
+
+\begin{preamble}{Abstract}
+\textbf{Abstract:} Assessing the severity of depressive symptoms currently relies primarily on the self-reported Patient Health Questionnaire-9 (PHQ-9), which is susceptible to subjective reporting biases and societal stigma. While binary machine learning models distinguishing between symptomatic and non-symptomatic individuals have achieved reasonable screening accuracy, extending the formulation to multi-class severity prediction encounters performance degradation due to class imbalance and distributional overlap in peripheral physiological measurements between adjacent clinical tiers.
+
+This scientific research project investigates, develops, and empirically evaluates \textbf{DepSev-ML} (\textit{A Machine Learning Framework for Depression Severity Prediction from Physiological Data}), targeting symptom severity prediction from anthropometric measurements, vital signs, routine laboratory biochemistry, lifestyle behaviors, and demographic factors extracted from the National Health and Nutrition Examination Survey (NHANES). Utilizing a legacy development cohort ($N = 4,045$) and an official multi-cycle cohort ($N = 14,581$), the research benchmarks flat multi-class models, two-stage hierarchical architectures (hard routing versus soft probability fusion with Bayes cost-sensitive risk minimization), and ordinal classification paradigms.
+
+Empirical investigations reveal four primary insights: (1) In the standard 5-tier clinical space ($T_5$), classifier performance degrades as granularity increases (Macro-F1 drops from 0.6639 in binary classification to 0.2630 in 5-class), with the most severe cliff occurring when mild symptoms separate from minimal symptoms due to physiological overlap; expanding sample size via multi-cycle pooling does not yield Macro-F1 gains, stabilizing Balanced Accuracy only marginally from 0.2841 to 0.3076. (2) Re-framing the objective into a practical 3-tier space ($T_3$), hard hierarchical models modestly improve Macro-F1 (0.4550) but introduce an error-propagation bottleneck, misclassifying 120 severe participants into the minimal group at Stage 1. (3) Soft hierarchical classification combined with Bayes risk minimization mitigates this bottleneck, reducing severe false negatives to 62 cases (and 19 cases under high-penalty matrix $M_2$), while Balanced Ordinal Logistic Regression achieves the highest Balanced Accuracy (0.5151) and demonstrates stability on an independent temporal test cohort ($N = 4,888$, Balanced Accuracy = 0.5073). (4) The study analyzes the trade-off in ordinal metrics under imbalance, underscoring the necessity of multi-dimensional evaluation.
+
+\textbf{Research Boundaries:} Given the cross-sectional nature of NHANES and the indirect proxy character of peripheral biomarkers, the developed framework is designed as a population-level risk stratification exploration rather than a replacement for specialized psychiatric diagnostic procedures.
+
+\vspace{0.6cm}
+\noindent \textit{\textbf{Keywords:} Depression, PHQ-9, Physiological Data, Machine Learning, Random Forest, Hierarchical Classification, Ordinal Classification, Cost-Sensitive Decision, NHANES, DepSev-ML.}
+\end{preamble}
+
+% ==================== MỤC LỤC VÀ DANH MỤC DANH SÁCH ====================
+\begin{contentlisting}
+\tableofcontents
+\listoffigures
+\listoftables
+
+\begin{contentlistingsection}{Danh mục từ viết tắt}
+\setlength{\tabcolsep}{4pt}
+\begin{longtable}{p{2.0cm} p{6.4cm} p{6.4cm}}
+\toprule
+\textbf{Từ viết tắt} & \textbf{Thuật ngữ tiếng Anh} & \textbf{Ý nghĩa tiếng Việt} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Từ viết tắt} & \textbf{Thuật ngữ tiếng Anh} & \textbf{Ý nghĩa tiếng Việt} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+\textbf{NHANES} & National Health and Nutrition Examination Survey & Khảo sát Sức khỏe và Dinh dưỡng Quốc gia Hoa Kỳ \\
+\textbf{PHQ-9}  & Patient Health Questionnaire-9 & Bảng câu hỏi sức khỏe bệnh nhân 9 mục \\
+\textbf{CDC}    & Centers for Disease Control and Prevention & Trung tâm Kiểm soát và Phòng ngừa Dịch bệnh Hoa Kỳ \\
+\textbf{NCHS}   & National Center for Health Statistics & Trung tâm Thống kê Y tế Quốc gia Hoa Kỳ \\
+\textbf{ML}     & Machine Learning & Học máy \\
+\textbf{LR}     & Logistic Regression & Thuật toán phân loại Logistic Regression \\
+\textbf{DT}     & Decision Tree & Thuật toán phân loại Decision Tree \\
+\textbf{RF}     & Random Forest & Thuật toán học kết hợp Random Forest \\
+\textbf{XGBoost}& eXtreme Gradient Boosting & Thuật toán phân loại XGBoost \\
+\textbf{ANN}    & Artificial Neural Network & Mạng nơ-ron nhân tạo \\
+\textbf{CV}     & Cross-Validation & Kiểm định chéo \\
+\textbf{OOF}    & Out-Of-Fold & Dự đoán ngoài tập huấn luyện của fold \\
+\textbf{MAE}    & Mean Absolute Error & Sai số tuyệt đối trung bình \\
+\textbf{QWK}    & Quadratic Weighted Kappa & Hệ số Kappa Cohen trọng số bậc hai \\
+\textbf{OLR}    & Ordinal Logistic Regression & Hồi quy Logistic thứ bậc \\
+\textbf{CBC}    & Cumulative Binary Classification & Phân loại nhị phân tích lũy \\
+\textbf{BMI}    & Body Mass Index & Chỉ số khối cơ thể \\
+\textbf{BP}     & Blood Pressure & Huyết áp \\
+\textbf{SBP}    & Systolic Blood Pressure & Huyết áp tâm thu \\
+\textbf{DBP}    & Diastolic Blood Pressure & Huyết áp tâm trương \\
+\textbf{HbA1c}  & Glycohemoglobin & Huyết sắc tố gắn đường (LBXGH) \\
+\textbf{HDL}    & High-Density Lipoprotein & Cholesterol tỷ trọng cao \\
+\textbf{XAI}    & Explainable Artificial Intelligence & Trí tuệ nhân tạo có thể giải thích \\
+\textbf{SHAP}   & SHapley Additive exPlanations & Giá trị giải thích cộng tính Shapley \\
+\textbf{TP}     & True Positive & Số ca dương tính dự đoán đúng \\
+\textbf{FP}     & False Positive & Số ca dương tính giả (báo động nhầm) \\
+\textbf{TN}     & True Negative & Số ca âm tính dự đoán đúng \\
+\textbf{FN}     & False Negative & Số ca âm tính giả (bỏ sót bệnh) \\
+\textbf{BalAcc} & Balanced Accuracy & Độ chính xác cân bằng \\
+\end{longtable}
+\end{contentlistingsection}
+\end{contentlisting}
+
+% ==================== CÁC CHƯƠNG NỘI DUNG CHÍNH ====================
+\input{chapters/chapter1}
+\input{chapters/chapter2}
+\input{chapters/chapter3}
+\input{chapters/chapter4}
+\input{chapters/chapter5}
+
+% ==================== PHỤ LỤC KỸ THUẬT ====================
+\appendix
+\input{chapters/appendix}
+
+% ==================== DANH MỤC TÀI LIỆU THAM KHẢO ====================
+\begin{thebibliography}{99}
+
+\begin{bibsection}{Tài liệu tham khảo tiếng Việt}
+\bibitem{byt2020}
+    Bộ Y tế,
+    \textit{Hướng dẫn chẩn đoán và điều trị các rối loạn trầm cảm},
+    Nhà xuất bản Y học, Hà Nội, 2020.
+\end{bibsection}
+
+\begin{bibsection}{Tài liệu tham khảo tiếng Anh}
+\bibitem{kroenke2001phq}
+    K. Kroenke, R. L. Spitzer, and J. B. Williams,
+    ``The {PHQ-9}: Validity of a brief depression severity measure,''
+    \textit{Journal of General Internal Medicine}, vol. 16, no. 9, pp. 606--613, 2001.
+
+\bibitem{spitzer1999validation}
+    R. L. Spitzer, K. Kroenke, and J. B. Williams,
+    ``Validation and utility of a self-report version of {PRIME-MD}: The {PHQ} primary care study,''
+    \textit{JAMA}, vol. 282, no. 18, pp. 1737--1744, 1999.
+
+\bibitem{breiman2001random}
+    L. Breiman,
+    ``Random Forests,''
+    \textit{Machine Learning}, vol. 45, no. 1, pp. 5--32, 2001.
+
+\bibitem{chen2016xgboost}
+    T. Chen and C. Guestrin,
+    ``{XGBoost}: A scalable tree boosting system,''
+    in \textit{Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining}, pp. 785--794, 2016.
+
+\bibitem{mccullagh1980regression}
+    P. McCullagh,
+    ``Regression models for ordinal data,''
+    \textit{Journal of the Royal Statistical Society: Series B (Methodological)}, vol. 42, no. 2, pp. 109--127, 1980.
+
+\bibitem{frank2001simple}
+    E. Frank and M. Hall,
+    ``A simple approach to ordinal classification,''
+    in \textit{Proceedings of the 12th European Conference on Machine Learning (ECML)}, pp. 145--156, 2001.
+
+\bibitem{elkan2001foundations}
+    C. Elkan,
+    ``The foundations of cost-sensitive learning,''
+    in \textit{Proceedings of the 17th International Joint Conference on Artificial Intelligence (IJCAI)}, vol. 17, pp. 973--978, 2001.
+
+\bibitem{he2009learning}
+    H. He and E. A. Garcia,
+    ``Learning from imbalanced data,''
+    \textit{IEEE Transactions on Knowledge and Data Engineering}, vol. 21, no. 9, pp. 1263--1284, 2009.
+
+\bibitem{cdc2014nhanes}
+    Centers for Disease Control and Prevention (CDC),
+    \textit{National Health and Nutrition Examination Survey: 2013-2014 Data Documentation, Codebook, and Frequencies},
+    National Center for Health Statistics (NCHS), Hyattsville, MD, 2014.
+
+\bibitem{cdc2016nhanes}
+    Centers for Disease Control and Prevention (CDC),
+    \textit{National Health and Nutrition Examination Survey: 2015-2016 Overview and Analytic Guidelines},
+    National Center for Health Statistics (NCHS), Hyattsville, MD, 2016.
+
+\bibitem{silla2011survey}
+    C. N. Silla and A. A. Freitas,
+    ``A survey of hierarchical classification across different application domains,''
+    \textit{Data Mining and Knowledge Discovery}, vol. 22, no. 1, pp. 31--72, 2011.
+
+\bibitem{pedregosa2011scikit}
+    F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer, R. Weiss, V. Dubourg, et al.,
+    ``Scikit-learn: Machine learning in Python,''
+    \textit{Journal of Machine Learning Research}, vol. 12, pp. 2825--2830, 2011.
+
+\bibitem{cohen1968weighted}
+    J. Cohen,
+    ``Weighted chi-square: An extension of the kappa coefficient for nominal scales with unequal disagreement weights,''
+    \textit{Psychological Bulletin}, vol. 70, no. 4, pp. 213--220, 1968.
+
+\bibitem{varma2006bias}
+    S. Varma and R. Simon,
+    ``Bias in error estimation when using cross-validation for model selection,''
+    \textit{BMC Bioinformatics}, vol. 7, no. 1, p. 91, 2006.
+
+\bibitem{pratt1991discriminant}
+    L. A. Pratt, D. J. Brody, and Q. Gu,
+    ``Depression in the {U.S.} household population, 2009--2012,''
+    \textit{NCHS Data Brief}, no. 172, pp. 1--8, 2014.
+
+\bibitem{pratt2014depression}
+    L. A. Pratt, D. J. Brody, and Q. Gu,
+    ``Depression in the {U.S.} household population, 2009--2012,''
+    \textit{NCHS Data Brief}, no. 172, pp. 1--8, 2014.
+
+\bibitem{patel2016systematic}
+    C. J. Patel, M. R. Cullen, J. P. A. Ioannidis, and A. J. Butte,
+    ``Systematic evaluation of environmental and clinical factors associated with depression in {NHANES},''
+    \textit{Frontiers in Psychiatry}, vol. 7, p. 144, 2016.
+
+\bibitem{dipnall2016fusing}
+    J. F. Dipnall, J. A. Pasco, D. Meyer, M. Berk, L. J. Williams, S. Dodd, and F. N. Jacka,
+    ``Fusing biomedical and clinical data to explore biomarkers of depression: An application of machine learning in {NHANES},''
+    \textit{Brain, Behavior, and Immunity}, vol. 56, pp. 18--27, 2016.
+
+\bibitem{zhang2020machine}
+    X. Zhang, W. Liu, Y. Wang, and L. Zhang,
+    ``Machine learning for depression detection and severity stratification from health surveys: Comparative study of tabular algorithms,''
+    \textit{IEEE Journal of Biomedical and Health Informatics}, vol. 24, no. 8, pp. 2235--2244, 2020.
+\end{bibsection}
+
+\end{thebibliography}
+
+\end{document}

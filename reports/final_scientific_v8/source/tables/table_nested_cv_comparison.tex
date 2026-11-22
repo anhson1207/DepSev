@@ -1,0 +1,18 @@
+\begin{table}{Kết quả đánh giá đối chuẩn các thuật toán học máy cơ sở qua Nested Cross-Validation (5 lớp $T_5$)}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\label{tab:nested-cv-comparison}
+\begin{tabularx}{\textwidth}{p{3.2cm} c >{\centering\arraybackslash}X >{\centering\arraybackslash}X >{\centering\arraybackslash}X c}
+\toprule
+\textbf{Thuật toán ML} & \textbf{Đặc trưng} & \textbf{Macro-F1 (Mean $\pm$ SD)} & \textbf{Balanced Acc (Mean $\pm$ SD)} & \textbf{Weighted-F1 (Mean $\pm$ SD)} & \textbf{$\Delta$ so với Baseline} \\
+\midrule
+Logistic Regression & $F_4$ (34) & 0.2407 $\pm$ 0.0173 & \textbf{0.3253 $\pm$ 0.0532} & 0.5599 $\pm$ 0.0128 & $+0.0009$ \\
+Decision Tree (Gini) & $F_4$ (34) & 0.2412 $\pm$ 0.0175 & 0.2450 $\pm$ 0.0206 & 0.6181 $\pm$ 0.0098 & $0.0000$ \\
+XGBoost (Tuned) & $F_3$ (29) & 0.2516 $\pm$ 0.0267 & 0.2658 $\pm$ 0.0355 & 0.6130 $\pm$ 0.0152 & $-0.0071$ \\
+XGBoost (Tuned) & $F_4$ (34) & 0.2621 $\pm$ 0.0353 & 0.2743 $\pm$ 0.0373 & 0.6196 $\pm$ 0.0195 & $-0.0087$ \\
+\textbf{Random Forest (Frozen)} & $F_4$ (34) & \textbf{0.2755 $\pm$ 0.0270} & 0.2983 $\pm$ 0.0325 & \textbf{0.6437 $\pm$ 0.0087} & \textbf{+0.0523} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+

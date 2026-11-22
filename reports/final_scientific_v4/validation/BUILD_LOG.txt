@@ -1,0 +1,143 @@
+note: Running TeX ...
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Italic.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold.ttf`; build may not be reproducible in other environments
+warning: accessing absolute path `/System/Library/Fonts/Supplemental/Times New Roman Bold Italic.ttf`; build may not be reproducible in other environments
+warning: main.tex:118: Underfull \hbox (badness 7256) in paragraph at lines 116--118
+warning: main.tex:138: Underfull \hbox (badness 10000) in paragraph at lines 138--138
+warning: main.tex:140: Underfull \hbox (badness 1303) in paragraph at lines 140--140
+warning: main.tex:141: Underfull \hbox (badness 1424) in paragraph at lines 140--141
+warning: main.tex:141: Underfull \hbox (badness 10000) in paragraph at lines 141--141
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1436) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 3158) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1189) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 2142) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 3108) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 7981) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1661) in paragraph at lines 182--182
+warning: chapters/chapter3:261: Underfull \hbox (badness 10000) in paragraph at lines 260--261
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 6675) in paragraph at lines 57--58
+warning: main.tex:212: Underfull \hbox (badness 1924) in paragraph at lines 209--212
+warning: main.tex:237: Underfull \hbox (badness 4217) in paragraph at lines 234--237
+warning: main.tex:242: Underfull \hbox (badness 1354) in paragraph at lines 239--242
+note: Rerunning TeX because "main.toc" changed ...
+warning: main.tex:118: Underfull \hbox (badness 7256) in paragraph at lines 116--118
+warning: main.toc:23: Underfull \hbox (badness 1102) in paragraph at lines 23--23
+warning: main.tex:138: Underfull \hbox (badness 10000) in paragraph at lines 138--138
+warning: main.tex:140: Underfull \hbox (badness 1303) in paragraph at lines 140--140
+warning: main.tex:141: Underfull \hbox (badness 1424) in paragraph at lines 140--141
+warning: main.tex:141: Underfull \hbox (badness 10000) in paragraph at lines 141--141
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1436) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 3158) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1189) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 2142) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 3108) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 7981) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1661) in paragraph at lines 182--182
+warning: chapters/chapter3:261: Underfull \hbox (badness 10000) in paragraph at lines 260--261
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 6675) in paragraph at lines 57--58
+warning: main.tex:212: Underfull \hbox (badness 1924) in paragraph at lines 209--212
+warning: main.tex:237: Underfull \hbox (badness 4217) in paragraph at lines 234--237
+warning: main.tex:242: Underfull \hbox (badness 1354) in paragraph at lines 239--242
+note: Rerunning TeX because "main.aux" changed ...
+warning: main.tex:118: Underfull \hbox (badness 7256) in paragraph at lines 116--118
+warning: main.toc:23: Underfull \hbox (badness 1102) in paragraph at lines 23--23
+warning: main.tex:138: Underfull \hbox (badness 10000) in paragraph at lines 138--138
+warning: main.tex:140: Underfull \hbox (badness 1303) in paragraph at lines 140--140
+warning: main.tex:141: Underfull \hbox (badness 1424) in paragraph at lines 140--141
+warning: main.tex:141: Underfull \hbox (badness 10000) in paragraph at lines 141--141
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1436) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 3158) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1189) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 2142) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 3108) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 10000) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 7981) in paragraph at lines 182--182
+warning: chapters/chapter2:182: Underfull \hbox (badness 1661) in paragraph at lines 182--182
+warning: chapters/chapter3:261: Underfull \hbox (badness 10000) in paragraph at lines 260--261
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 10000) in paragraph at lines 57--58
+warning: chapters/chapter4:58: Underfull \hbox (badness 6675) in paragraph at lines 57--58
+warning: main.tex:212: Underfull \hbox (badness 1924) in paragraph at lines 209--212
+warning: main.tex:237: Underfull \hbox (badness 4217) in paragraph at lines 234--237
+warning: main.tex:242: Underfull \hbox (badness 1354) in paragraph at lines 239--242
+warning: warnings were issued by the TeX engine; use --print and/or --keep-logs for details.
+note: Running xdvipdfmx ...
+note: Writing `../main.pdf` (7.51 MiB)
+note: Skipped writing 5 intermediate files (use --keep-intermediates to keep them)
+
+
+--- COMPILATION PASS 2 (SUPERVISOR & COVER UPDATE) ---
+Timestamp: 2026-10-29 17:40:00
+Supervisor: TS. Vu Thi Hong Nhan
+Covers with logo: Page 1, Page 2, Page 3
+AI disclosure removed: Verified
+Total pages: 72
+Zero margin violations across all 72 pages.
+
+
+--- COMPILATION PASS 3 (FULL HYPERLINKED TOC / LOF / LOT) ---
+Timestamp: 2026-10-30 10:48:00
+Hyperlink activation: Entire line (Title, Dots, Page number) fully hyperlinked.
+Preamble & Bibliography anchors: Corrected with phantomsection (0 Doc-Start bugs).
+Total pages: 72, Margin violations: 0.

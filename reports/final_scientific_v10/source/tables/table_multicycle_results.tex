@@ -1,0 +1,25 @@
+\begin{table}{Kết quả kiểm định ngoại suy theo dòng thời gian (Branch D, NHANES 2015--2016, $N = 4.888$)}
+\centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\label{tab:multicycle-temporal-results}
+\begin{tabularx}{\textwidth}{l *{7}{>{\centering\arraybackslash}X}}
+\toprule
+\textbf{Mô hình ($T_3$)} & \textbf{Macro-F1} & \textbf{BalAcc} & \textbf{Accuracy} & \textbf{Recall $C_0$} & \textbf{Recall $C_1$} & \textbf{Recall $C_2^+$} & \textbf{Class MAE} \\
+\midrule
+$E_0$ (Flat RF)                     & 0.4345 & 0.4908 & 62.68\% & 73.66\% & 18.79\% & 54.77\% & 0.5008 \\
+$E_1$ (Hard RF--RF)                 & \textbf{0.4393} & 0.4879 & 66.35\% & 79.86\% & 14.51\% & 52.01\% & 0.4556 \\
+$E_4$ (Soft RF--RF)                 & 0.4223 & 0.4594 & \textbf{71.91\%} & 90.60\% & 4.76\% & 42.46\% & \textbf{0.3766} \\
+$E_5$ (Soft RF--LR)                 & 0.4265 & 0.4681 & 71.79\% & 90.08\% & 4.88\% & 45.48\% & 0.3801 \\
+$E_{6b}$ (Soft Cost $M_2$)          & 0.3439 & 0.4691 & 34.84\% & 26.94\% & \textbf{60.29\%} & 53.52\% & 0.7306 \\
+$E_{7a}$ (OLR Balanced)             & 0.4349 & \textbf{0.5073} & 56.28\% & 61.74\% & 31.15\% & 59.30\% & 0.5503 \\
+$E_{7b}$ (CumBin LR)                & 0.3632 & 0.4982 & 62.21\% & 75.23\% & 0.12\% & \textbf{74.12\%} & 0.5833 \\
+$E_{7b}$ (CumBin RF)                & 0.3861 & 0.4861 & 67.88\% & 84.16\% & 0.36\% & 61.31\% & 0.4695 \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.15cm}
+\raggedright
+\scriptsize
+\textit{Ghi chú:} Mô hình được huấn luyện trên dữ liệu 2 chu kỳ 2011--2014 ($N = 9.693$) và kiểm tra ngoại suy độc lập một lần duy nhất trên chu kỳ 2015--2016 ($N = 4.888$) với không gian 31 đặc trưng hài hòa ($F_{4\_\text{common31}}$). Cấu hình $E_{6b}$ ở đây áp dụng ma trận chi phí phạt nặng $M_2$, dẫn đến Recall $C_0$ giảm còn 26.94\% để ưu tiên độ nhạy cho các nhóm có triệu chứng.
+\end{table}

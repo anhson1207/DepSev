@@ -1,0 +1,47 @@
+\chapter{Kết luận và hướng phát triển}
+\label{ch:ket-luan}
+
+\section{Tổng kết các kết quả nghiên cứu đạt được}
+\label{sec:ket-luan-khoa-hoc}
+
+Báo cáo đã trình bày quá trình nghiên cứu, xây dựng và đánh giá thực nghiệm khung học máy DepSev-ML cho bài toán dự đoán mức độ triệu chứng trầm cảm từ dữ liệu khảo sát cộng đồng NHANES (Hoa Kỳ). Thông qua quy trình thực nghiệm tiền xử lý in-fold độc lập bảo đảm Zero Data Leakage, đề tài đã đạt được các kết quả cụ thể:
+
+\begin{enumerate}
+    \item \textit{Đóng góp của các nhóm đặc trưng và lựa chọn mô hình cơ sở:} Kết quả Feature Ablation chứng minh các chỉ số cận lâm sàng ngoại vi đơn thuần chỉ mang lại tín hiệu phân loại khiêm tốn. Việc bổ sung tiền sử bệnh mạn tính, lối sống và nhân khẩu học giúp cải thiện đáng kể hiệu năng trên mọi thuật toán (Logistic Regression tăng +26.3\% từ 0.1900 lên 0.2399 $\pm$ 0.0148; Random Forest tăng +31.9\% từ 0.2089 lên 0.2755 $\pm$ 0.0152). Qua kiểm định chéo lồng nhau, Random Forest được xác lập làm mô hình cơ sở chính nhờ sự cân bằng tốt giữa khả năng mô hình hóa phi tuyến và tính ổn định phương sai.
+    \item \textit{Lượng hóa sự suy giảm hiệu năng theo độ chi tiết nhãn:} Hiệu năng mô hình giảm mạnh từ bài toán nhị phân $T_2$ (Macro-F1 = 0.6639) sang các bài toán đa mức $T_3, T_4, T_5$ (chạm mức 0.2755 ở $T_5$). Phân tích tương quan và trực quan hóa PCA chỉ ra rằng các chỉ số sinh lý giữa nhóm tối thiểu ($C_0$) và nhóm nhẹ ($C_1$) có độ chồng lấn phân phối rất lớn, giải thích tại sao ranh giới phân tách phẳng giữa các lớp liền kề có độ bất định cao.
+    \item \textit{Đặc điểm các trường phái mô hình trên không gian 3 nhóm ($T_3$):} 
+    \begin{itemize}
+        \item Phân cấp cứng ($E_2$ Hard RF--RF Tuned) tối ưu điểm số Macro-F1 lên mức 0.4586 nhưng tồn tại nút thắt lan truyền sai số một chiều với 98 ca nặng bị phân loại nhầm ở Giai đoạn 1.
+        \item Phân cấp mềm kết hợp Luật quyết định Bayes ($E_{6b}$) giải quyết triệt để nút thắt này, giúp giảm 70.62\% số ca nặng bị bỏ sót so với luật Argmax trên cùng nền tảng mô hình (từ 211 xuống 62 ca) và giảm 48.33\% so với baseline phân tầng cứng, với Balanced Accuracy đạt 0.5025 $\pm$ 0.0218.
+        \item Balanced Ordinal Logistic Regression ($E_{7a}$) đạt Balanced Accuracy cao nhất toàn diện (0.5151 $\pm$ 0.0276) và duy trì sự ổn định xuất sắc (0.5073) trên tập kiểm định ngoại suy theo thời gian độc lập NHANES 2015--2016.
+    \end{itemize}
+\end{enumerate}
+
+\section{Đóng góp chính của đề tài}
+\label{sec:dong-gop-de-tai}
+
+\begin{enumerate}
+    \item \textit{Về phương pháp luận thực nghiệm:} Xây dựng quy trình nghiên cứu chuẩn mực, kiểm soát chặt chẽ rò rỉ dữ liệu qua in-fold cross-validation và kiểm định chéo lồng nhau, bảo đảm tính khách quan và khả năng tái lập 100\%.
+    \item \textit{Về khảo sát đa trường phái mô hình:} Cung cấp bức tranh thực nghiệm phong phú khi đối chuẩn có hệ thống giữa phân loại phẳng, phân cấp định tuyến cứng, phân cấp mềm kết hợp chi phí Bayes và phân loại thứ bậc trên cùng một tập dữ liệu.
+    \item \textit{Về phân tích sự đánh đổi lâm sàng:} Ứng dụng lý thuyết quyết định Bayes để định lượng cụ thể sự đánh đổi giữa việc bảo vệ bệnh nhân nặng và tỷ lệ báo động nhầm, mang lại giá trị ứng dụng thực tiễn trong y tế dự phòng cộng đồng.
+\end{enumerate}
+
+\section{Những giới hạn nghiên cứu khách quan}
+\label{sec:han-che-nghien-cuu}
+
+Nghiên cứu nhìn nhận một cách trung thực các giới hạn cố hữu:
+\begin{enumerate}
+    \item \textit{Bản chất dữ liệu cắt ngang:} Dữ liệu NHANES được thu thập tại một thời điểm duy nhất, do đó các mô hình chỉ phản ánh mối tương quan thống kê, tuyệt đối không suy diễn quan hệ nhân quả giữa các chỉ số sinh hóa và trầm cảm.
+    \item \textit{Tính gián tiếp của chỉ số sinh lý ngoại vi:} Xét nghiệm máu ngoại vi và chỉ số thể chất chỉ phản ánh chuyển hóa toàn thân, không đo lường trực tiếp hoạt động thần kinh trung ương như các kỹ thuật chuyên sâu (fMRI, EEG).
+    \item \textit{Bản chất thang đo tự khai:} Điểm số PHQ-9 dựa trên bảng câu hỏi tự điền, chịu ảnh hưởng từ cảm nhận chủ quan và rào cản tâm lý xã hội, không thay thế cho chẩn đoán xác định lâm sàng bởi bác sĩ chuyên khoa tâm thần.
+\end{enumerate}
+
+\section{Hướng phát triển tiếp theo}
+\label{sec:huong-phat-trien}
+
+Các hướng nghiên cứu tiếp theo có thể mở rộng:
+\begin{enumerate}
+    \item \textit{Tích hợp dữ liệu chuỗi thời gian từ thiết bị đeo:} Khai thác tín hiệu quang thể tích (PPG), độ biến thiên nhịp tim (HRV) và dữ liệu gia tốc kế theo dõi giấc ngủ 24/7 để bổ sung thông tin động học sinh lý liên tục.
+    \item \textit{Học máy đa phương thức (Multimodal Learning):} Kết hợp các chỉ số dạng bảng với dữ liệu âm thanh giọng nói, biểu cảm khuôn mặt hoặc văn bản tự thuật trong quá trình phỏng vấn.
+    \item \textit{Mạng nơ-ron học thứ bậc sâu và giải thích mô hình (XAI):} Nghiên cứu các kiến trúc mạng nơ-ron học thứ bậc với hàm mất mát ràng buộc trật tự và tích hợp các phương pháp giải thích mô hình (như SHAP) nhằm nâng cao độ tin cậy trong các hệ thống hỗ trợ quyết định y tế.
+\end{enumerate}
